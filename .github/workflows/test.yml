@@ -14,16 +14,16 @@ jobs:
       SHOULD_RELEASE: ${{ github.event_name == 'push' }}
     steps:
       - name: Create
-        run:
-          - echo "Pretending to prepare files"
-          - touch file.txt
-          - echo "file content" >> file.txt
-          - echo "$SHOULD_RELEASE"
+        run: |
+          echo "Pretending to prepare files"
+          touch file.txt
+          echo "file content" >> file.txt
+          echo "$SHOULD_RELEASE"
 
       - name: Check
-        run:
-          - echo "Pretending to run test"
-          - cat file.txt
+        run: |
+          echo "Pretending to run test"
+          cat file.txt
 
       - name: Run semantic release
         if: SHOULD_RELEASE
