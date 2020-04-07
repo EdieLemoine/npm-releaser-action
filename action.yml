@@ -1,0 +1,56 @@
+name: 'NPM releaser'
+description: 'Create a GitHub release and publish to NPM'
+inputs:
+  dry-run:
+    description: 'Do a dry run'
+    required: false
+  silent:
+    description: 'Prevent standard-version from printing to the console'
+    required: false
+
+
+
+
+  packageFiles:
+    description: true
+  bumpFiles:
+    description: true
+  release-as:
+    description: 'Specify the release type manually (like npm version <major|minor|patch>)'
+  prerelease:
+    description: 'make a pre-release with optional option value to specify a tag id'
+  infile:
+    description: 'Read the CHANGELOG from this file'
+  message:
+    description: '[DEPRECATED] Commit message, replaces %s with new version.\nThis option will be removed in the next major version, please use --releaseCommitMessageFormat.'
+  first-release:
+    description: 'Is this the first release?'
+  sign:
+    description: 'Should the git commit and tag be signed?'
+  no-verify:
+    description: 'Bypass pre-commit or commit-msg git hooks during the commit phase'
+  commit-all:
+    description: 'Commit all staged changes, not just files affected by standard-version'
+  silent:
+    description: boolean
+  tag-prefix:
+    description: 'Set a custom prefix for the git tag to be created'
+  scripts:
+    description: defaults
+  skip:
+    description: defaults
+  dry-run:
+    description: defaults
+  git-tag-fallback:
+    description: defaults
+  path:
+    description: 'Only populate commits made under this path'
+  changelogHeader:
+    description: '[DEPRECATED] Use a custom header when generating and updating changelog.\nThis option will be removed in the next major version, please use --header.'
+  preset:
+    description: defaults
+  propertyKey:
+    description: property
+runs:
+  using: 'node12'
+  main: 'src/main.js'

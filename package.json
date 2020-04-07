@@ -1,0 +1,13 @@
+{
+  "name": "npm-releaser-action",
+  "version": "1.0.0",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1",
+    "standard-version": "^7.1.0"
+  },
+  "devDependencies": {
+    "@myparcel/eslint-config": "^1.2.3",
+    "json2yaml": "^1.1.0"
+  }
+}
