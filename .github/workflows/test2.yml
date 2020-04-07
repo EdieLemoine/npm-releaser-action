@@ -24,6 +24,4 @@ jobs:
 
       - name: Run semantic release
         if: github.event == 'push'
-        steps:
-          - name: Run semantic release
-            run: echo "Pretending to run semantic release"
+        run: echo "Pretending to run semantic release"
