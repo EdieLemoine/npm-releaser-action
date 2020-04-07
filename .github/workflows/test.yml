@@ -11,7 +11,7 @@ jobs:
     name: Do everything
     runs-on: ubuntu-latest
     env:
-      SHOULD_RELEASE: ${{ github.event_name == 'push' }}
+      SHOULD_RELEASE: ${{ github.event_name == 'push' && github.ref == 'master' }}
     steps:
       - name: Create
         run: |
