@@ -28,3 +28,4 @@ jobs:
       - name: Run semantic release
         if: ${{ env.SHOULD_RELEASE }}
         run: echo "Pretending to run semantic release"
+
