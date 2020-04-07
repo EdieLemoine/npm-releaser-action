@@ -26,5 +26,5 @@ jobs:
           cat file.txt
 
       - name: Run semantic release
-        if: ${{ env.SHOULD_RELEASE }}
+        if: ${{ env.SHOULD_RELEASE == true }}
         run: echo "Pretending to run semantic release"
