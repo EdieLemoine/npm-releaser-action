@@ -1,4 +1,4 @@
-name: Separate jobs
+name: All in one job
 
 on:
   pull_request: ~
@@ -6,35 +6,25 @@ on:
     branches:
       - master
 
-env:
-  shouldRelease: ${{ github.event_name == 'push' }}
-
 jobs:
-  prepare:
-    name: Prepare files
+  everything:
+    name: Do everything
     runs-on: ubuntu-latest
+    env:
+      SHOULD_RELEASE: ${{ github.event_name == 'push' }}
     steps:
       - name: Create
-        run: |
-          echo "Pretending to prepare files"
-          touch file.txt
-          echo "file content" >> file.txt
+        run:
+          - echo "Pretending to prepare files"
+          - touch file.txt
+          - echo "file content" >> file.txt
+          - echo "$SHOULD_RELEASE"
 
-  test:
-    name: Test and update coverage
-    runs-on: ubuntu-latest
-    needs: prepare
-    steps:
       - name: Check
-        run: |
-          echo "Pretending to run test"
-          cat file.txt
+        run:
+          - echo "Pretending to run test"
+          - cat file.txt
 
-  publish:
-    name: Run semantic release
-    if: env.shouldRelease
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
       - name: Run semantic release
+        if: SHOULD_RELEASE
         run: echo "Pretending to run semantic release"
