@@ -15,8 +15,8 @@ jobs:
         run: |
           echo "Pretending to prepare files"
           touch file.txt
-          echo "file content" >> file.txt
-          echo "$SHOULD_RELEASE"
+          echo ${{ github.event_name }}
+          echo ${{ github.ref }}
 
       - name: Run test
         run: |
