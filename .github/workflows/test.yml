@@ -10,21 +10,19 @@ jobs:
   everything:
     name: Do everything
     runs-on: ubuntu-latest
-    env:
-      SHOULD_RELEASE: ${{ github.event_name == 'push' && github.ref == 'master' }}
     steps:
-      - name: Create
+      - name: Prepare files
         run: |
           echo "Pretending to prepare files"
           touch file.txt
           echo "file content" >> file.txt
           echo "$SHOULD_RELEASE"
 
-      - name: Check
+      - name: Run test
         run: |
           echo "Pretending to run test"
           cat file.txt
 
       - name: Run semantic release
-        if: ${{ env.SHOULD_RELEASE == true }}
+        if: ${{ github.event_name == 'push' && github.ref == 'master' }}
         run: echo "Pretending to run semantic release"
