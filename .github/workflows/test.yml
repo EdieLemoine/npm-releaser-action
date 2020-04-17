@@ -11,6 +11,8 @@ jobs:
     name: Do everything
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2.1.0
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
