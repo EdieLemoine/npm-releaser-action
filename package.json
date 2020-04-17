@@ -2,7 +2,7 @@
   "name": "npm-releaser-action",
   "version": "1.0.0",
   "scripts": {
-    "commit": "git add . && git commit -m \"update: $(echo date)\""
+    "commit": "git add . && git commit -m 'update: $(echo date)' && git push"
   },
   "dependencies": {
     "@actions/core": "^1.2.3",
