@@ -47,7 +47,6 @@ jobs:
         uses: netlify/actions/diff-includes@master
         with:
           args: src/main.js
-        run: echo "This should not be run if 'src/main.js' hasn't changed"
 
       - name: Run semantic release
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
