@@ -41,6 +41,15 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
+      - name: get changed files
+        id: getfile
+        run: |
+          echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
+
+      - name: echo output
+        run: |
+          echo ${{ steps.getfile.outputs.files }}
+
       - name: Run semantic release
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         run: echo "Pretending to run semantic release"
