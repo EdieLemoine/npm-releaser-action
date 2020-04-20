@@ -6,11 +6,22 @@ on:
     branches:
       - master
 
+
+env:
+  SKIP_CI: "!contains(github.event.head_commit.message, '[skip ci]')"
+  IS_PUSH: ${{ github.event_name == 'push' }}
+  IS_PR: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   log:
     name: Log data
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo ${{ env.SKIP_CI }}
+          echo ${{ env.IS_PUSH }}
+          echo ${{ env.IS_PR }}
+
       - name: GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
