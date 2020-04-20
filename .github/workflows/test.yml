@@ -76,7 +76,7 @@ jobs:
 
       - name: SKIP CI
         if: ${{ !contains(github.event.commits[0].message, '[skip ci]') }}
-        run: echo "I should be ignored if you used [skip ci]"
+        run: echo "I should be ignored if you used [skip ci] in your commit message"
 
       - name: Run tests
         run: |
