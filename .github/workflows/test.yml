@@ -104,9 +104,8 @@ jobs:
           name: build
 
       - name: '"Publish"'
-        steps:
-          - run: |
-              echo 'Publishing...'
-              cat src/CHANGELOG.md
-              cat src/main.js
-              cat src/lalala/myFile.js
+        run: |
+          echo 'Publishing...'
+          cat src/CHANGELOG.md
+          cat src/main.js
+          cat src/lalala/myFile.js
