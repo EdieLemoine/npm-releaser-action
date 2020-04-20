@@ -18,9 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ env.SKIP_CI }}
-          echo ${{ env.IS_PUSH }}
-          echo ${{ env.IS_PR }}
+          echo "skip ci: ${{ env.SKIP_CI }}"
+          echo "not skip ci: ${{ !env.SKIP_CI }}"
+          echo "is push: ${{ env.IS_PUSH }}"
+          echo "is pr: ${{ env.IS_PR }}"
 
       - name: GitHub context
         env:
