@@ -76,8 +76,7 @@ jobs:
 
       - name: Run tests
         run: |
-        cat dist/myparcel.js
-
+          cat dist/myparcel.js
 
   release:
     name: 'Create release and publish to npm'
@@ -107,7 +106,7 @@ jobs:
       - name: '"Publish"'
         steps:
           - run: |
-            echo 'Publishing...'
-            cat src/CHANGELOG.md
-            cat src/main.js
-            cat src/lalala/myFile.js
+              echo 'Publishing...'
+              cat src/CHANGELOG.md
+              cat src/main.js
+              cat src/lalala/myFile.js
