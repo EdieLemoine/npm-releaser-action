@@ -70,7 +70,7 @@ jobs:
       - build
     steps:
       - name: Get build
-        uses: actions/upload-artifact@v1
+        uses: actions/download-artifact@v1
         with:
           name: build
 
@@ -85,7 +85,7 @@ jobs:
       - test
     steps:
       - name: Get build
-        uses: actions/upload-artifact@v1
+        uses: actions/download-artifact@v1
         with:
           name: build
 
@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get build
-        uses: actions/upload-artifact@v1
+        uses: actions/download-artifact@v1
         with:
           name: build
 
