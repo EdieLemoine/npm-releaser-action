@@ -19,7 +19,7 @@ jobs:
     steps:
       - run: |
           echo "skip ci: ${{ env.SKIP_CI }}"
-          echo "not skip ci: ${{ !env.SKIP_CI }}"
+          echo "not skip ci: ${{ env.SKIP_CI != false }}"
           echo "is push: ${{ env.IS_PUSH }}"
           echo "is pr: ${{ env.IS_PR }}"
 
