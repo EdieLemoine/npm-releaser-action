@@ -10,7 +10,7 @@ on:
 env:
   IS_PUSH: ${{ github.event_name == 'push' }}
   IS_PR: ${{ github.event_name == 'pull_request' }}
-  SKIP_CI: ${{ contains(github.event.head_commit.message, '[skip ci]') }}
+  SKIP_CI: ${{ contains(github.event.head_commit.message, '[skip ci]') != false }}
 
 jobs:
   log:
@@ -19,7 +19,6 @@ jobs:
     steps:
       - run: |
           echo "skip ci: ${{ env.SKIP_CI }}"
-          echo "not skip ci: ${{ env.SKIP_CI != false }}"
           echo "is push: ${{ env.IS_PUSH }}"
           echo "is pr: ${{ env.IS_PR }}"
 
