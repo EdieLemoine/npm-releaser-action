@@ -60,11 +60,11 @@ jobs:
       - name: Upload build
         uses: actions/upload-artifact@v1
         with:
-          name: build
+          name: src
           path: src/
 
   test:
-    name: 'Run tests and update'
+    name: 'Run tests'
     runs-on: ubuntu-latest
     needs:
       - build
@@ -72,10 +72,11 @@ jobs:
       - name: Get build
         uses: actions/download-artifact@v1
         with:
-          name: build
+          name: src
 
       - name: Run tests
         run: |
+          ls -la
           cat src/CHANGELOG.md
           cat src/main.js
           cat src/lalala/myFile.js
@@ -89,7 +90,7 @@ jobs:
       - name: Get build
         uses: actions/download-artifact@v1
         with:
-          name: build
+          name: src
 
       - name: Run semantic release
         run: echo "Releasing..."
@@ -103,10 +104,11 @@ jobs:
       - name: Get build
         uses: actions/download-artifact@v1
         with:
-          name: build
+          name: src
 
       - name: 'Publish'
         run: |
+          ls -la
           echo 'Publishing...'
           cat src/CHANGELOG.md
           cat src/main.js
