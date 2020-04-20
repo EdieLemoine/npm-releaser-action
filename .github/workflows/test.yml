@@ -8,9 +8,10 @@ on:
 
 
 env:
-  IS_PUSH: ${{ github.event_name == 'push' }}
-  IS_PR: ${{ github.event_name == 'pull_request' }}
-  SKIP_CI: ${{ contains(github.event.head_commit.message, '[skip ci]') != false }}
+  # Note: Environment variables are converted to strings.
+  IS_PUSH: github.event_name == 'push'
+  IS_PR: github.event_name == 'pull_request'
+  SKIP_CI: contains(github.event.head_commit.message, '[skip ci]') != false
 
 
 jobs:
