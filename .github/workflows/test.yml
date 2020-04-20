@@ -12,6 +12,7 @@ env:
   IS_PR: ${{ github.event_name == 'pull_request' }}
   SKIP_CI: ${{ contains(github.event.head_commit.message, '[skip ci]') != false }}
 
+
 jobs:
   log:
     name: Log data
