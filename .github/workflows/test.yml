@@ -33,7 +33,6 @@ jobs:
         if: env.IS_PR == 'true'
         run: echo "IS_PR is true"
 
-
       - name: GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -74,6 +73,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+
       - name: 'Install'
         run: echo 'Installing...'
 
@@ -120,7 +120,11 @@ jobs:
           name: src
 
       - name: Run semantic release
-        run: echo "Releasing..."
+        run: |
+          echo "[${$(date '+%Y-%m-%d %H:%M:%S')}] New content" >> src/CHANGELOG.md
+          git add .
+          git commit -m "add new content (${$(date '+%Y-%m-%d %H:%M:%S')})"
+          git push
 
   deploy:
     name: Deploy sandbox
