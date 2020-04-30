@@ -97,11 +97,27 @@ jobs:
         with:
           name: src
 
-      - name: Run semantic release
+
+  push:
+    name: Test pushing
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
         run: |
           echo "[${$(date '+%Y-%m-%d %H:%M:%S')}] New content" >> src/CHANGELOG.md
+          cat src/CHANGELOG.md
           git add .
-          git commit -m "add new content (${$(date '+%Y-%m-%d %H:%M:%S')})"
+          git commit -m "add new content"
+          git push
+
+      - uses: actions/checkout@v2
+        run: |
+          echo "[${$(date '+%Y-%m-%d %H:%M:%S')}] New content" >> src/CHANGELOG.md
+          cat src/CHANGELOG.md
+          git add .
+          git commit -m "add new content"
           git push
 
   deploy:
