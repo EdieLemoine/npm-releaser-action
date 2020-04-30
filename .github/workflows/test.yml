@@ -7,33 +7,11 @@ on:
       - master
       - protected/**/*
 
-
-env:
-  # Note: Environment variables are converted to strings.
-  IS_PUSH: ${{ github.event_name == 'push' }}
-  IS_PR: ${{ github.event_name == 'pull_request' }}
-  SKIP_CI: ${{ contains(github.event.head_commit.message, '[skip ci]') != false }}
-
 jobs:
   log:
     name: Log data
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "skip ci: ${{ env.SKIP_CI }}"
-          echo "is push: ${{ env.IS_PUSH }}"
-          echo "is pr: ${{ env.IS_PR }}"
-
-      - name: skip ci
-        if: env.SKIP_CI == 'true'
-        run: echo "SKIP_CI is true"
-      - name: is push
-        if: env.IS_PUSH == 'true'
-        run: echo "IS_PUSH is true"
-      - name: is pr
-        if: env.IS_PR == 'true'
-        run: echo "IS_PR is true"
-
       - name: GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -66,7 +44,6 @@ jobs:
 
   build:
     name: 'Create build'
-    if: ${{ env.SKIP_CI != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
