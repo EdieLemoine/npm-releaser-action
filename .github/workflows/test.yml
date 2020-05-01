@@ -66,23 +66,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          branch: master
-
-      - run: |
-          echo "New content" >> src/CHANGELOG.md
-          cat src/CHANGELOG.md
-          git add .
-          git commit -m "add new content"
-          git push
-
-      - name: Temporarily disable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
-        with:
-          access-token: ${{ secrets.GH_ADMIN_TOKEN }}
-
-      - uses: actions/checkout@v2
-        with:
           branch: protected/test-1
 
       - run: |
@@ -92,8 +75,9 @@ jobs:
           git commit -m "add new content"
           git push
 
-      - name: Enable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()  # Force to always run this step to ensure "include administrators" is always turned back on
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          access-token: ${{ secrets.GH_ADMIN_TOKEN }}
+          branch: protected/test-1
+          github_token: ${{ secrets.GH_ADMIN_TOKEN }}
+
