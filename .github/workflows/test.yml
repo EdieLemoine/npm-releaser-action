@@ -71,6 +71,8 @@ jobs:
       - run: |
           echo "New content" >> src/CHANGELOG.md
           cat src/CHANGELOG.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add .
           git commit -m "add new content"
           git push
