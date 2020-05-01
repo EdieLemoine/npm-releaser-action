@@ -42,27 +42,30 @@ jobs:
   #          MATRIX_CONTEXT: ${{ toJson(matrix) }}
   #        run: echo "$MATRIX_CONTEXT"
 
-#  test:
-#    name: 'Run tests'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: SKIP CI
-#        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-#        run: echo "I should be ignored if you used [skip ci] in your commit message"
-#
-#      - name: Run tests
-#        run: |
-#          ls -la
-#          cat src/CHANGELOG.md
-#          cat src/main.js
-#          cat src/lalala/myFile.js
+  #  test:
+  #    name: 'Run tests'
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - name: SKIP CI
+  #        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  #        run: echo "I should be ignored if you used [skip ci] in your commit message"
+  #
+  #      - name: Run tests
+  #        run: |
+  #          ls -la
+  #          cat src/CHANGELOG.md
+  #          cat src/main.js
+  #          cat src/lalala/myFile.js
 
   push:
     name: Test pushing
-#    needs:
-#      - test
+    #    needs:
+    #      - test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -75,10 +78,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "add new content"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          branch: protected/test-1
-          github_token: ${{ secrets.GH_ADMIN_TOKEN }}
-
+          git push
