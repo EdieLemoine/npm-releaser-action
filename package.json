@@ -12,6 +12,7 @@
 =======
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
+    "semantic-release": "^17.2.1",
     "standard-version": "^9.0.0"
 >>>>>>> c3ef64e... update
   },
