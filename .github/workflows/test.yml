@@ -1,4 +1,4 @@
-name: All in one job
+name: Release
 
 on:
   pull_request: ~
@@ -58,26 +58,16 @@ jobs:
   #          cat src/main.js
   #          cat src/lalala/myFile.js
 
-  push:
-    name: Test pushing
-    #    needs:
-    #      - test
+  release:
+    name: Semantic release
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
       NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 📦
+        uses: actions/checkout@v2
 
-#      - run: |
-#          echo "New content" >> src/CHANGELOG.md
-#          cat src/CHANGELOG.md
-#          git config --local user.email "action@github.com"
-#          git config --local user.name "GitHub Action"
-#          git add .
-#          git commit -m "fix: update content"
-#          git push
-
-      - name: Run semantic release
+      - name: Release 🚀
         uses: cycjimmy/semantic-release-action@v2
