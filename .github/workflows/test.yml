@@ -65,17 +65,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          branch: protected/test-1
 
-      - run: |
-          echo "New content" >> src/CHANGELOG.md
-          cat src/CHANGELOG.md
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "add new content"
-          git push
+#      - run: |
+#          echo "New content" >> src/CHANGELOG.md
+#          cat src/CHANGELOG.md
+#          git config --local user.email "action@github.com"
+#          git config --local user.name "GitHub Action"
+#          git add .
+#          git commit -m "fix: update content"
+#          git push
+
+      - name: Run semantic release
+        uses: cycjimmy/semantic-release-action@v2
