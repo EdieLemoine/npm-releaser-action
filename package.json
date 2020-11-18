@@ -7,7 +7,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "semantic-release": "^17.2.1",
+    "semantic-release": "^17.2.3",
     "standard-version": "^9.0.0"
   },
   "devDependencies": {
