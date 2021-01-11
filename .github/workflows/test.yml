@@ -5,58 +5,59 @@ on:
   push:
     branches:
       - master
+      - develop
       - protected/**/*
 
 jobs:
-  #  log:
-  #    name: Log data
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - name: GitHub context
-  #        env:
-  #          GITHUB_CONTEXT: ${{ toJson(github) }}
-  #        run: echo "$GITHUB_CONTEXT"
-  #
-  #      - name: Job context
-  #        env:
-  #          JOB_CONTEXT: ${{ toJson(job) }}
-  #        run: echo "$JOB_CONTEXT"
-  #
-  #      - name: Steps context
-  #        env:
-  #          STEPS_CONTEXT: ${{ toJson(steps) }}
-  #        run: echo "$STEPS_CONTEXT"
-  #
-  #      - name: Runner context
-  #        env:
-  #          RUNNER_CONTEXT: ${{ toJson(runner) }}
-  #        run: echo "$RUNNER_CONTEXT"
-  #
-  #      - name: Strategy context
-  #        env:
-  #          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-  #        run: echo "$STRATEGY_CONTEXT"
-  #
-  #      - name: Matrix context
-  #        env:
-  #          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-  #        run: echo "$MATRIX_CONTEXT"
+  log:
+    name: Log data
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
-  #  test:
-  #    name: 'Run tests'
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - uses: actions/checkout@v2
-  #      - name: SKIP CI
-  #        if: "!contains(github.event.head_commit.message, '[skip ci]')"
-  #        run: echo "I should be ignored if you used [skip ci] in your commit message"
-  #
-  #      - name: Run tests
-  #        run: |
-  #          ls -la
-  #          cat src/CHANGELOG.md
-  #          cat src/main.js
-  #          cat src/lalala/myFile.js
+      - name: Job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+
+      - name: Steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+
+      - name: Runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+
+      - name: Strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+
+      - name: Matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+
+  test:
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: SKIP CI
+        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        run: echo "I should be ignored if you used [skip ci] in your commit message"
+
+      - name: Run tests
+        run: |
+          ls -la
+          cat src/CHANGELOG.md
+          cat src/main.js
+          cat src/lalala/myFile.js
 
   release:
     name: Semantic release
