@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  pull_request: ~
+  push:
+    branches:
+      - master
+      - protected/**/*
+
+jobs:
+    log:
+      name: Log data
+      runs-on: ubuntu-latest
+      steps:
+        - name: GitHub context
+          env:
+            GITHUB_CONTEXT: ${{ toJson(github) }}
+          run: echo "$GITHUB_CONTEXT"
+
+        - name: Job context
+          env:
+            JOB_CONTEXT: ${{ toJson(job) }}
+          run: echo "$JOB_CONTEXT"
+
+        - name: Steps context
+          env:
+            STEPS_CONTEXT: ${{ toJson(steps) }}
+          run: echo "$STEPS_CONTEXT"
+
+        - name: Runner context
+          env:
+            RUNNER_CONTEXT: ${{ toJson(runner) }}
+          run: echo "$RUNNER_CONTEXT"
+
+        - name: Strategy context
+          env:
+            STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+          run: echo "$STRATEGY_CONTEXT"
+
+        - name: Matrix context
+          env:
+            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          run: echo "$MATRIX_CONTEXT"
+
+  #  test:
+  #    name: 'Run tests'
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - name: SKIP CI
+  #        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  #        run: echo "I should be ignored if you used [skip ci] in your commit message"
+  #
+  #      - name: Run tests
+  #        run: |
+  #          ls -la
+  #          cat src/CHANGELOG.md
+  #          cat src/main.js
+  #          cat src/lalala/myFile.js
+
+  #  release:
+  #    name: Semantic release
+  #    runs-on: ubuntu-latest
+  #    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+  #    env:
+  #      GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+  #      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+  #
+  #    steps:
+  #      - name: Checkout 📦
+  #        uses: actions/checkout@v2
+  #
+  #      - name: Cache node modules
+  #        uses: actions/cache@v2
+  #        env:
+  #          cache-name: cache-node-modules
+  #        with:
+  #          # npm cache files are stored in `~/.npm` on Linux/macOS
+  #          path: ~/.npm
+  #          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+  #          restore-keys: |
+  #            ${{ runner.os }}-build-${{ env.cache-name }}-
+  #            ${{ runner.os }}-build-
+  #            ${{ runner.os }}-
+  #
+  #      - name: Install Dependencies
+  #        run: npm install
+  #
+  #      - name: Release 🚀
+  #        uses: cycjimmy/semantic-release-action@v2
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/in@v2
+
+      - name: Run Jest
+
