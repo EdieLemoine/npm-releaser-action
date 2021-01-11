@@ -59,7 +59,7 @@ jobs:
           cat src/main.js
           cat src/lalala/myFile.js
 
-      - name: test
+      - name: Check branch
         if: github.ref == 'refs/heads/master'
         run: |
           echo 'yo this is master'
