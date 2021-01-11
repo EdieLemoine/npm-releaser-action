@@ -59,6 +59,11 @@ jobs:
           cat src/main.js
           cat src/lalala/myFile.js
 
+      - name: test
+        if: github.ref == 'refs/heads/master'
+        run: |
+          echo 'yo this is master'
+
   release:
     name: Semantic release
     runs-on: ubuntu-latest
