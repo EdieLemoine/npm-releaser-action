@@ -8,8 +8,7 @@ on:
 
 jobs:
   rebase-master:
-    name: Rebase master
-    if: github.ref == 'refs/heads/master'
+    name: Rebase base branch
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,26 +16,11 @@ jobs:
         with:
           token: ${{ secrets.GH_ADMIN_TOKEN }}
           fetch-depth: 0
-      - name: Rebase master
+      - name: Rebase
         run: |
-          git rebase origin/master
-          git push -f
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-
-  rebase-develop:
-    name: Rebase develop
-    if: github.ref == 'refs/heads/develop'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GH_ADMIN_TOKEN }}
-          fetch-depth: 0
-      - name: Rebase master
-        run: |
-          git rebase origin/develop
-          git push -f
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git rebase origin/${GITHUB_BASE_REF}
+          git push origin HEAD:${GITHUB_REF#refs/heads/} -f
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
