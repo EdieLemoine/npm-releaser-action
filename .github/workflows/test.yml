@@ -76,6 +76,14 @@ jobs:
           echo "fix: ${{ contains(github.event.commits.*.message, 'fix: ') }}"
           echo "perf: ${{ contains(github.event.commits.*.message, 'perf: ') }}"
           echo "refactor: ${{ contains(github.event.commits.*.message, 'refactor: ') }}"
+          echo "----------------------------------"
+          echo "build: ${{ contains(toJSON(github.event.commits.*.message), 'build: ') }}"
+          echo "chore: ${{ contains(toJSON(github.event.commits.*.message), 'chore: ') }}"
+          echo "docs: ${{ contains(toJSON(github.event.commits.*.message), 'docs: ') }}"
+          echo "feat: ${{ contains(toJSON(github.event.commits.*.message), 'feat: ') }}"
+          echo "fix: ${{ contains(toJSON(github.event.commits.*.message), 'fix: ') }}"
+          echo "perf: ${{ contains(toJSON(github.event.commits.*.message), 'perf: ') }}"
+          echo "refactor: ${{ contains(toJSON(github.event.commits.*.message), 'refactor: ') }}"
 
   release:
     name: Semantic release
