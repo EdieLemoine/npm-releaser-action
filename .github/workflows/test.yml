@@ -69,13 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "build: ${{ contains(github.event.commits.*.message, 'build: ')" }}
-          echo "chore: ${{ contains(github.event.commits.*.message, 'chore: ')" }}
-          echo "docs: ${{ contains(github.event.commits.*.message, 'docs: ')" }}
-          echo "feat: ${{ contains(github.event.commits.*.message, 'feat: ')" }}
-          echo "fix: ${{ contains(github.event.commits.*.message, 'fix: ')" }}
-          echo "perf: ${{ contains(github.event.commits.*.message, 'perf: ')" }}
-          echo "refactor: ${{ contains(github.event.commits.*.message, 'refactor: ')" }}
+          echo "build: ${{ contains(github.event.commits.*.message, 'build: ') }}"
+          echo "chore: ${{ contains(github.event.commits.*.message, 'chore: ') }}"
+          echo "docs: ${{ contains(github.event.commits.*.message, 'docs: ') }}"
+          echo "feat: ${{ contains(github.event.commits.*.message, 'feat: ') }}"
+          echo "fix: ${{ contains(github.event.commits.*.message, 'fix: ') }}"
+          echo "perf: ${{ contains(github.event.commits.*.message, 'perf: ') }}"
+          echo "refactor: ${{ contains(github.event.commits.*.message, 'refactor: ') }}"
 
   release:
     name: Semantic release
