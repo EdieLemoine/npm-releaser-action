@@ -9,34 +9,34 @@ on:
       - protected/**/*
 
 jobs:
-  log:
-    name: Log context
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_CONTEXT: ${{ toJson(github) }}
-      JOB_CONTEXT: ${{ toJson(jobs) }}
-      STEPS_CONTEXT: ${{ toJson(steps) }}
-      RUNNER_CONTEXT: ${{ toJson(runner) }}
-      STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-      MATRIX_CONTEXT: ${{ toJson(matrix) }}
-    steps:
-      - name: GitHub context
-        run: echo "$GITHUB_CONTEXT"
-
-      - name: Job context
-        run: echo "$JOB_CONTEXT"
-
-      - name: Steps context
-        run: echo "$STEPS_CONTEXT"
-
-      - name: Runner context
-        run: echo "$RUNNER_CONTEXT"
-
-      - name: Strategy context
-        run: echo "$STRATEGY_CONTEXT"
-
-      - name: Matrix context
-        run: echo "$MATRIX_CONTEXT"
+#  log:
+#    name: Log context
+#    runs-on: ubuntu-latest
+#    env:
+#      GITHUB_CONTEXT: ${{ toJson(github) }}
+#      JOB_CONTEXT: ${{ toJson(job) }}
+#      STEPS_CONTEXT: ${{ toJson(steps) }}
+#      RUNNER_CONTEXT: ${{ toJson(runner) }}
+#      STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+#      MATRIX_CONTEXT: ${{ toJson(matrix) }}
+#    steps:
+#      - name: GitHub context
+#        run: echo "$GITHUB_CONTEXT"
+#
+#      - name: Job context
+#        run: echo "$JOB_CONTEXT"
+#
+#      - name: Steps context
+#        run: echo "$STEPS_CONTEXT"
+#
+#      - name: Runner context
+#        run: echo "$RUNNER_CONTEXT"
+#
+#      - name: Strategy context
+#        run: echo "$STRATEGY_CONTEXT"
+#
+#      - name: Matrix context
+#        run: echo "$MATRIX_CONTEXT"
 
   test:
     name: 'Run tests'
