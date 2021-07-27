@@ -5,7 +5,7 @@ jobs:
     name: Lint code
     runs-on: ubuntu-latest
     steps:
-#      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 #      - run: node_modules/eslint/bin/eslint.js .
 
       - name: Lint
