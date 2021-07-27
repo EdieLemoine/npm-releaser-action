@@ -1,7 +1,7 @@
 var bla;
 
 if(typeof(sortOrder) != "boolean"){
-    return items;
+    items;
 }
 filtered.sort(function (a, b) {
     if(sortOrder == true){
