@@ -1,0 +1,61 @@
+name: Test Cache
+on: push
+
+jobs:
+  cache:
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          tools: composer:v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - uses: actions/checkout@v2
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+
+      - name: Install npm dependencies
+        run: npm ci --production=false --no-optional
+
+      - name: Clean up
+        run: |
+          rm -rf ./node_modules
+          rm -rf ./vendor
+          rm -rf ~/.npm
+          rm -rf ${{ steps.composer-cache.outputs.dir }}
+
+      - name: Handle NPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Handle Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Install dependencies
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+
+      - name: Install npm dependencies
+        run: npm ci --production=false --no-optional
+
+
