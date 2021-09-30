@@ -1,0 +1,6 @@
+{
+  "name": "test/thing",
+  "require": {
+    "symfony/console": "^v2.8"
+  }
+}

@@ -3,7 +3,7 @@ on: push
 
 jobs:
   cache:
-    name: Lint code
+    name: Cache
     runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
