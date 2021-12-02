@@ -38,6 +38,13 @@ jobs:
 #      - name: Matrix context
 #        run: echo "$MATRIX_CONTEXT"
 
+
+  npm-1:
+    name: '1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
   test:
     name: 'Run tests'
     runs-on: ubuntu-latest
