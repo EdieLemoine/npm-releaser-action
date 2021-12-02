@@ -2,11 +2,11 @@ name: Release
 
 on:
   pull_request: ~
-  push:
-    branches:
-      - master
-      - develop
-      - protected/**/*
+#  push:
+#    branches:
+#      - master
+#      - develop
+#      - protected/**/*
 
 jobs:
 #  log:
