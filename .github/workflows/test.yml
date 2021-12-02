@@ -8,8 +8,6 @@ on:
 #      - develop
 #      - protected/**/*
 
-
-
 jobs:
 #  log:
 #    name: Log context
