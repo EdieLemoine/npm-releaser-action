@@ -7,10 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: myparcelnl/actions/yarn-install@v1
-      - run: |
-          ls -la
-          ls -la node_modules
+        with:
+          repository: myparcelnl/sdk
+          ref: test/improve-tests
+
+      - run: vendor/bin/phpunit
+#      - run: |
+#          ls -la
+#          ls -la node_modules
 
 #      - name: Set up PHP
 #        uses: shivammathur/setup-php@v2
