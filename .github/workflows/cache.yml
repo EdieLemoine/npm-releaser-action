@@ -15,12 +15,7 @@ jobs:
         with:
           php-version: '7.2'
 
-      - run: |
-          pwd
-          ls -la
-          ls -la vendor
-          ls -la vendor/bin
-          vendor/bin/phpunit
+      - run: vendor/bin/phpunit --coverage-clover coverage/
 
 #      - run: |
 #          ls -la
