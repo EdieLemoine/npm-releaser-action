@@ -5,6 +5,7 @@ jobs:
   cache:
     name: Cache
     runs-on: ubuntu-latest
+    environment: php-sdk
     steps:
       - uses: actions/checkout@v2
         with:
