@@ -12,6 +12,14 @@ jobs:
           repository: myparcelnl/sdk
           ref: test/improve-tests
 
+      - run: php -r 'var_dump($_ENV)'
+
+      - run: php -r 'var_dump($_ENV)'
+        env:
+          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+
       - uses: myparcelnl/actions/composer-install@v1
         with:
           php-version: '7.2'
