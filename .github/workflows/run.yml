@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: myparcel/actions/composer-install@v1
+      - uses: myparcelnl/actions/composer-install@v1
 
 #      - id: cache-docker
 #        uses: actions/cache@v1
