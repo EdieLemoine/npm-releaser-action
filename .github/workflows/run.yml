@@ -8,24 +8,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: myparcelnl/actions/composer-install@v1
-
 #      - id: cache-docker
 #        uses: actions/cache@v1
 #        with:
 #          path: /tmp/docker-registry
 #          key: docker-registry-${{ hashFiles('../../Dockerfile') }}
 
-      - run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2 && npx wait-on tcp:5000
-
-      - run: docker pull localhost:5000/myparcel/php-sdk || true
+#      - run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2 && npx wait-on tcp:5000
+#
+#      - run: docker pull localhost:5000/myparcel/php-sdk || true
 
       - uses: satackey/action-docker-layer-caching@v0.0.11
 
-      - run: docker build --target test . -t myparcel/php-sdk --cache-from=localhost:5000/myparcel/php-sdk
+      - run: docker build --target test . -t myparcel/php-sdk:test
 
-      - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
-        if: steps.cache.outputs.cache-hit != 'true'
+#      - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
+#        if: steps.cache.outputs.cache-hit != 'true'
 
       - run: |
           cat << EOF > .env
@@ -33,7 +31,7 @@ jobs:
           API_KEY_BE="${{ secrets.API_KEY_BE }}"
           EOF
 
-      - run: docker run --rm --env-file .env -v $PWD:/app -w /app localhost:5000/myparcel/php-sdk vendor/bin/phpunit --coverage-clover clover.xml
+      - run: docker run --env-file .env myparcel/php-sdk:test
 
 #        env:
 #          API_KEY_NL: ${{ secrets.API_KEY_NL }}
