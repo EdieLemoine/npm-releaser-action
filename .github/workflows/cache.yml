@@ -12,6 +12,16 @@ jobs:
           repository: myparcelnl/sdk
           ref: test/improve-tests
 
+      - run: env
+
+      - run: php -r 'var_dump(getenv());'
+
+      - run: php -r 'var_dump(getenv());'
+        env:
+          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+
       - run: php -r 'var_dump($_ENV);'
 
       - run: php -r 'var_dump($_ENV);'
