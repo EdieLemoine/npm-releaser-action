@@ -17,7 +17,7 @@ jobs:
 
       - run: docker pull localhost:5000/myparcel/php-sdk || true
 
-      - run: docker build ../../ -t myparcel/php-sdk --cache-from=localhost:5000/myparcel/php-sdk
+      - run: docker build . -t myparcel/php-sdk --cache-from=localhost:5000/myparcel/php-sdk
 
       - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
         if: steps.cache.outputs.cache-hit != 'true'
