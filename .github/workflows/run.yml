@@ -23,9 +23,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
 
       - run: |
-          touch .env
-          echo "API_KEY_NL: ${{ secrets.API_KEY_NL }}\n" >> .env
-          echo "API_KEY_BE: ${{ secrets.API_KEY_BE }}\n" >> .env
+          cat << EOF > .env
+          API_KEY_NL="${{ secrets.API_KEY_NL }}"
+          API_KEY_BE="${{ secrets.API_KEY_BE }}"
+          EOF
 
       - run: docker run --rm --env-file .env -v $PWD:/app -w /app localhost:5000/myparcel/php-sdk env
 
