@@ -17,4 +17,18 @@ RUN apk update && \
     echo 'xdebug.mode = coverage' >> /usr/local/etc/php/conf.d/zzz-xdebug.ini && \
     echo 'xdebug.client_host = host.docker.internal' >> /usr/local/etc/php/conf.d/zzz-xdebug.ini
 
+
+FROM base AS test
+
+WORKDIR /app
+
+COPY . .
+
+RUN composer install
+
+ENTRYPOINT ["/app/vendor/bin/phpunit", "--coverage-clover", "clover.xml"]
+
+
+FROM base AS dev
+
 ENTRYPOINT ["/sbin/tini", "--"]
