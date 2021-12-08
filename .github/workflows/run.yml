@@ -28,7 +28,7 @@ jobs:
           API_KEY_BE="${{ secrets.API_KEY_BE }}"
           EOF
 
-      - run: docker run --rm --env-file .env -v $PWD:/app -w /app localhost:5000/myparcel/php-sdk env
+      - run: docker run --rm --env-file .env -v $PWD:/app -w /app localhost:5000/myparcel/php-sdk vendor/bin/phpunit --coverage-clover clover.xml
 
 #        env:
 #          API_KEY_NL: ${{ secrets.API_KEY_NL }}
