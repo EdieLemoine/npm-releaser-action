@@ -1,0 +1,33 @@
+name: 'Run docker image'
+description: 'Set up PHP and install composer dependencies from scratch or from cache'
+
+runs:
+  using: docker
+  image: ../../Dockerfile
+  
+
+#  steps:
+#    - name: 'Set up PHP'
+#      uses: shivammathur/setup-php@v2
+#      with:
+#        php-version: ${{ inputs.php-version }}
+#        tools: ${{ inputs.tools }}
+#
+#    - name: 'Get Composer cache directory'
+#      shell: bash
+#      id: composer-cache
+#      run: |
+#        echo "::set-output name=dir::$(composer config cache-files-dir)"
+#
+#    - name: 'Handle Composer cache'
+#      uses: actions/cache@v2
+#      with:
+#        path: ${{ steps.composer-cache.outputs.dir }}
+#        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-composer-
+#
+#    - name: 'Install composer dependencies'
+#      shell: bash
+#      run: |
+#        composer install --no-interaction --no-progress ${{ inputs.flags }}

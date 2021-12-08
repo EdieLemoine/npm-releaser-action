@@ -2,39 +2,61 @@ name: Test Cache
 on: push
 
 jobs:
-  cache:
-    name: Cache
-    runs-on: ubuntu-latest
-    environment: php-sdk
+  test:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+      - id: cache-docker
+        uses: actions/cache@v1
         with:
-          repository: myparcelnl/sdk
-          ref: test/improve-tests
+          path: /tmp/docker-registry
+          key: docker-registry-${{ hashFiles('../../Dockerfile') }}
 
-      - run: php -r 'var_dump(getenv());'
-      - run: php -r 'var_dump(getenv());'
-        env:
-          API_KEY_NL: ${{ secrets.API_KEY_NL }}
-          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
-          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+      - run: docker compose run php /app/vendor/bin/phpunit
 
-      - run: php -r 'var_dump($_ENV);'
-      - run: php -r 'var_dump($_ENV);'
-        env:
-          API_KEY_NL: ${{ secrets.API_KEY_NL }}
-          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
-          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+      - run: docker pull localhost:5000/myparcel/php-sdk || true
 
-      - uses: myparcelnl/actions/composer-install@v1
-        with:
-          php-version: '7.2'
+      - run: docker build . -t myparcel/php-sdk --cache-from=localhost:5000/myparcel/php-sdk
 
-      - run: vendor/bin/phpunit --coverage-clover clover.xml
-        env:
-          API_KEY_NL: ${{ secrets.API_KEY_NL }}
-          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
-          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+      - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
+        if: steps.cache.outputs.cache-hit != 'true'
+
+#  cache:
+#    name: Cache
+#    runs-on: ubuntu-latest
+#    environment: php-sdk
+#    steps:
+#
+#      - uses: actions/checkout@v2
+#        with:
+#          repository: myparcelnl/sdk
+#          ref: test/improve-tests
+#
+#      - uses: ../docker
+#
+#      - run: php -r 'var_dump(getenv());'
+#      - run: php -r 'var_dump(getenv());'
+#        env:
+#          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+#          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+#          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+#
+#      - run: php -r 'var_dump($_ENV);'
+#      - run: php -r 'var_dump($_ENV);'
+#        env:
+#          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+#          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+#          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+#
+#      - uses: myparcelnl/actions/composer-install@v1
+#        with:
+#          php-version: '7.2'
+#
+#      - run: vendor/bin/phpunit --coverage-clover clover.xml
+#        env:
+#          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+#          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+#          API_KEY_BE: ${{ secrets.API_KEY_BE }}
 
 #      - run: |
 #          ls -la
