@@ -1,8 +1,9 @@
-name: Test Cache
+name: Run workflow
 on: push
 
 jobs:
   test:
+    environment: php-sdk
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +13,10 @@ jobs:
           path: /tmp/docker-registry
           key: docker-registry-${{ hashFiles('../../Dockerfile') }}
 
-      - run: docker compose run php /app/vendor/bin/phpunit
+      - run: run --rm -v $PWD:/app -w /app myparcelnl/php-sdk env
+        env:
+          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+          API_KEY_BE: ${{ secrets.API_KEY_BE }}
 
       - run: docker pull localhost:5000/myparcel/php-sdk || true
 
