@@ -6,36 +6,11 @@ jobs:
     environment: php-sdk
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - run: env > .env
+      - run: cat .env
 
-#      - id: cache-docker
-#        uses: actions/cache@v1
-#        with:
-#          path: /tmp/docker-registry
-#          key: docker-registry-${{ hashFiles('../../Dockerfile') }}
 
-#      - run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2 && npx wait-on tcp:5000
-#
-#      - run: docker pull localhost:5000/myparcel/php-sdk || true
-
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-
-      - run: docker build --target test . -t myparcel/php-sdk:test
-
-#      - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
-#        if: steps.cache.outputs.cache-hit != 'true'
-
-      - run: |
-          cat << EOF > .env
-          API_KEY_NL="${{ secrets.API_KEY_NL }}"
-          API_KEY_BE="${{ secrets.API_KEY_BE }}"
-          EOF
-
-      - run: docker run --env-file .env myparcel/php-sdk:test
-
-#        env:
-#          API_KEY_NL: ${{ secrets.API_KEY_NL }}
-#          API_KEY_BE: ${{ secrets.API_KEY_BE }}
+#      - uses: actions/checkout@v2
 
 #  cache:
 #    name: Cache
