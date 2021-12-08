@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+
+      - uses: myparcel/actions/composer-install@v1
+
       - id: cache-docker
         uses: actions/cache@v1
         with:
