@@ -18,9 +18,9 @@ jobs:
 
       - run: vendor/bin/phpunit --coverage-clover clover.xml
         env:
-          API_KEY_NL: ${{ env.API_KEY_NL }}
-          API_KEY_NL_2: ${{ env.API_KEY_NL_2 }}
-          API_KEY_BE: ${{ env.API_KEY_BE }}
+          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+          API_KEY_NL_2: ${{ secrets.API_KEY_NL_2 }}
+          API_KEY_BE: ${{ secrets.API_KEY_BE }}
 
 #      - run: |
 #          ls -la
