@@ -15,15 +15,15 @@ jobs:
 
       - run: docker pull localhost:5000/myparcel/php-sdk || true
 
-      - run: docker run --rm -v $PWD:/app -w /app myparcelnl/php-sdk env
-        env:
-          API_KEY_NL: ${{ secrets.API_KEY_NL }}
-          API_KEY_BE: ${{ secrets.API_KEY_BE }}
-
       - run: docker build . -t myparcel/php-sdk --cache-from=localhost:5000/myparcel/php-sdk
 
       - run: docker tag myparcel/php-sdk localhost:5000/myparcel/php-sdk && docker push localhost:5000/myparcel/php-sdk || true
         if: steps.cache.outputs.cache-hit != 'true'
+
+      - run: docker run --rm -v $PWD:/app -w /app myparcelnl/php-sdk env
+        env:
+          API_KEY_NL: ${{ secrets.API_KEY_NL }}
+          API_KEY_BE: ${{ secrets.API_KEY_BE }}
 
 #  cache:
 #    name: Cache
