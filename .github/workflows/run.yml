@@ -12,6 +12,8 @@ jobs:
           ls -la $GITHUB_WORKSPACE
           echo "${{ hashFiles('composer.lock', 'package-lock.json', 'src/**') }}"
 
+      # 239b64dcb9ba3d723220f4d461f6874bb357b8f38d1f337d89046ef481bd6cf9
+
 #  cache:
 #    name: Cache
 #    runs-on: ubuntu-latest
