@@ -6,9 +6,8 @@ jobs:
     environment: php-sdk
     runs-on: ubuntu-20.04
     steps:
-      - run: env > .env
-      - run: cat .env
-
+      - run: |
+          echo "${{ hashFiles('**/composer.lock', '**/package-lock.json', 'src/**/*') }}"
 
 #      - uses: actions/checkout@v2
 
