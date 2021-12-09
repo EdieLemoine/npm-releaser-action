@@ -6,12 +6,11 @@ jobs:
     environment: php-sdk
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
       - run: |
           echo $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE
           echo "${{ hashFiles('composer.lock', 'package-lock.json', 'src/**') }}"
-
-#      - uses: actions/checkout@v2
 
 #  cache:
 #    name: Cache
