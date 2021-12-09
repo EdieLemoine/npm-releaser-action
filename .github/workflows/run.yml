@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - run: |
-          echo "${{ hashFiles('**/composer.lock', '**/package-lock.json', 'src/**/*') }}"
+          echo $GITHUB_WORKSPACE
+          ls -la $GITHUB_WORKSPACE
+          echo "${{ hashFiles('composer.lock', 'package-lock.json', 'src/**') }}"
 
 #      - uses: actions/checkout@v2
 
