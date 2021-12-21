@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+#  log:
+#    name: Log context
+#    runs-on: ubuntu-latest
+#    env:
+#      GITHUB_CONTEXT: ${{ toJson(github) }}
+#      JOB_CONTEXT: ${{ toJson(job) }}
+#      STEPS_CONTEXT: ${{ toJson(steps) }}
+#      RUNNER_CONTEXT: ${{ toJson(runner) }}
+#      STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+#      MATRIX_CONTEXT: ${{ toJson(matrix) }}
+#    steps:
+#      - name: GitHub context
+#        run: echo "$GITHUB_CONTEXT"
+#
+#      - name: Job context
+#        run: echo "$JOB_CONTEXT"
+#
+#      - name: Steps context
+#        run: echo "$STEPS_CONTEXT"
+#
+#      - name: Runner context
+#        run: echo "$RUNNER_CONTEXT"
+#
+#      - name: Strategy context
+#        run: echo "$STRATEGY_CONTEXT"
+#
+#      - name: Matrix context
+#        run: echo "$MATRIX_CONTEXT"
+#  test:
+#    name: 'Run tests'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: SKIP CI
+#        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+#        run: echo "I should be ignored if you used [skip ci] in your commit message"
+#
+#      - name: Run tests
+#        run: |
+#          ls -la
+#          cat src/CHANGELOG.md
+#          cat src/main.js
+#          cat src/lalala/myFile.js
+#
+#      - name: Check branch
+#        if: github.ref == 'refs/heads/master'
+#        run: |
+#          echo 'yo this is master'
+#
+#      - name: testsss
+#        if: "github.event_name != 'pull_request' || contains(toJSON(github.event.commits.*.message), 'build: ')"
+#        run: |
+#          echo 'this is either a push or a build change was done'
+#
+#  data:
+#    name: Data
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: |
+#          echo "has build: ${{ contains(toJSON(github.event.commits.*.message), 'build: ') }}"
+#          echo "has chore: ${{ contains(toJSON(github.event.commits.*.message), 'chore: ') }}"
+#          echo "has docs: ${{ contains(toJSON(github.event.commits.*.message), 'docs: ') }}"
+#          echo "has feat: ${{ contains(toJSON(github.event.commits.*.message), 'feat: ') }}"
+#          echo "has fix: ${{ contains(toJSON(github.event.commits.*.message), 'fix: ') }}"
+#          echo "has perf: ${{ contains(toJSON(github.event.commits.*.message), 'perf: ') }}"
+#          echo "has refactor: ${{ contains(toJSON(github.event.commits.*.message), 'refactor: ') }}"
+
+  release:
+    name: Semantic release
+    runs-on: ubuntu-latest
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+
+    steps:
+      - name: Checkout 📦
+        uses: actions/checkout@v2
+
+      - uses: myparcelnl/actions/npm-install
+
+      - name: Release 🚀
+        run: npx semantic-release
