@@ -7,7 +7,7 @@ module.exports = {
     ...baseConfig.plugins,
     [
       '@saithodev/semantic-release-backmerge', {
-        branchName: 'develop',
+        branches: [{ from: 'main', to: 'develop' }],
         message: 'chore(release): rebase published changes [skip ci]',
         clearWorkspace: true,
       },
