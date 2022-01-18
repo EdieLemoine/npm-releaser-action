@@ -1,9 +1,0 @@
-#on:
-#  pull_request_review:
-#    types: [ dismissed ]
-
-jobs:
-  request-reviews:
-    runs-on: ubuntu-20.04
-    steps:
-      -
