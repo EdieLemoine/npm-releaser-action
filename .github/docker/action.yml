@@ -4,7 +4,6 @@ description: 'Set up PHP and install composer dependencies from scratch or from 
 runs:
   using: docker
   image: ../../Dockerfile
-  
 
 #  steps:
 #    - name: 'Set up PHP'
