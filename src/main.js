@@ -3,7 +3,6 @@ const github = require('@actions/github');
 const standardVersion = require('standard-version');
 
 async function run() {
-
   try {
     const dryRun = core.getInput('dry-run') || true;
 
