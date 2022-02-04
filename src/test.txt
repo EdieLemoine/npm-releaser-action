@@ -1,3 +1,5 @@
 new file
 
 i've changed something
+
+this is a feature
