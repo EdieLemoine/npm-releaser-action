@@ -5,7 +5,6 @@ const standardVersion = require('standard-version');
 async function run() {
   try {
     const dryRun = core.getInput('dry-run') || true;
-
     const output = standardVersion({ dryRun });
 
     console.log(output);
