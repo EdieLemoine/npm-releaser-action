@@ -55,7 +55,8 @@ module.exports = {
     //   },
     // }),
     [
-      '@saithodev/semantic-release-backmerge', {
+      '@saithodev/semantic-release-backmerge',
+      {
         branches: [{ from: 'main', to: 'develop' }],
         message: 'chore(release): rebase published changes [skip ci]',
         mergeMode: 'ours',
