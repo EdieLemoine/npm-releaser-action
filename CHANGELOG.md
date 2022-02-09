@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.3.0...v1.4.0) (2022-02-09)
+
+
+### :sparkles: New Features
+
+* add feature ([f777979](https://github.com/EdieLemoine/npm-releaser-action/commit/f777979f1eafce7adddbd3579ec0f41bb732cc25))
+* add more features ([ba8051d](https://github.com/EdieLemoine/npm-releaser-action/commit/ba8051db9979b336850f7c381c17eb26a0e0a37b))
+
+
+### :zap: Performance Improvements
+
+* **js:** make crapcode more aerodynamic ([4b78399](https://github.com/EdieLemoine/npm-releaser-action/commit/4b7839960c85d5ec4a9f074ecf199495d398d6d1))
+* **js:** zoomies ([b7b773e](https://github.com/EdieLemoine/npm-releaser-action/commit/b7b773ec44abb8f5b8faa9d837e7c0ea8d9d9da4))
+* **shipment:** within swing one heading many suggest along ([23d039e](https://github.com/EdieLemoine/npm-releaser-action/commit/23d039e1d79cd68a74ed1756943629f5994e5a44))
+
+
+### :bug: Bug Fixes
+
+* hotfix ([32c5442](https://github.com/EdieLemoine/npm-releaser-action/commit/32c5442815eab3ca4e9a83d08c6bc3741d029ad5))
+* noted copper laid storm driver ([2220e41](https://github.com/EdieLemoine/npm-releaser-action/commit/2220e41475132e65a8dd473ff0331f9a091c302e))
+* update 2022-01-18 14:10:02 ([47d2f03](https://github.com/EdieLemoine/npm-releaser-action/commit/47d2f030e4175a827598bf00ef54b9cc8a563431))
+
 ### [1.3.2](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.3.1...v1.3.2) (2022-01-18)
 
 
