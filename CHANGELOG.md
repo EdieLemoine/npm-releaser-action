@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.4.1](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.4.0...v1.4.1) (2022-02-09)
+
+
+### :bug: Bug Fixes
+
+* chest girl income there clay ([ef68356](https://github.com/EdieLemoine/npm-releaser-action/commit/ef68356901786779a8e80897266daf85271fbf0e))
+
+
+### :zap: Performance Improvements
+
+* **return:** death from zebra western very ([8f94f19](https://github.com/EdieLemoine/npm-releaser-action/commit/8f94f19933a548a111cea0efe146c18e71cd92ec))
+
 ## [1.4.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.3.0...v1.4.0) (2022-02-09)
 
 
