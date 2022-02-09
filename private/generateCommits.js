@@ -28,7 +28,7 @@ for (let i = 0; i < Number(amount || 1); i++) {
   });
 }
 
-child_process.spawnSync('git', ['checkout', branch || 'develop'], {stdio: 'inherit'});
+child_process.spawnSync('git', ['checkout', '-b', branch || 'develop'], {stdio: 'inherit'});
 commits.forEach((commit) => {
   const basePath = path.resolve(__dirname, '..', 'src');
 
