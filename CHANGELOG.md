@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.4.1...v1.5.0) (2022-02-09)
+
+
+### :zap: Performance Improvements
+
+* **order:** or beauty activity son city pretty stove ([112338b](https://github.com/EdieLemoine/npm-releaser-action/commit/112338b886b5553c90b8418b1e48edc64ed8c7e4))
+
+
+### :sparkles: New Features
+
+* update ([d589cda](https://github.com/EdieLemoine/npm-releaser-action/commit/d589cdacebfc116d9f69f64681aa41d94d82df1f))
+
 ## [1.10.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.9.0...v1.10.0) (2022-02-09)
 
 
