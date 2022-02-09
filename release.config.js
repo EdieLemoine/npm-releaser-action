@@ -57,10 +57,16 @@ module.exports = {
     [
       '@saithodev/semantic-release-backmerge',
       {
-        branches: [{ from: 'main', to: 'develop' }],
-        message: 'chore(release): rebase published changes [skip ci]',
-        mergeMode: 'ours',
+        branches: ['develop'],
         clearWorkspace: true,
+        // 'plugins': [
+        //   [
+        //     '@semantic-release/exec',
+        //     {
+        //       'successCmd': 'git fetch origin develop',
+        //     },
+        //   ],
+        // ],
       },
     ],
   ],

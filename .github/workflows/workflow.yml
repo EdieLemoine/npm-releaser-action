@@ -14,9 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: develop
-      - uses: actions/checkout@v2
+          fetch-depth: 0
+
       - uses: myparcelnl/actions/yarn-install@v1
+
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

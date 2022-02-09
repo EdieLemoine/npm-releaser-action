@@ -3,7 +3,7 @@ const child_process = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const types = ['feat', 'fix', 'refactor', 'style', 'build', 'perf'];
+const types = ['feat', 'fix', 'refactor'];
 const scopes = ['order', 'shipment', 'return', 'collect'];
 
 const commits = [];
