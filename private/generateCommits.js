@@ -28,7 +28,24 @@ for (let i = 0; i < Number(amount || 1); i++) {
   });
 }
 
-child_process.spawnSync('git', ['checkout', '-b', branch || 'develop'], { stdio: 'inherit' });
+const command = child_process.spawnSync('git', ['branch', '--show-current']);
+const currentBranch = command.stdout.toString().trim();
+const newBranch = branch || 'develop';
+const doCheckout = newBranch !== currentBranch;
+
+const cmd = child_process.spawnSync('git', ['show-branch', newBranch]);
+const branchExists = Boolean(cmd.stdout.toString());
+
+if (doCheckout) child_process.spawnSync('git',
+  [
+    'checkout',
+    ...branchExists
+      ? []
+      : ['-b'],
+    newBranch,
+  ],
+  { stdio: 'inherit' });
+
 commits.forEach((commit) => {
   const basePath = path.resolve(__dirname, '..', 'src');
 
@@ -43,6 +60,6 @@ commits.forEach((commit) => {
   child_process.spawnSync('git', ['commit', '-m', commit.message], { stdio: 'inherit' });
 });
 child_process.spawnSync('git', ['push', '--set-upstream', 'origin', branch], { stdio: 'inherit' });
-child_process.spawnSync('git', ['checkout', '-'], { stdio: 'inherit' });
 
-// console.log(commits);
+if (doCheckout) child_process.spawnSync('git', ['checkout', '-'], { stdio: 'inherit' });
+

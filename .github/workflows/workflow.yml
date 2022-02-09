@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          branch: develop
+          ref: develop
 
       - name: 'Rebase'
         run: |
