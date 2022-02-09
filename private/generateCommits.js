@@ -8,7 +8,7 @@ const scopes = ['order', 'shipment', 'return', 'collect'];
 
 const commits = [];
 
-const [, , amount] = process.argv;
+const [, , amount, branch] = process.argv;
 
 for (let i = 0; i < Number(amount || 1); i++) {
   const type = types[types.length * Math.random() | 0];
@@ -28,7 +28,7 @@ for (let i = 0; i < Number(amount || 1); i++) {
   });
 }
 
-// child_process.spawnSync('git', ['checkout', 'develop'], {stdio: 'inherit'});
+child_process.spawnSync('git', ['checkout', branch || 'develop'], {stdio: 'inherit'});
 commits.forEach((commit) => {
   const basePath = path.resolve(__dirname, '..', 'src');
 
@@ -42,6 +42,7 @@ commits.forEach((commit) => {
   child_process.spawnSync('git', ['add', file], { stdio: 'inherit' });
   child_process.spawnSync('git', ['commit', '-m', commit.message], { stdio: 'inherit' });
 });
-// child_process.spawnSync('git', ['checkout', '-'], {stdio: 'inherit'});
+child_process.spawnSync('git', ['push'], {stdio: 'inherit'});
+child_process.spawnSync('git', ['checkout', '-'], {stdio: 'inherit'});
 
 // console.log(commits);
