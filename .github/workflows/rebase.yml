@@ -29,6 +29,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: 'Prepare'
         id: prepare
         run: |
@@ -48,9 +53,9 @@ jobs:
 
       - name: 'Rebase'
         run: |
-          echo 'git fetch origin "${{ steps.prep.outputs.source }}"'
-          echo 'git fetch origin "${{ steps.prep.outputs.target }}"'
+          echo 'git fetch origin "${{ steps.prepare.outputs.source }}"'
+          echo 'git fetch origin "${{ steps.prepare.outputs.target }}"'
 
-          echo 'git checkout ${{ steps.prep.outputs.target }}'
-          echo 'git rebase origin/${{ steps.prep.outputs.source }}'
+          echo 'git checkout ${{ steps.prepare.outputs.target }}'
+          echo 'git rebase origin/${{ steps.prepare.outputs.source }}'
           echo 'git push'
