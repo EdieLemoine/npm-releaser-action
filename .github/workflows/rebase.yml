@@ -43,8 +43,6 @@ jobs:
           echo ::set-output name=target::${TARGET}
 
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: 'Set up git credentials'
         uses: oleksiyrudenko/gha-git-credentials@v2-latest
@@ -52,10 +50,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Rebase'
-        run: |
-          echo 'git fetch origin "${{ steps.prepare.outputs.source }}"'
-          echo 'git fetch origin "${{ steps.prepare.outputs.target }}"'
+        if: steps.prepare.outputs.source && steps.prepare.outputs.target
+        run: |          
+          git fetch origin "${{ steps.prepare.outputs.source }}"
+          git fetch origin "${{ steps.prepare.outputs.target }}"
 
-          echo 'git checkout ${{ steps.prepare.outputs.target }}'
-          echo 'git rebase origin/${{ steps.prepare.outputs.source }}'
-          echo 'git push'
+          git checkout "${{ steps.prepare.outputs.target }}"
+          git rebase "origin/${{ steps.prepare.outputs.source }}"
+          git push
+
