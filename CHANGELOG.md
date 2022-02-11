@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.8.0...v1.9.0) (2022-02-11)
+
+
+### :sparkles: New Features
+
+* **order:** edge lack purple summer load ([d854cf3](https://github.com/EdieLemoine/npm-releaser-action/commit/d854cf301c7f9a9e2dcd0d411b4e95dc12f3963e))
+
 ## [1.8.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.7.0...v1.8.0) (2022-02-11)
 
 
