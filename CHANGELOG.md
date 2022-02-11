@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.7.0...v1.8.0) (2022-02-11)
+
+
+### :bug: Bug Fixes
+
+* **return:** medicine metal author myself distant ([f0d4064](https://github.com/EdieLemoine/npm-releaser-action/commit/f0d40646af6724863af68d211b111b944227c464))
+* **return:** tie iron lips search salmon ([cf425d3](https://github.com/EdieLemoine/npm-releaser-action/commit/cf425d37a863f6931d1cbd31bd0696101a88bf12))
+
+
+### :sparkles: New Features
+
+* **collect:** ants merely monkey given source probably ([c926cb0](https://github.com/EdieLemoine/npm-releaser-action/commit/c926cb05db055afa07d4781a2500cb495d06569c))
+
 ## [1.7.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.6.0...v1.7.0) (2022-02-11)
 
 
