@@ -3,7 +3,6 @@ name: 'On push'
 on:
   push:
     branches:
-      - master
       - main
 
 jobs:
@@ -22,12 +21,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: 'Trigger workflow'
+      - name: 'Update develop'
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.GH_ADMIN_TOKEN }}
-          event-type: do-action
-
-      - uses: actions/checkout@v2
-        with:
-          ref: develop
+          event-type: rebase
+          client-payload: '{ "source": "main", "target": "develop" }'

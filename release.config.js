@@ -1,11 +1,13 @@
 const baseConfig = require('@myparcel/semantic-release-config');
-const { addGitPlugin } = require('@myparcel/semantic-release-config/src/plugins');
+const { addGitPlugin, addNpmPlugin, addComposerPlugin } = require('@myparcel/semantic-release-config/src/plugins');
 
 module.exports = {
   extends: '@myparcel/semantic-release-config',
   ...baseConfig,
   plugins: [
     ...baseConfig.plugins,
+    addNpmPlugin(),
+    addComposerPlugin(),
     addGitPlugin(),
 
     // ['@edielemoine/semantic-release-svn', { url: 'https://plugins.svn.wordpress.org/woocommerce-myparcel' }],

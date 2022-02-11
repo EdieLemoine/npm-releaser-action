@@ -1,0 +1,52 @@
+name: 'Rebase'
+
+on:
+  repository_dispatch:
+    types: [ rebase ]
+
+  workflow_dispatch:
+    inputs:
+      source:
+        type: choice
+        description: 'Source'
+        default: 'develop'
+        required: true
+        options:
+          - main
+          - develop
+      target:
+        type: choice
+        description: 'Target'
+        default: 'main'
+        required: true
+        options:
+          - main
+          - develop
+
+jobs:
+  release:
+    name: 'Rebase main and develop'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Prepare'
+        id: prepare
+        run: |
+          SOURCE=$(echo ${{ github.event.client_payload.source }}${{ github.event.inputs.source }})
+          TARGET=$(echo ${{ github.event.client_payload.target }}${{ github.event.inputs.target }})
+          echo ::set-output name=source::${SOURCE}
+          echo ::set-output name=target::${TARGET}
+
+      - name: 'Set up git credentials'
+        uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Rebase'
+        run: |
+          echo 'git fetch origin "${{ steps.prep.outputs.source }}"'
+          echo 'git fetch origin "${{ steps.prep.outputs.target }}"'
+
+          echo 'git checkout ${{ steps.prep.outputs.target }}'
+          echo 'git rebase origin/${{ steps.prep.outputs.source }}'
+          echo 'git push'
