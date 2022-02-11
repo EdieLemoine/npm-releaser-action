@@ -1,6 +1,9 @@
 name: Update main with develop
 
-on: [ repository_dispatch ]
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ release ]
 
 jobs:
   release:
