@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.5.0...v1.6.0) (2022-02-11)
+
+
+### :sparkles: New Features
+
+* entire factor silent suit ([2650df2](https://github.com/EdieLemoine/npm-releaser-action/commit/2650df207e38ba454fa8ec3871cc6952209a6c49))
+
+
+### :zap: Performance Improvements
+
+* both women boat chain table ([949803a](https://github.com/EdieLemoine/npm-releaser-action/commit/949803abbb24e79a49596607fda967ebc375dd88))
+
 ## [1.5.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.4.1...v1.5.0) (2022-02-09)
 
 
