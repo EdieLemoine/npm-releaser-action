@@ -10,7 +10,7 @@ on:
         type: choice
         description: 'Source'
         default: 'develop'
-        required: true
+        required: false
         options:
           - main
           - develop
@@ -18,7 +18,7 @@ on:
         type: choice
         description: 'Target'
         default: 'main'
-        required: true
+        required: false
         options:
           - main
           - develop
