@@ -22,15 +22,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: develop
+      - name: 'Trigger workflow'
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: do-action
 
-#      - name: 'Rebase'
-#        run: |
-#          git config user.name github-actions
-#          git config user.email github-actions@github.com
-#          git rebase origin/main
-#          git push
-#        env:
-#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+
+      - name: 'Rebase'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git rebase origin/main
+          git push
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

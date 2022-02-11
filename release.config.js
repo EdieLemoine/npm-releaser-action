@@ -54,20 +54,21 @@ module.exports = {
     //     ],
     //   },
     // }),
-    [
-      '@saithodev/semantic-release-backmerge',
-      {
-        branches: ['develop'],
-        clearWorkspace: true,
-        // 'plugins': [
-        //   [
-        //     '@semantic-release/exec',
-        //     {
-        //       'successCmd': 'git fetch origin develop',
-        //     },
-        //   ],
-        // ],
-      },
-    ],
+
+    // [
+    //   '@saithodev/semantic-release-backmerge',
+    //   {
+    //     branches: ['develop'],
+    //     clearWorkspace: true,
+    //     // 'plugins': [
+    //     //   [
+    //     //     '@semantic-release/exec',
+    //     //     {
+    //     //       'successCmd': 'git fetch origin develop',
+    //     //     },
+    //     //   ],
+    //     // ],
+    //   },
+    // ],
   ],
 };

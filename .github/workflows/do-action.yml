@@ -1,0 +1,16 @@
+name: 'Release'
+
+on:
+  repository_dispatch:
+    types: [ do-action-command ]
+
+jobs:
+  trigger:
+    name: 'Release'
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo ${{ github }}
+      - run: echo ${{ inputs }}
+      - run: echo ${{ job }}
+      - run: echo ${{ github }}
