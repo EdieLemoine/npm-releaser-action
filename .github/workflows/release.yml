@@ -1,4 +1,4 @@
-name: 'Update main with develop'
+name: Update main with develop
 
 on:
   repository_dispatch:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: 'Update main with develop'
+    name: Update main with develop
     runs-on: ubuntu-latest
 
     steps:
@@ -14,7 +14,7 @@ jobs:
         with:
           ref: main
 
-      - name: 'Merge develop into main'
+      - name: Merge develop into main
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
