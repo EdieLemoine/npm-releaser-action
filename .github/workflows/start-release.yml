@@ -27,23 +27,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - if: ${{ github.events.inputs.release }}
-        run: |
-          echo "Triggering release!"
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v2
         with:
           ref: main
 
-      - name: 'Rebase'
+      - if: ${{ github.events.inputs.release }}
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          echo "Triggering release!"
 
+
+      - run: |
+          echo ${{ github.event.inputs.toggle }}
+          echo ${{ github.event.inputs.toggle }} && '-f' 
+
+      - name: 'Rebase main onto develop'
+        run: |
           git fetch origin main
           git fetch origin develop
 
           git rebase origin/develop
           git push
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: 'Rebase develop onto main'
+        run: |
+          git fetch origin main
+          git fetch origin develop
+
+          git checkout develop
+          git rebase origin/main
+          git push
