@@ -2,7 +2,7 @@ name: 'Release'
 
 on:
   repository_dispatch:
-    types: [ do-action-command ]
+    types: [ do-action ]
 
 jobs:
   trigger:
