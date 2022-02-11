@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.9.1](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.9.0...v1.9.1) (2022-02-11)
+
+
+### :bug: Bug Fixes
+
+* **shipment:** where lead numeral among thing ([260af60](https://github.com/EdieLemoine/npm-releaser-action/commit/260af60defa2d4e7ece40599ddea7343c6ad3293))
+
 ## [1.9.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.8.0...v1.9.0) (2022-02-11)
 
 
