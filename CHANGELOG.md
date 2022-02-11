@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.6.0...v1.7.0) (2022-02-11)
+
+
+### :sparkles: New Features
+
+* **shipment:** slipped alphabet there strip question previous ([3e56b29](https://github.com/EdieLemoine/npm-releaser-action/commit/3e56b29a332275e13efefe1c8e1193e5213110d8))
+
 ## [1.6.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.5.0...v1.6.0) (2022-02-11)
 
 
