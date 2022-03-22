@@ -57,6 +57,3 @@ jobs:
           git checkout "${{ steps.prepare.outputs.target }}"
           git rebase "origin/${{ steps.prepare.outputs.source }}"
           git push
-
-#          git fetch origin "${{ steps.prepare.outputs.source }}"
-#          git fetch origin "${{ steps.prepare.outputs.target }}"
