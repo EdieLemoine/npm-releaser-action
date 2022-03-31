@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.9.1...v1.10.0) (2022-03-31)
+
+
+### :sparkles: New Features
+
+* test ([96bee65](https://github.com/EdieLemoine/npm-releaser-action/commit/96bee65eed44f156a32385203fcfc980b0f02c13))
+
 ### [1.9.1](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.9.0...v1.9.1) (2022-02-11)
 
 
