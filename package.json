@@ -7,17 +7,17 @@
   },
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.1",
     "semantic-release": "^19.0.2",
     "standard-version": "^9.3.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
-    "@myparcel/eslint-config": "^3.4.2",
+    "@myparcel/eslint-config": "^3.4.3",
     "@myparcel/semantic-release-config": "^2.0.0",
-    "@saithodev/semantic-release-backmerge": "^2.1.0",
+    "@saithodev/semantic-release-backmerge": "^2.1.2",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/npm": "^9.0.0",
+    "@semantic-release/npm": "^9.0.1",
     "json2yaml": "^1.1.0",
     "random-words": "^1.1.2"
   }
