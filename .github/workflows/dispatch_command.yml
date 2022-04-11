@@ -12,6 +12,8 @@ jobs:
         uses: peter-evans/slash-command-dispatch@v1
         with:
           token: ${{ secrets.GH_ADMIN_TOKEN }}
-          commands: rebase
+          commands: |
+            rebase
+            python
           permission: write
           issue-type: pull-request
