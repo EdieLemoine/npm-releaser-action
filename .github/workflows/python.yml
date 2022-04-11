@@ -1,4 +1,4 @@
-name: 'Python script'
+name: 'Script'
 
 on:
   push:
@@ -17,20 +17,10 @@ on:
 
 jobs:
   release:
-    name: 'Run Python script'
+    name: 'Run script'
     runs-on: ubuntu-latest
 
     steps:
       - run: |
-          echo ${{ github.event.client_payload.pull_request.head.label }}
+          echo ${{  github.event.client_payload.pull_request.head.label || github.event.inputs.ref || 'main' }}
         shell: bash
-
-      - run: |
-          ref = "${{ github.event.client_payload.pull_request.head.label }}" or "${{ github.event.inputs.ref }}" or "main <fallback>"
-          print(ref)
-          print("::set-output name=ref::{ref}")
-        shell: python
-        name: python
-
-      - run: |
-          echo ${{ github.steps.python.outputs.ref }} 
