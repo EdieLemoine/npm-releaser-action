@@ -6,7 +6,7 @@
     "commit": "git add . && git commit -m \"fix: update $(date +\"%Y-%m-%d %T\")\" && git push"
   },
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.8.1",
     "@actions/github": "^5.0.1",
     "semantic-release": "^19.0.2",
     "standard-version": "^9.3.2"
