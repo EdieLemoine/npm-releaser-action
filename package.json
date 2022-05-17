@@ -1,6 +1,6 @@
 {
   "name": "npm-releaser-action",
-  "version": "1.10.19",
+  "version": "1.10.20",
   "private": true,
   "scripts": {
     "commit": "bash ./commit.sh"
