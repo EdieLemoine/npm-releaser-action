@@ -3,7 +3,7 @@ name: '♻️ Rebase'
 on:
   workflow_call:
     inputs:
-      source:
+      base:
         required: true
         type: string
       target:
