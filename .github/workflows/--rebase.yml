@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1.0
+      - uses: oleksiyrudenko/gha-git-credentials@v2.1
         with:
           global: true
           token: ${{ secrets.GH_REPO_TOKEN }}
