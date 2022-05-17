@@ -3,6 +3,12 @@ name: '♻️ Run tests 🧪'
 on:
   workflow_call:
     inputs:
+      ref:
+        type: string
+        required: false
+        default: ''
+        description: 'Git ref to run on.'
+
       image_name:
         type: string
         required: true
@@ -33,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.ref || github.event.client_payload.pull_request.head.label || '' }}
+          ref: ${{ inputs.ref }}
           persist-credentials: false
 
       - uses: myparcelnl/actions/build-docker-image@v1
