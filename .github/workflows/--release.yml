@@ -18,7 +18,7 @@ on:
     secrets:
       GH_REPO_TOKEN:
         required: false
-        description: 'Required for pushing commits to git.'.
+        description: 'Required for pushing commits to git.'
 
       NPM_TOKEN:
         required: false
