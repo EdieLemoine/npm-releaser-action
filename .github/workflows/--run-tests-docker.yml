@@ -61,7 +61,7 @@ jobs:
       - name: 'Get coverage file from container'
         run: docker cp $(docker ps -alq):/app/coverage.xml .
 
-      - uses: myparcelnl/actions/update-coverage@v2
+      - uses: myparcelnl/actions/update-coverage@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
