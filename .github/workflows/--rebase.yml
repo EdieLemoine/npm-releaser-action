@@ -24,9 +24,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+      - uses: oleksiyrudenko/gha-git-credentials@v2.1.0
         with:
+          global: true
           token: ${{ secrets.GH_REPO_TOKEN }}
+          name: 'MyParcelBot'
+          email: 'edie+bot@myparcel.nl'
+          actor: 'MyParcelBot'
 
       - name: 'Rebase and push'
         if: inputs.target && inputs.base
@@ -34,5 +38,3 @@ jobs:
           git checkout "${{ inputs.target }}"
           git rebase "origin/${{ inputs.base }}"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
