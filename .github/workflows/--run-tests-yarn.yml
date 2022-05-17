@@ -1,4 +1,4 @@
-name: 'Run tests 🧪'
+name: '♻️ Run tests 🧪'
 
 on:
   workflow_call:

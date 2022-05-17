@@ -1,4 +1,4 @@
-name: 'Rebase'
+name: '♻️ Rebase'
 
 on:
   workflow_call:
