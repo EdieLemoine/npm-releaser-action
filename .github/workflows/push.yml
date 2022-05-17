@@ -24,12 +24,12 @@ jobs:
 
       - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{secrets.GH_ADMIN_TOKEN}}
-          NPM_TOKEN: ${{secrets.GH_ADMIN_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GH_REPO_TOKEN}}
+          NPM_TOKEN: ${{secrets.GH_REPO_TOKEN}}
 
       - name: 'Trigger develop rebase'
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GH_ADMIN_TOKEN }}
+          token: ${{ secrets.GH_REPO_TOKEN }}
           event-type: rebase
           client-payload: '{ "source": "main", "target": "develop" }'

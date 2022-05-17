@@ -18,7 +18,7 @@ jobs:
         if: steps.rebase.outputs.rebased-count == 1
         uses: peter-evans/create-or-update-comment@v1
         with:
-          token: ${{ secrets.GH_ADMIN_TOKEN }}
+          token: ${{ secrets.GH_REPO_TOKEN }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           reaction-type: rocket
