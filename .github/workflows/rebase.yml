@@ -29,4 +29,5 @@ jobs:
     with:
       source: ${{ github.event.client_payload.source || github.event.inputs.source }}
       target: ${{ github.event.client_payload.target || github.event.inputs.target }}
-    secrets: inherit
+    secrets:
+      GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
