@@ -1,0 +1,20 @@
+name: 'Rebase pull request'
+
+on:
+  workflow_call:
+    inputs:
+      head:
+        required: true
+        type: string
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
+
+jobs:
+  rebase:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: peter-evans/rebase@v1
+        id: rebase
+        with:
+          head: ${{ inputs.head }}

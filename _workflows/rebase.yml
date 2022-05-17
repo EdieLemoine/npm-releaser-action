@@ -1,0 +1,36 @@
+name: 'Rebase'
+
+on:
+  workflow_call:
+    inputs:
+      source:
+        required: true
+        type: string
+      target:
+        required: true
+        type: string
+
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
+
+jobs:
+  release:
+    name: 'Rebase branches'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 'Rebase and push'
+        if: steps.prepare.outputs.source && steps.prepare.outputs.target
+        run: |
+          git checkout "${{ inputs.target }}"
+          git rebase "origin/${{ inputs.source }}"
+          git push
