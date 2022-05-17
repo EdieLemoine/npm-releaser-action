@@ -19,20 +19,14 @@ jobs:
     name: 'Rebase branches'
     runs-on: ubuntu-20.04
     steps:
-      - run: |
-          export GITHUB_TOKEN=${{ secrets.GH_REPO_TOKEN }}
-          echo $GITHUB_TOKEN
-          echo ${{ secrets.GH_REPO_TOKEN }}
-
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
           ref: ${{ inputs.target }}
           fetch-depth: 0
-          persist-credentials: false
 
       - uses: oleksiyrudenko/gha-git-credentials@v2.1
         with:
-          global: true
           name: 'MyParcelBot'
           email: 'edie+bot@myparcel.nl'
           actor: 'MyParcelBot'
@@ -40,5 +34,6 @@ jobs:
       - name: 'Rebase and push'
         if: inputs.target && inputs.base
         run: |
+          git config --list
           git rebase "origin/${{ inputs.base }}"
           git push
