@@ -1,0 +1,38 @@
+name: 'Test'
+
+on:
+  repository_dispatch:
+    types: [ test ]
+
+  workflow_dispatch:
+    inputs:
+      base:
+        type: choice
+        description: 'Source'
+        default: 'develop'
+        required: false
+        options:
+          - main
+          - develop
+
+      target:
+        type: choice
+        description: 'Target'
+        default: 'main'
+        required: false
+        options:
+          - main
+          - develop
+
+jobs:
+  test:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
+    with:
+      image_name: myparcel/sdk-test
+      image_key: php-sdk-test
+      ref: ${{ github.event.inputs.ref || github.event.client_payload.pull_request.head.label || '' }}
+      release: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      environment: |
+        CI=${CI}
+        API_KEY_NL=${{ secrets.API_KEY_NL }}
+        API_KEY_BE=${{ secrets.API_KEY_BE }}
