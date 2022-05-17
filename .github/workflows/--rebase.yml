@@ -19,10 +19,11 @@ jobs:
     name: 'Rebase branches'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
+          token: ${{ secrets.GH_REPO_TOKEN }}
 
       - uses: oleksiyrudenko/gha-git-credentials@v2.1
         with:

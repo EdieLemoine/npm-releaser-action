@@ -15,7 +15,7 @@ on:
         required: true
 
 jobs:
-  release:
+  rebase:
     name: 'Rebase branches'
     runs-on: ubuntu-20.04
     steps:
