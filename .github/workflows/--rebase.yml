@@ -32,6 +32,7 @@ jobs:
         if: inputs.target && inputs.base
         run: |
           git checkout "${{ inputs.target }}"
-          git reset --mixed
           git rebase "origin/${{ inputs.base }}"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
