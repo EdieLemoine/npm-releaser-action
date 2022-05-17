@@ -1,6 +1,6 @@
 {
   "name": "npm-releaser-action",
-  "version": "1.10.2",
+  "version": "1.10.3",
   "private": true,
   "scripts": {
     "commit": "git add -A && git stash && git fetch && git rebase && git stash pop && git add -A && git commit -m \"fix: update $(date +\"%Y-%m-%d %T\")\" && git push"
