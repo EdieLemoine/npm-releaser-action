@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.target }}
           fetch-depth: 0
           persist-credentials: false
           token: ${{ secrets.GH_REPO_TOKEN }}
@@ -36,6 +37,5 @@ jobs:
       - name: 'Rebase and push'
         if: inputs.target && inputs.base
         run: |
-          git checkout "${{ inputs.target }}"
           git rebase "origin/${{ inputs.base }}"
           git push
