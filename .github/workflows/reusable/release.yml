@@ -1,0 +1,56 @@
+name: 'Release'
+
+on:
+  workflow_call:
+    inputs:
+      setup_php:
+        type: string
+        default: '0'
+        description: 'Define a php version to set up before running the release.'
+        required: false
+
+      pre_release_cmd:
+        type: string
+        default: '0'
+        description: 'A command to run after installing everything, but before releasing.'
+        required: false
+
+    secrets:
+      GH_REPO_TOKEN:
+        required: false
+        description: 'Required for pushing commits to git.'.
+
+      NPM_TOKEN:
+        required: false
+        description: 'Required for publishing to NPM.'
+
+jobs:
+  release:
+    name: 'Release'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - if: ${{ setup_php != '0' }}
+        uses: myparcelnl/actions/composer-install@v1
+        with:
+          php-version: ${{ setup_php }}
+
+      - uses: myparcelnl/actions/yarn-install@v1
+
+      - if: ${{ inputs.pre_release_cmd != '0' }}
+        run: ${{ inputs.pre_release_cmd}}
+
+      - uses: myparcelnl/actions/semantic-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: peter-evans/repository-dispatch@v1
+        if: ${{ inputs.rebase }}
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+          event-type: rebase
+          client-payload: '{ "source": "main", "target": "develop" }'
