@@ -7,29 +7,9 @@ on:
 
 jobs:
   release:
-    name: 'Release'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: myparcelnl/actions/yarn-install@v1
-
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1
-        with:
-          global: true
-          token: ${{ secrets.GH_REPO_TOKEN }}
-          name: 'MyParcelBot'
-          email: 'edie+bot@myparcel.nl'
-          actor: 'MyParcelBot'
-
-      - run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{secrets.GH_REPO_TOKEN}}
-          NPM_TOKEN: ${{secrets.GH_REPO_TOKEN}}
-
-      - name: 'Trigger develop rebase'
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
-          event-type: rebase
-          client-payload: '{ "source": "main", "target": "develop" }'
+    uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@v1
+    with:
+      rebase: true
+      pre_release_cmd: |
+        echo "line 1"
+        echo "line 2"

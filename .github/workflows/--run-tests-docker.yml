@@ -10,24 +10,29 @@ on:
         description: 'Git ref to run on.'
 
       image_name:
+        description: 'Docker image name.'
         type: string
         required: true
 
       image_key:
+        description: 'Image cache key.'
         type: string
         required: false
 
       docker_args:
+        description: 'Arguments to pass to docker build.'
         type: string
         required: false
         default: '--target test'
 
       release:
+        description: 'When true, will dispatch a release event on success.'
         type: boolean
         required: false
         default: false
 
       environment:
+        description: 'Content to pass to docker via .env file.'
         type: string
         required: false
         default: ''

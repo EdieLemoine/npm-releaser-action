@@ -4,15 +4,16 @@ on:
   workflow_call:
     inputs:
       ref:
+        description: 'Branch to check out'
         type: string
         default: ''
         required: false
-        description: 'Branch to check out'
+
       release:
+        description: 'Whether to trigger a release on success.'
         type: boolean
         default: false
         required: false
-        description: 'Whether to trigger a release on success.'
 
 jobs:
   test:
