@@ -6,7 +6,7 @@ on:
 
   workflow_dispatch:
     inputs:
-      source:
+      base:
         type: choice
         description: 'Source'
         default: 'develop'
@@ -14,6 +14,7 @@ on:
         options:
           - main
           - develop
+
       target:
         type: choice
         description: 'Target'
@@ -27,7 +28,7 @@ jobs:
   rebase:
     uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
     with:
-      source: ${{ github.event.client_payload.source || github.event.inputs.source }}
       target: ${{ github.event.client_payload.target || github.event.inputs.target }}
+      base: ${{ github.event.client_payload.source || github.event.inputs.source }}
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
