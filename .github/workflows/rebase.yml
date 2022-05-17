@@ -25,7 +25,7 @@ on:
 
 jobs:
   rebase:
-    uses: edielemoine/npm-releaser-action/_workflows/rebase.yml
+    uses: edielemoine/npm-releaser-action/_workflows/rebase.yml@v1
     with:
       source: ${{ github.event.client_payload.source || github.event.inputs.source }}
       target: ${{ github.event.client_payload.target || github.event.inputs.target }}
