@@ -42,6 +42,12 @@ jobs:
           ref: ${{ inputs.ref }}
           persist-credentials: false
 
+      - name: 'Create .env file'
+        run: |
+          cat << EOF > .env
+          ${{ inputs.environment }}
+          EOF
+
       - uses: myparcelnl/actions/build-docker-image@v1
         id: docker
         with:
@@ -49,13 +55,7 @@ jobs:
           key: ${{ inputs.image_key || inputs.image_name }}
           docker_args: ${{ inputs.docker_args }}
 
-      - name: 'Create .env file'
-        run: |
-          cat << EOF > .env
-          ${{ inputs.environment }}
-          EOF
-
-      - name: 'Run tests'
+      - name: 'Run Dockerfile'
         run: docker run --env-file .env ${{ steps.docker.outputs.tagged_image }}
 
       - name: 'Get coverage file from container'
