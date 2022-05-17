@@ -5,24 +5,6 @@ on:
     types: [ test ]
 
   workflow_dispatch:
-    inputs:
-      base:
-        type: choice
-        description: 'Source'
-        default: 'develop'
-        required: false
-        options:
-          - main
-          - develop
-
-      target:
-        type: choice
-        description: 'Target'
-        default: 'main'
-        required: false
-        options:
-          - main
-          - develop
 
 jobs:
   test:
@@ -34,5 +16,5 @@ jobs:
       release: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       environment: |
         CI=${CI}
-        API_KEY_NL=${{ secrets.API_KEY_NL }}
-        API_KEY_BE=${{ secrets.API_KEY_BE }}
+        API_KEY_NL=API_KEY_NL
+        API_KEY_BE=API_KEY_BE
