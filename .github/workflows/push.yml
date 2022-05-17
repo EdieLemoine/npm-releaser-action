@@ -3,7 +3,7 @@ name: 'On push to main'
 on:
   push:
     branches:
-      - main
+      - on-push
 
 jobs:
   release:

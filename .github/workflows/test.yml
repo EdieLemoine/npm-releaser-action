@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
+    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-docker.yml@main
     with:
       image_name: myparcel/sdk-test
       image_key: php-sdk-test
