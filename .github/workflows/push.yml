@@ -19,6 +19,7 @@ jobs:
   release:
     name: 'Release new version 🚀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
+    secrets: inherit
     needs: test
 
   rebase:
