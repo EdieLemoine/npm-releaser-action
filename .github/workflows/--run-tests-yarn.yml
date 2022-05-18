@@ -14,6 +14,7 @@ on:
         description: 'Token for pushing coverage results to codecov.'
         required: false
 
+
 jobs:
   test:
     name: 'Test'
