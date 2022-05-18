@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       ref:
-        description: 'Branch to check out'
+        description: 'Branch to run on'
         type: string
         default: ''
         required: false

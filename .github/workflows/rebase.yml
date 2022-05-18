@@ -27,9 +27,10 @@ on:
 jobs:
   rebase:
     name: 'Rebase'
-    uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
-    with:
-      target: ${{ github.event.client_payload.target || github.event.inputs.target }}
-      base: ${{ github.event.client_payload.source || github.event.inputs.source }}
-    secrets:
-      GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: edielemoine/npm-releaser-action/rebase@main
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+          source: ${{ github.event.client_payload.source }}${{ github.event.inputs.source }})
+          target: ${{ github.event.client_payload.target }}${{ github.event.inputs.target }})
