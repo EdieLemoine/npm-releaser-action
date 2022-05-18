@@ -12,7 +12,8 @@ on:
 
     secrets:
       GH_REPO_TOKEN:
-        required: true
+        description: 'Required for pushing commits to git.'
+        required: false
 
 jobs:
   rebase:

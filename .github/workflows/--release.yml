@@ -4,25 +4,25 @@ on:
   workflow_call:
     inputs:
       setup_php:
+        description: 'Define a php version to set up before running the release.'
         type: string
         default: '0'
-        description: 'Define a php version to set up before running the release.'
         required: false
 
       pre_release_cmd:
+        description: 'A command to run after installing everything, but before releasing.'
         type: string
         default: '0'
-        description: 'A command to run after installing everything, but before releasing.'
         required: false
 
     secrets:
       GH_REPO_TOKEN:
-        required: false
         description: 'Required for pushing commits to git.'
+        required: false
 
       NPM_TOKEN:
-        required: false
         description: 'Required for publishing to NPM.'
+        required: false
 
 jobs:
   release:
