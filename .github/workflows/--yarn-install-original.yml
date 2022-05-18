@@ -1,0 +1,13 @@
+name: '🔸 Yarn install - Cache'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    name: 'Release'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: myparcelnl/actions/yarn-install@main
+        with:
+          node-version: 16

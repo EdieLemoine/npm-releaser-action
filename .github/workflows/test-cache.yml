@@ -1,0 +1,23 @@
+name: 'Test yarn cache speeds'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  original-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-original.yml@main
+  original-2:
+    needs: original-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-original.yml@main
+
+  cache-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-cache.yml@main
+  cache-2:
+    needs: cache-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-cache.yml@main
+
+  node_modules-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-node-modules.yml@main
+  node_modules-2:
+    needs: node_modules-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-node-modules.yml@main

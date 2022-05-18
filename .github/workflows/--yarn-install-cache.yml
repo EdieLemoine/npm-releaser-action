@@ -1,0 +1,18 @@
+name: '🔸 Yarn install - Cache'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    name: 'Release'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: yarn
+
+      - name: 'Install'
+        run: yarn install --frozen-lockfile
+        shell: bash

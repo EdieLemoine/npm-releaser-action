@@ -1,0 +1,27 @@
+name: '🔸 Yarn install - Node Modules'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    name: 'Release'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: myparcelnl/actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 'Prepare node_modules cache'
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-node_modules-
+
+      - name: 'Install'
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+        shell: bash
