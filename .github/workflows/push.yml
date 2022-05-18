@@ -19,10 +19,10 @@ jobs:
 
   rebase:
     name: 'Rebase develop onto main 🔀'
-    uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
+    runs-on: ubuntu-20.04
     if: ${{ always() }}
     needs: [ test, release ]
-    secrets: inherit
-    with:
-      base: main
-      target: develop
+    steps:
+      - uses: edielemoine/npm-releaser-action/rebase@main
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
