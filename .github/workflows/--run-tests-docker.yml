@@ -25,12 +25,6 @@ on:
         required: false
         default: '--target test'
 
-      release:
-        description: 'When true, will dispatch a release event on success.'
-        type: boolean
-        required: false
-        default: false
-
       environment:
         description: 'Content to pass to docker via .env file.'
         type: string

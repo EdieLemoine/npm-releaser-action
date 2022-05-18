@@ -5,16 +5,11 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-
 jobs:
   test:
     name: 'Run tests 🧪'
-    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
+    uses: edielemoine/npm-releaser-action/.github/workflows/test.yml@main
     secrets: inherit
-    with:
-      ref: ${{ github.event.inputs.ref || github.event.client_payload.pull_request.head.label || '' }}
-      release: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
   release:
     name: 'Release new version 🚀'

@@ -9,12 +9,6 @@ on:
         default: ''
         required: false
 
-      release:
-        description: 'Whether to trigger a release on success.'
-        type: boolean
-        default: false
-        required: false
-
     secrets:
       CODECOV_TOKEN:
         description: 'Token for pushing coverage results to codecov.'
