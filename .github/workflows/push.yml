@@ -16,7 +16,7 @@ jobs:
       release: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
   release:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@v1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
     needs: test
 
   rebase:
