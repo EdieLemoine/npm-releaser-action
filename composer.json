@@ -1,7 +1,7 @@
 {
-  "name": "test/thing",
-  "require": {
-    "symfony/console": "^v2.8"
-  },
-  "version": "1.10.20"
+    "name": "test/thing",
+    "require": {
+        "symfony/console": "^v2.8"
+    },
+    "version": "1.10.21"
 }
