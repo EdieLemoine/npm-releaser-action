@@ -8,6 +8,7 @@ jobs:
   dispatch:
     uses: edielemoine/npm-releaser-action/.github/workflows/--dispatch.yml@main
     with:
+      secrets: inherit
       commands: |
         rebase
         python
