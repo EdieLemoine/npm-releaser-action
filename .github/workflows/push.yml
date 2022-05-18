@@ -11,29 +11,31 @@ jobs:
     uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
     secrets: inherit
 
-  test-docker:
-    name: 'Run docker tests 🧪'
-    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-docker.yml@main
-    secrets: inherit
-    with:
-      image_name: myparcel/sdk-test
-      image_key: php-sdk-test
-      environment: |
-        CI=${CI}
-        API_KEY_NL=API_KEY_NL
-        API_KEY_BE=API_KEY_BE
+#  test-docker:
+#    name: 'Run docker tests 🧪'
+#    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-docker.yml@main
+#    secrets: inherit
+#    with:
+#      image_name: myparcel/sdk-test
+#      image_key: php-sdk-test
+#      environment: |
+#        CI=${CI}
+#        API_KEY_NL=API_KEY_NL
+#        API_KEY_BE=API_KEY_BE
 
   release:
     name: 'Release new version 🚀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
     secrets: inherit
-    needs: [ test-yarn, test-docker ]
+    needs: test-yarn
+#    needs: [ test-yarn, test-docker ]
 
   rebase:
     name: 'Rebase develop onto main 🔀'
     runs-on: ubuntu-20.04
     if: ${{ always() }}
-    needs: [ test-yarn, test-docker, release ]
+    needs: [ test-yarn, release ]
+#    needs: [ test-yarn, test-docker, release ]
     steps:
       - uses: edielemoine/npm-releaser-action/rebase@main
         with:

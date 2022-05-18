@@ -38,7 +38,7 @@ jobs:
         with:
           php-version: ${{ inputs.setup_php }}
 
-      - uses: myparcelnl/actions/yarn-install@v1
+      - uses: edielemoine/npm-releaser-action/yarn-install@main
 
       - name: 'Pre-release'
         if: inputs.pre_release_cmd != '0'
