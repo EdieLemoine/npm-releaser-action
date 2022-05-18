@@ -7,11 +7,6 @@ on:
         required: true
         type: string
 
-    secrets:
-      GH_REPO_TOKEN:
-        description: 'Required for pushing commits to git.'
-        required: false
-
 jobs:
   rebase:
     runs-on: ubuntu-20.04
