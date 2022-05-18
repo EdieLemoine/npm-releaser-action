@@ -21,3 +21,9 @@ jobs:
   node_modules-2:
     needs: node_modules-1
     uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-node-modules.yml@main
+
+  both-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-both.yml@main
+  both-2:
+    needs: both-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-both.yml@main

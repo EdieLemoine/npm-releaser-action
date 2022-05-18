@@ -5,14 +5,14 @@ on:
 
 jobs:
   install:
-    name: 'Release'
+    name: 'Install'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ inputs.node-version }}
+          node-version: 16
           cache: yarn
 
       - name: 'Install'
