@@ -1,13 +1,13 @@
-name: '♻️ Run tests 🧪'
+name: '🔸 Run tests'
 
 on:
   workflow_call:
     inputs:
       ref:
+        description: 'Git ref to run on.'
         type: string
         required: false
         default: ''
-        description: 'Git ref to run on.'
 
       image_name:
         description: 'Docker image name.'
@@ -37,9 +37,14 @@ on:
         required: false
         default: ''
 
+    secrets:
+      CODECOV_TOKEN:
+        description: 'Token for pushing coverage results to codecov.'
+        required: false
+
 jobs:
   test:
-    name: 'Run tests'
+    name: 'Test'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2

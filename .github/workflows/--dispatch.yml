@@ -1,12 +1,7 @@
-name: 'Dispatch command'
+name: '🔸 Dispatch command 📡'
 
 on:
   workflow_call:
-    inputs:
-      commands:
-        type: string
-        required: true
-
     secrets:
       GH_REPO_TOKEN:
         description: 'Required for pushing commits to git.'
@@ -14,12 +9,14 @@ on:
 
 jobs:
   dispatch:
+    name: 'Dispatch'
     runs-on: ubuntu-20.04
     steps:
-      - name: 'Slash Command Dispatch'
-        uses: peter-evans/slash-command-dispatch@v1
+      - uses: peter-evans/slash-command-dispatch@v1
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
-          commands: ${{ inputs.commands }}
           permission: write
           issue-type: pull-request
+          commands: |
+            test
+            rebase

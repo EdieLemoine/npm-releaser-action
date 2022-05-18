@@ -1,4 +1,4 @@
-name: '♻️ Run tests 🧪'
+name: '🔸 Run tests'
 
 on:
   workflow_call:
@@ -15,10 +15,15 @@ on:
         default: false
         required: false
 
+    secrets:
+      CODECOV_TOKEN:
+        description: 'Token for pushing coverage results to codecov.'
+        required: false
+
 jobs:
   test:
+    name: 'Test'
     runs-on: ubuntu-20.04
-    name: 'Run tests'
     steps:
       - uses: actions/checkout@v2
         with:

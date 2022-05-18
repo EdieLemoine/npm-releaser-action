@@ -1,10 +1,10 @@
-name: '♻️ Release'
+name: '🔸 Release'
 
 on:
   workflow_call:
     inputs:
       setup_php:
-        description: 'Define a php version to set up before running the release.'
+        description: 'An optional php version to set up before running the release.'
         type: string
         default: '0'
         required: false
@@ -41,7 +41,7 @@ jobs:
       - uses: myparcelnl/actions/yarn-install@v1
 
       - if: ${{ inputs.pre_release_cmd != '0' }}
-        run: ${{ inputs.pre_release_cmd}}
+        run: ${{ inputs.pre_release_cmd }}
 
       - uses: myparcelnl/actions/semantic-release@v1
         env:

@@ -1,14 +1,16 @@
-name: '♻️ Rebase pull request'
+name: '🔸 Rebase PR'
 
 on:
   workflow_call:
     inputs:
       head:
+        description: 'Pull request head to run on.'
         required: true
         type: string
 
 jobs:
   rebase:
+    name: 'Rebase'
     runs-on: ubuntu-20.04
     steps:
       - uses: peter-evans/rebase@v1
