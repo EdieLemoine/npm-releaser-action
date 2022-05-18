@@ -44,6 +44,8 @@ jobs:
         run: ${{ inputs.pre_release_cmd }}
 
       - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
 
       - uses: myparcelnl/actions/semantic-release@v2
         env:

@@ -7,12 +7,12 @@ on:
 
 jobs:
   test-yarn:
-    name: 'Run tests 🧪'
+    name: 'Run yarn tests 🧪'
     uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
     secrets: inherit
 
   test-docker:
-    name: 'Run tests 🧪'
+    name: 'Run docker tests 🧪'
     uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-docker.yml@main
     secrets: inherit
     with:
