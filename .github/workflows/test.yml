@@ -1,8 +1,6 @@
 name: 'Run tests 🧪'
 
 on:
-
-
   repository_dispatch:
     types: [ test ]
 

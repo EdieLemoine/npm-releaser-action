@@ -1,4 +1,4 @@
-name: '🔸 Dispatch command 📡'
+name: '🔸 Dispatch command'
 
 on:
   workflow_call:
