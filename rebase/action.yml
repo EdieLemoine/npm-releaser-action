@@ -7,7 +7,7 @@ inputs:
     default: 'develop'
     required: false
 
-  source:
+  base:
     description: 'Branch to use to rebase target.'
     default: 'main'
     required: false
