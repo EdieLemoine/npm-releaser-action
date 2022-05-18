@@ -79,6 +79,7 @@ jobs:
 
   coverage:
     name: 'Update coverage'
+    needs: test
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/download-artifact@v3
