@@ -23,7 +23,7 @@ runs:
         ref: ${{ inputs.target }}
         fetch-depth: 0
 
-    - uses: myparcelnl/actions/setup-git-credentials@main
+    - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
 
     - name: 'Rebase and push'
       if: inputs.target && inputs.base
