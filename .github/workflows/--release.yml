@@ -43,14 +43,9 @@ jobs:
       - if: ${{ inputs.pre_release_cmd != '0' }}
         run: ${{ inputs.pre_release_cmd }}
 
-      - uses: myparcelnl/actions/semantic-release@v1
+      - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
+
+      - uses: myparcelnl/actions/semantic-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - uses: peter-evans/repository-dispatch@v1
-        if: ${{ inputs.rebase }}
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
-          event-type: rebase
-          client-payload: '{ "source": "main", "target": "develop" }'
