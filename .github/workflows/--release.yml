@@ -33,10 +33,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - if: ${{ setup_php != '0' }}
+      - if: ${{ inputs.setup_php != '0' }}
         uses: myparcelnl/actions/composer-install@v1
         with:
-          php-version: ${{ setup_php }}
+          php-version: ${{ inputs.setup_php }}
 
       - uses: myparcelnl/actions/yarn-install@v1
 
