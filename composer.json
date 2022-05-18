@@ -3,5 +3,5 @@
     "require": {
         "symfony/console": "^v2.8"
     },
-    "version": "1.10.29"
+    "version": "1.10.30"
 }
