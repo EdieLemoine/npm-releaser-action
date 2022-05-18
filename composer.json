@@ -1,7 +1,7 @@
 {
   "name": "test/thing",
   "require": {
-    "symfony/console": "^v2.8",
+    "symfony/console": "^v5.4",
     "phpunit/phpunit": "9.5.20"
   },
   "version": "1.10.30"
