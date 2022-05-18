@@ -4,11 +4,13 @@ description: 'Rebase and one branch onto another.'
 inputs:
   target:
     description: 'Branch you wish to update.'
-    required: true
+    default: 'develop'
+    required: false
 
   source:
     description: 'Branch to use to rebase target.'
-    required: true
+    default: 'main'
+    required: false
 
   token:
     description: 'GitHub token with push access.'
@@ -28,7 +30,6 @@ runs:
         token: ${{ inputs.token }}
 
     - name: 'Rebase and push'
-      if: inputs.target && inputs.base
       shell: bash
       run: |
         git config --list
