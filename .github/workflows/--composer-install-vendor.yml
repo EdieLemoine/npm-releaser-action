@@ -1,0 +1,30 @@
+name: '🔸 Yarn install - Node Modules'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    name: 'Install'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: 'Set up PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          tools: 'composer:v2'
+
+      - name: 'Prepare Composer cache'
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-vendor-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-vendor-
+
+      - name: 'Install composer dependencies'
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          composer install --no-interaction --no-progress ${{ inputs.flags }}
