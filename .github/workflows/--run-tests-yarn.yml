@@ -23,7 +23,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - uses: myparcelnl/actions/yarn-install@v1
+      - uses: edielemoine/npm-releaser-action/yarn-install@main
 
       - name: 'Run tests'
         run: yarn run test:coverage
