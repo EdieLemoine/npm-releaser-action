@@ -4,12 +4,26 @@ on:
   repository_dispatch:
     types: [ rebase ]
 
+  workflow_call:
+    inputs:
+      base:
+        description: 'Base branch'
+        type: string
+        default: 'main'
+        required: false
+
+      target:
+        description: 'Target branch'
+        type: string
+        default: 'develop'
+        required: false
+
   workflow_dispatch:
     inputs:
       base:
         type: choice
-        description: 'Source'
-        default: 'develop'
+        description: 'Base branch'
+        default: 'main'
         required: false
         options:
           - main
@@ -17,8 +31,8 @@ on:
 
       target:
         type: choice
-        description: 'Target'
-        default: 'main'
+        description: 'Target branch'
+        default: 'develop'
         required: false
         options:
           - main
@@ -32,5 +46,5 @@ jobs:
       - uses: edielemoine/npm-releaser-action/rebase@main
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
-          source: ${{ github.event.client_payload.source }}${{ github.event.inputs.source }})
-          target: ${{ github.event.client_payload.target }}${{ github.event.inputs.target }})
+          base: ${{ inputs.base || github.event.client_payload.base || github.event.inputs.base }})
+          target: ${{ inputs.target || github.event.client_payload.target || github.event.inputs.target }})
