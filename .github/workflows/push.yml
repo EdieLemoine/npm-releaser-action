@@ -5,6 +5,8 @@ on:
     branches:
       - on-push
 
+  workflow_dispatch:
+
 jobs:
   release:
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@v1

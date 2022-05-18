@@ -3,6 +3,7 @@ name: 'Do action'
 on:
   repository_dispatch:
     types: [ do-action ]
+  workflow_dispatch:
 
 jobs:
   trigger:
