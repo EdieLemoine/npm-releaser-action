@@ -25,7 +25,7 @@ runs:
 
     - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
       with:
-        token: ${{ secrets.GH_REPO_TOKEN }}
+        token: ${{ inputs.token }}
 
     - name: 'Rebase and push'
       if: inputs.target && inputs.base

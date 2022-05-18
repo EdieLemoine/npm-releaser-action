@@ -27,7 +27,7 @@ jobs:
     name: 'Release new version 🚀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
     secrets: inherit
-    needs: [test-yarn, test-docker]
+    needs: [ test-yarn, test-docker ]
 
   rebase:
     name: 'Rebase develop onto main 🔀'

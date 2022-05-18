@@ -40,7 +40,8 @@ jobs:
 
       - uses: myparcelnl/actions/yarn-install@v1
 
-      - if: ${{ inputs.pre_release_cmd != '0' }}
+      - name: 'Pre-release'
+        if: inputs.pre_release_cmd != '0'
         run: ${{ inputs.pre_release_cmd }}
 
       - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
