@@ -71,13 +71,20 @@ jobs:
       - name: 'Get coverage file from container'
         run: docker cp $(docker ps -alq):/app/coverage.xml .
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage.xml
+          retention-days: 14
+
+  coverage:
+    name: 'Update coverage'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
       - uses: myparcelnl/actions/update-coverage@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: 'Trigger release'
-        if: inputs.release
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
-          event-type: release

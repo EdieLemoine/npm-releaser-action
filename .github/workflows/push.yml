@@ -1,4 +1,4 @@
-name: '✨ Push to main'
+name: 'Push to main ✨'
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: '🧪 Run tests'
+    name: 'Run tests 🧪'
     uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
     secrets: inherit
     with:
@@ -17,12 +17,12 @@ jobs:
       release: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
   release:
-    name: '🚀 Release new version'
+    name: 'Release new version 🚀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
     needs: test
 
   rebase:
-    name: '🔀 Rebase develop onto main'
+    name: 'Rebase develop onto main 🔀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--rebase.yml@main
     if: ${{ always() }}
     needs: [ test, release ]

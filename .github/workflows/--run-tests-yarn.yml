@@ -25,23 +25,29 @@ jobs:
     name: 'Test'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
-          persist-credentials: false
 
       - uses: myparcelnl/actions/yarn-install@v1
 
       - name: 'Run tests'
         run: yarn run test:coverage
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage.xml
+          retention-days: 14
+
+  coverage:
+    name: 'Update coverage'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
       - uses: myparcelnl/actions/update-coverage@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: 'Trigger release'
-        if: inputs.release
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
-          event-type: release
