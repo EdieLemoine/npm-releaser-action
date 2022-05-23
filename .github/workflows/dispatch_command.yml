@@ -11,4 +11,4 @@ jobs:
     with:
       commands: |
         rebase
-        python
+        test

@@ -2,6 +2,12 @@ name: '🔸 Dispatch command'
 
 on:
   workflow_call:
+    inputs:
+      commands:
+        description: 'Commands to listen to'
+        type: string
+        required: true
+
     secrets:
       GH_REPO_TOKEN:
         description: 'Required for pushing commits to git.'
@@ -17,6 +23,4 @@ jobs:
           token: ${{ secrets.GH_REPO_TOKEN }}
           permission: write
           issue-type: pull-request
-          commands: |
-            test
-            rebase
+          commands: ${{ commands }}
