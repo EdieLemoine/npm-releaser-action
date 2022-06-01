@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN sleep 5
+
 ENTRYPOINT ["touch", "coverage.xml"]
 
 
