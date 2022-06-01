@@ -1,0 +1,14 @@
+name: 'Build image'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--build-image.yml@main
+    secrets: inherit
+
+  build-2:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--build-image.yml@main
+    secrets: inherit
+    needs: build
