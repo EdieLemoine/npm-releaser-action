@@ -3,6 +3,8 @@ name: 'Test docker build speeds'
 on:
   workflow_dispatch:
 
+  push:
+
 jobs:
 #  none-1:
 #    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-no-cache.yml@main
