@@ -30,7 +30,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
           tags: ${{ steps.prepare.outputs.tagged_image }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
