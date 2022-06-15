@@ -21,3 +21,9 @@ jobs:
   buildx-2:
     needs: buildx-1
     uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx.yml@main
+
+  buildx-local-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx-local.yml@main
+  buildx-local-2:
+    needs: buildx-local-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx-local.yml@main

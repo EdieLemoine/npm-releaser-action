@@ -16,7 +16,6 @@ jobs:
           echo ::set-output name=tag::${TAG}
 
       - name: 'Set up Docker Buildx'
-        id: buildx
         uses: docker/setup-buildx-action@v2
 
 #      - name: 'Cache Docker layers'
@@ -32,7 +31,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.prepare.outputs.tagged_image }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
