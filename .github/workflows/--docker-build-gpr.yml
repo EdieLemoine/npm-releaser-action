@@ -1,6 +1,8 @@
 on:
   workflow_call:
 
+  push:
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: edielemoine/nra
