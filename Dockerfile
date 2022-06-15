@@ -13,4 +13,8 @@ ENTRYPOINT ["touch", "coverage.xml"]
 
 FROM php:${PHP_VERSION}-alpine AS dev
 
+COPY . .
+
+RUN sleep 10
+
 ENTRYPOINT ["/sbin/tini", "--"]
