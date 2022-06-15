@@ -13,35 +13,19 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: 'Log in to the Container registry'
-        uses: docker/login-action@v2
+      - uses: edielemoine/npm-releaser-action/build-docker-gcr@main
+        id: build
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          image: edielemoine/nra
+          target: test
+          registry-user: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Extract metadata (tags, labels) for Docker'
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - run: |
+          docker run ${{ steps.build.outputs.tagged-image }}
 
-      - uses: int128/docker-build-cache-config-action@v1
-        id: cache
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cache
+      - name: 'Get coverage file from container'
+        run: docker cp $(docker ps -alq):/app/coverage.xml .
 
-      - name: 'Set up Docker Buildx'
-        uses: docker/setup-buildx-action@v2
-
-      - name: 'Build and push Docker image'
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: ${{ steps.cache.outputs.cache-from }}
-          cache-to: ${{ steps.cache.outputs.cache-to }}
+      - name: 'Read file'
+        run: cat coverage.xml
