@@ -10,7 +10,7 @@ jobs:
       - name: 'Prepare'
         id: prepare
         run: |
-          TAG="buildx-$(echo $GITHUB_SHA | head -c7)"
+          TAG="buildx
           IMAGE="edielemoine/nra"
           echo ::set-output name=tagged_image::${IMAGE}:${TAG}
           echo ::set-output name=tag::${TAG}
@@ -32,6 +32,7 @@ jobs:
         with:
           context: .
           tags: ${{ steps.prepare.outputs.tagged_image }}
+          load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

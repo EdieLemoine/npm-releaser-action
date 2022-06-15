@@ -10,7 +10,7 @@ jobs:
       - name: 'Prepare'
         id: prepare
         run: |
-          TAG="buildx-local-${{ github.sha }}"
+          TAG="buildx-local
           IMAGE="edielemoine/nra"
           echo ::set-output name=tagged_image::${IMAGE}:${TAG}
           echo ::set-output name=tag::${TAG}
@@ -30,6 +30,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          load: true
           tags: ${{ steps.prepare.outputs.tagged_image }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
