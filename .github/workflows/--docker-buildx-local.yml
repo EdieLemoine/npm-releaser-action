@@ -10,7 +10,7 @@ jobs:
       - name: 'Prepare'
         id: prepare
         run: |
-          TAG="buildx-local
+          TAG="buildx-local"
           IMAGE="edielemoine/nra"
           echo ::set-output name=tagged_image::${IMAGE}:${TAG}
           echo ::set-output name=tag::${TAG}
