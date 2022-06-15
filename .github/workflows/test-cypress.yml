@@ -1,0 +1,16 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: 'Run e2e tests'
+    runs-on: ubuntu-20.04
+    container: cypress/browsers:node16.14.0-chrome99-ff97
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: 'Run Cypress'
+        uses: cypress-io/github-action@v4
+        with:
+          browser: electron
+          build: yarn build

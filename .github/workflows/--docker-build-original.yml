@@ -1,0 +1,12 @@
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: myparcelnl/actions/build-docker-image@v2
+        id: docker
+        with:
+          image: edielemoine/nra-original
+          key: myparcel-nra-original
