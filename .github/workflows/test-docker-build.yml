@@ -27,3 +27,9 @@ jobs:
   buildx-local-2:
     needs: buildx-local-1
     uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx-local.yml@main
+
+  build-gpr-1:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-gpr.yml@main
+  build-gpr-2:
+    needs: build-gpr-1
+    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-gpr.yml@main
