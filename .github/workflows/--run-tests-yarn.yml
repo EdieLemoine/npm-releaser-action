@@ -40,20 +40,25 @@ jobs:
         run: |
           echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Var: ${{ steps.cache-coverage.outputs.cache-hit }}" >> $GITHUB_STEP_SUMMARY
 
       - name: 'Cache hit == true'
         if: steps.cache-coverage.outputs.cache-hit == 'true'
         shell: bash
         run: |
-          echo "- Tests run: Yes ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟢 Tests were run " >> $GITHUB_STEP_SUMMARY
 
       - name: 'Cache hit == false'
         if: steps.cache-coverage.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          echo "- Tests run: No ❌" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Tests were skipped" >> $GITHUB_STEP_SUMMARY
 
       - uses: myparcelnl/actions/update-coverage@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: 'Cache hit == false'
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          echo "- 🟢 Coverage uploaded" >> $GITHUB_STEP_SUMMARY
