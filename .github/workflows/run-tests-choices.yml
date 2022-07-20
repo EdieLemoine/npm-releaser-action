@@ -47,7 +47,6 @@ jobs:
 
   test-docker:
     if: inputs.run-docker
-    needs: check-docker
     runs-on: ubuntu-22.04
     steps:
       - run: |
