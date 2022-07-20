@@ -61,3 +61,8 @@ jobs:
         shell: bash
         run: |
           echo "- 🟢 Coverage was uploaded" >> $GITHUB_STEP_SUMMARY
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage.txt
