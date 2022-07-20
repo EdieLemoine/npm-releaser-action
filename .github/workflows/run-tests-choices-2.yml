@@ -5,4 +5,4 @@ on:
 
 jobs:
   test:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-choices.yml@main
+    uses: edielemoine/npm-releaser-action/.github/workflows/run-tests-choices.yml@main
