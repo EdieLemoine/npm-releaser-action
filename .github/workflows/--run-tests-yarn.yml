@@ -24,16 +24,16 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - uses: actions/cache@v3
-        id: coverage-cache
+        id: cache-coverage
         with:
           path: ./coverage.txt
-          key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
+          key: ${{ runner.os }}-yarn-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
 
       - uses: edielemoine/npm-releaser-action/yarn-install@main
-        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
 
       - name: 'Run tests'
-        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
         run: yarn run test:coverage
 
       - uses: actions/upload-artifact@v3
@@ -47,16 +47,16 @@ jobs:
         run: |
           echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Var: ${{ steps.coverage-cache.outputs.cache-hit }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Var: ${{ steps.cache-coverage.outputs.cache-hit }}" >> $GITHUB_STEP_SUMMARY
 
       - name: 'A'
-        if: steps.coverage-cache.outputs.cache-hit == 'true'
+        if: steps.cache-coverage.outputs.cache-hit == 'true'
         shell: bash
         run: |
           echo "- Tests run: Yes ✅" >> $GITHUB_STEP_SUMMARY
 
       - name: 'B'
-        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        if: steps.cache-coverage.outputs.cache-hit != 'true'
         shell: bash
         run: |
           echo "- Tests run: No ❌" >> $GITHUB_STEP_SUMMARY
