@@ -29,12 +29,6 @@ jobs:
           path: ./coverage.txt
           key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
 
-      - name: 'Skip tests'
-        if: steps.coverage-cache.outputs.cache-hit == 'true'
-        shell: bash
-        run: |
-          ls -la .
-
       - uses: edielemoine/npm-releaser-action/yarn-install@main
         if: steps.coverage-cache.outputs.cache-hit != 'true'
 
@@ -47,6 +41,25 @@ jobs:
           name: coverage
           path: coverage.txt
           retention-days: 14
+
+      - name: 'Test summary'
+        shell: bash
+        run: |
+          echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Var: ${{ steps.coverage-cache.outputs.cache-hit }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: 'A'
+        if: steps.coverage-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: |
+          echo "- Tests run: Yes ✅" >> $GITHUB_STEP_SUMMARY
+
+      - name: 'B'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          echo "- Tests run: No ❌" >> $GITHUB_STEP_SUMMARY
 
   coverage:
     name: 'Update coverage'
