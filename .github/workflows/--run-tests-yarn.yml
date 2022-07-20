@@ -24,8 +24,8 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - uses: actions/cache@v3
+        id: coverage-cache
         with:
-          id: coverage-cache
           path: ./coverage.txt
           key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
 
