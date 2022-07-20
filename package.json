@@ -16,7 +16,8 @@
   "main": "index.js",
   "scripts": {
     "commit": "bash ./commit.sh",
-    "start": "http-server public --port 8080",
+    "build": "cp -R public dist",
+    "start": "http-server dist --port 8080",
     "test:coverage": "echo 'All tests passed!' && touch clover.xml && exit 0"
   },
   "dependencies": {
