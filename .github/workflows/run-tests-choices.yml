@@ -16,17 +16,18 @@ on:
         default: true
 
   workflow_call:
-    run-yarn:
-      type: boolean
-      description: 'Run yarn tests'
-      required: false
-      default: true
+    inputs:
+      run-yarn:
+        type: boolean
+        description: 'Run yarn tests'
+        required: false
+        default: true
 
-    run-docker:
-      type: boolean
-      description: 'Run docker tests'
-      required: false
-      default: true
+      run-docker:
+        type: boolean
+        description: 'Run docker tests'
+        required: false
+        default: true
 
 jobs:
   check-yarn:
