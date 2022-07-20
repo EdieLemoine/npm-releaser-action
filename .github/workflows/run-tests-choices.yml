@@ -25,6 +25,7 @@ jobs:
           echo ${{ inputs.run-yarn }}
 
   test-yarn:
+    if: inputs.run-yarn
     needs: check-yarn
     runs-on: ubuntu-22.04
     steps:
@@ -38,6 +39,7 @@ jobs:
           echo ${{ inputs.run-docker }}
 
   test-docker:
+    if: inputs.run-docker
     needs: check-docker
     runs-on: ubuntu-22.04
     steps:
