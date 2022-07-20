@@ -46,13 +46,27 @@ jobs:
           ref: ${{ inputs.ref }}
           persist-credentials: false
 
+      - uses: actions/cache@v3
+        with:
+          id: coverage-cache
+          path: ./clover.xml
+          key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./test/**') }}
+
+      - name: 'Skip tests'
+        if: steps.coverage-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: |
+          ls -la .
+
       - name: 'Create .env file'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
         run: |
           cat << EOF > .env
           ${{ inputs.environment }}
           EOF
 
       - uses: myparcelnl/actions/build-docker-image@v1
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
         id: docker
         with:
           image: ${{ inputs.image_name }}
@@ -60,25 +74,12 @@ jobs:
           docker_args: ${{ inputs.docker_args }}
 
       - name: 'Run Dockerfile'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
         run: docker run --env-file .env ${{ steps.docker.outputs.tagged_image }}
 
       - name: 'Get coverage file from container'
-        run: docker cp $(docker ps -alq):/app/coverage.xml .
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage.xml
-          retention-days: 14
-
-  coverage:
-    name: 'Update coverage'
-    needs: test
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        run: docker cp $(docker ps -alq):/app/clover.xml .
 
       - uses: myparcelnl/actions/update-coverage@v1
         with:

@@ -25,7 +25,7 @@ jobs:
           docker run ${{ steps.build.outputs.tagged-image }}
 
       - name: 'Get coverage file from container'
-        run: docker cp $(docker ps -alq):/app/coverage.xml .
+        run: docker cp $(docker ps -alq):/app/clover.xml .
 
       - name: 'Read file'
-        run: cat coverage.xml
+        run: cat clover.xml

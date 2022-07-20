@@ -23,8 +23,8 @@ runs:
       run: yarn run test:coverage
 
     - uses: actions/upload-artifact@v3
-      if: hashFiles('coverage.xml') != ''
+      if: hashFiles('clover.xml') != ''
       with:
         name: coverage
-        path: coverage.xml
+        path: clover.xml
         retention-days: 14

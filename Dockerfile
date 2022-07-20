@@ -1,20 +1,19 @@
-ARG PHP_VERSION=7.2
+ARG PHP_VERSION=8.1
 
-FROM php:${PHP_VERSION}-alpine AS test
+FROM ghcr.io/myparcelnl/php-xd:${PHP_VERSION} AS test
 
 WORKDIR /app
 
-COPY . .
+COPY composer.json composer.lock ./
 
-RUN sleep 10
+RUN composer install --dev
 
-ENTRYPOINT ["touch", "coverage.xml"]
+COPY src/   ./src/
+COPY tests/ ./tests/
+
+CMD ["vendor/bin/phpunit", "--coverage-clover", "clover.xml"]
 
 
-FROM php:${PHP_VERSION}-alpine AS dev
+FROM ghcr.io/myparcelnl/php-xd:${PHP_VERSION} AS dev
 
-COPY . .
-
-RUN sleep 10
-
-ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["sleep", "infinity"]

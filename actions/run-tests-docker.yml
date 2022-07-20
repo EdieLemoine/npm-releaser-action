@@ -7,7 +7,6 @@ inputs:
     default: '16'
     required: false
 
-
 runs:
   using: composite
   steps:
@@ -36,11 +35,11 @@ runs:
 
     - name: 'Get coverage file from container'
       shell: bash
-      run: docker cp $(docker ps -alq):/app/coverage.xml .
+      run: docker cp $(docker ps -alq):/app/clover.xml .
 
     - uses: actions/upload-artifact@v3
-      if: hashFiles('coverage.xml') != ''
+      if: hashFiles('clover.xml') != ''
       with:
         name: coverage
-        path: coverage.xml
+        path: clover.xml
         retention-days: 14
