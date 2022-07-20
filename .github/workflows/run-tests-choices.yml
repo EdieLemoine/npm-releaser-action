@@ -18,37 +18,32 @@ on:
   workflow_call:
     inputs:
       run-yarn:
-        type: boolean
+        type: string
         description: 'Run yarn tests'
         required: false
-        default: true
+        default: 'auto'
 
       run-docker:
-        type: boolean
+        type: string
         description: 'Run docker tests'
         required: false
-        default: true
+        default: 'auto'
 
 jobs:
   check-yarn:
+    if: inputs.run-yarn == 'auto'
     runs-on: ubuntu-22.04
     steps:
       - run: |
           echo ${{ inputs.run-yarn }}
 
   test-yarn:
-    if: inputs.run-yarn
+    if: always() && inputs.run-yarn
     needs: check-yarn
     runs-on: ubuntu-22.04
     steps:
       - run: |
           echo "yarn ran!"
-
-  check-docker:
-    runs-on: ubuntu-22.04
-    steps:
-      - run: |
-          echo ${{ inputs.run-docker }}
 
   test-docker:
     if: inputs.run-docker
