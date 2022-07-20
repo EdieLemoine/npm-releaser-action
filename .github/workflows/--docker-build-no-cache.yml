@@ -1,3 +1,5 @@
+name: '🔸 Docker build - No cache'
+
 on:
   workflow_call:
 

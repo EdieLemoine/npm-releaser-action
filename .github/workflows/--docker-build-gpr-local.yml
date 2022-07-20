@@ -1,3 +1,5 @@
+name: '🔸 Docker build - GPR (local)'
+
 on:
   workflow_call:
 

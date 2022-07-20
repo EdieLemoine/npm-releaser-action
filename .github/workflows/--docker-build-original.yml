@@ -1,3 +1,5 @@
+name: '🔸 Docker build - Original'
+
 on:
   workflow_call:
 
