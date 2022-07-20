@@ -1,0 +1,8 @@
+name: 'Run multiple tests – workflow_call'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-choices.yml@main

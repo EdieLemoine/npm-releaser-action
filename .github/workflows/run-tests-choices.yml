@@ -1,0 +1,45 @@
+name: 'Run multiple tests'
+
+on:
+  workflow_dispatch:
+    inputs:
+      run-yarn:
+        type: boolean
+        description: 'Run yarn tests'
+        required: false
+        default: true
+
+      run-docker:
+        type: boolean
+        description: 'Run docker tests'
+        required: false
+        default: true
+
+  workflow_call:
+
+jobs:
+  check-yarn:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo ${{ inputs.run-yarn }}
+
+  test-yarn:
+    needs: check-yarn
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo "yarn ran!"
+
+  check-docker:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo ${{ inputs.run-docker }}
+
+  test-docker:
+    needs: check-docker
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo "docker ran!"
