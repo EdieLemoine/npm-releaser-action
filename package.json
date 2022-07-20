@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EdieLemoine/npm-releaser-action.git"
+    "url": "https://github.com/EdieLemoine/npm-releaser-action.git"
   },
   "license": "ISC",
   "author": "",
