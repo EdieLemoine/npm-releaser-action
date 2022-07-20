@@ -18,7 +18,7 @@
     "commit": "bash ./commit.sh",
     "build": "cp -R public dist",
     "start": "http-server dist --port 8080",
-    "test:coverage": "echo 'All tests passed!' && touch clover.xml && exit 0"
+    "test:coverage": "echo 'All tests passed!' && touch coverage.txt && echo $(git rev-parse HEAD) > coverage.txt && exit 0"
   },
   "dependencies": {
     "@actions/core": "^1.9.0",

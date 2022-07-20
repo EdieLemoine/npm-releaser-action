@@ -23,15 +23,29 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - uses: actions/cache@v3
+        with:
+          id: coverage-cache
+          path: ./coverage.txt
+          key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
+
+      - name: 'Skip tests'
+        if: steps.coverage-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: |
+          ls -la .
+
       - uses: edielemoine/npm-releaser-action/yarn-install@main
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
 
       - name: 'Run tests'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
         run: yarn run test:coverage
 
       - uses: actions/upload-artifact@v3
         with:
           name: coverage
-          path: clover.xml
+          path: coverage.txt
           retention-days: 14
 
   coverage:
