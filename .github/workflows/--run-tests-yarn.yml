@@ -19,6 +19,12 @@ jobs:
     name: 'Test'
     runs-on: ubuntu-20.04
     steps:
+      - name: 'Test summary'
+        shell: bash
+        run: |
+          echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY  
+
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
@@ -35,30 +41,23 @@ jobs:
         if: steps.cache-coverage.outputs.cache-hit != 'true'
         run: yarn run test:coverage
 
-      - name: 'Test summary'
-        shell: bash
-        run: |
-          echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-      - name: 'Cache hit == true'
+      - name: 'Cache hit ⭕️'
         if: steps.cache-coverage.outputs.cache-hit == 'true'
         shell: bash
         run: |
-          echo "- 🟢 Tests were run " >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Tests were skipped" >> $GITHUB_STEP_SUMMARY
 
-      - name: 'Cache hit == false'
+      - name: 'Cache not hit ❌'
         if: steps.cache-coverage.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          echo "- 🟡 Tests were skipped" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟢 Tests were run " >> $GITHUB_STEP_SUMMARY
 
       - uses: myparcelnl/actions/update-coverage@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: 'Cache hit == false'
-        if: steps.cache-coverage.outputs.cache-hit != 'true'
+      - name: 'Report on coverages'
         shell: bash
         run: |
-          echo "- 🟢 Coverage uploaded" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟢 Coverage was uploaded" >> $GITHUB_STEP_SUMMARY
