@@ -29,8 +29,7 @@ jobs:
           path: ./coverage.txt
           key: ${{ runner.os }}-yarn-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
 
-      - uses: edielemoine/npm-releaser-action/yarn-install@main
-        if: steps.cache-coverage.outputs.cache-hit != 'true'
+      # Run yarn install here
 
       - name: 'Run tests'
         if: steps.cache-coverage.outputs.cache-hit != 'true'
