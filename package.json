@@ -32,6 +32,6 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^9.0.1",
     "json2yaml": "^1.1.0",
-    "random-words": "^1.1.2"
+    "random-words": "^1.2.0"
   }
 }
