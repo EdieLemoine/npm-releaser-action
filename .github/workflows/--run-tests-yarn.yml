@@ -36,12 +36,6 @@ jobs:
         if: steps.cache-coverage.outputs.cache-hit != 'true'
         run: yarn run test:coverage
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage.txt
-          retention-days: 14
-
       - name: 'Test summary'
         shell: bash
         run: |
@@ -60,15 +54,6 @@ jobs:
         shell: bash
         run: |
           echo "- Tests run: No ❌" >> $GITHUB_STEP_SUMMARY
-
-  coverage:
-    name: 'Update coverage'
-    needs: test
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage
 
       - uses: myparcelnl/actions/update-coverage@v1
         with:
