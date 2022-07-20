@@ -33,7 +33,7 @@ jobs:
         id: cache-coverage
         with:
           path: ./coverage.txt
-          key: ${{ runner.os }}-yarn-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./tests/**') }}
+          key: ${{ runner.os }}-yarn-coverage-${{ hashFiles('**/yarn.lock, './src/**', './tests/**') }}
 
       # Run yarn install here
 
