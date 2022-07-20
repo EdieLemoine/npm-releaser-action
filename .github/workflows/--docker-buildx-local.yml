@@ -1,3 +1,5 @@
+name: '🔸 Docker Buildx - Local'
+
 on:
   workflow_call:
 
