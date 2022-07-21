@@ -38,6 +38,12 @@ on:
           - main
           - develop
 
+      force:
+        type: boolean
+        description: 'Force push'
+        default: false
+        required: false
+
 jobs:
   rebase:
     name: 'Rebase'
@@ -46,5 +52,6 @@ jobs:
       - uses: edielemoine/npm-releaser-action/rebase@main
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
-          base: ${{ inputs.base || github.event.client_payload.base || github.event.inputs.base }})
+          base: ${{ inputs.base || github.event.client_payload.base || github.event.inputs.base || github.ref }})
           target: ${{ inputs.target || github.event.client_payload.target || github.event.inputs.target }})
+          force: ${{ inputs.force }}

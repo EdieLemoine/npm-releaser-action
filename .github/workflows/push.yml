@@ -9,38 +9,42 @@ jobs:
     uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
     secrets: inherit
 
-#  test-docker:
-#    name: 'Run docker tests 🧪'
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-docker.yml@main
-#    secrets: inherit
-#    with:
-#      image_name: myparcel/sdk-test
-#      image_key: php-sdk-test
-#      environment: |
-#        CI=${CI}
-#        API_KEY_NL=API_KEY_NL
-#        API_KEY_BE=API_KEY_BE
-
   release:
     name: 'Release new version 🚀'
     uses: edielemoine/npm-releaser-action/.github/workflows/--release.yml@main
     secrets: inherit
     needs: test-yarn
-#    needs: [ test-yarn, test-docker ]
+
+  tag:
+    name: 'Update tags'
+    needs: release
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: myparcelnl/actions/update-tags@main
 
   rebase:
     name: 'Rebase develop onto main 🔀'
     runs-on: ubuntu-22.04
     if: ${{ always() }}
     needs: [ test-yarn, release ]
-#    needs: [ test-yarn, test-docker, release ]
     steps:
       - uses: edielemoine/npm-releaser-action/rebase@main
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
 
-  tag:
-    name: 'Update tags'
+  deploy:
+    name: 'Deploy'
+    needs: release
     runs-on: ubuntu-22.04
     steps:
-      - uses: myparcelnl/actions/update-tags@main
+      - uses: actions/checkout@v3
+
+      - name: 'Build'
+        run: yarn build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: dist
+          token: ${{ secrets.GH_REPO_TOKEN }}
