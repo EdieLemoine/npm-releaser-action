@@ -30,7 +30,7 @@ jobs:
 
   rebase:
     name: 'Rebase develop onto main 🔀'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: ${{ always() }}
     needs: [ test-yarn, release ]
 #    needs: [ test-yarn, test-docker, release ]

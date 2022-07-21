@@ -11,7 +11,7 @@ on:
 jobs:
   rebase:
     name: 'Rebase'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: peter-evans/rebase@v1
         id: rebase
