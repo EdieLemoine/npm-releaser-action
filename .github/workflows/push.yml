@@ -38,3 +38,9 @@ jobs:
       - uses: edielemoine/npm-releaser-action/rebase@main
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
+
+  tag:
+    name: 'Update tags'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: myparcelnl/actions/update-tags@main
