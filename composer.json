@@ -4,5 +4,13 @@
         "symfony/console": "^v2.8",
         "phpunit/phpunit": "9.5.20"
     },
+<<<<<<< HEAD
     "version": "1.10.33"
 }
+=======
+    "version": "1.10.32",
+    "require-dev": {
+        "allure-framework/allure-phpunit": "^2.0"
+    }
+}
+>>>>>>> 8fa2022 (add allure)
