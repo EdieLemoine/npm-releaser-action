@@ -6,5 +6,5 @@ on:
 jobs:
   test-yarn:
     name: 'Run yarn tests 🧪'
-    uses: edielemoine/npm-releaser-action/.github/workflows/--run-tests-yarn.yml@main
+    uses: ./.github/workflows/--run-tests-yarn.yml
     secrets: inherit

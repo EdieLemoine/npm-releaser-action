@@ -5,25 +5,25 @@ on:
 
 jobs:
   original-1:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-original.yml@main
+    uses: ./.github/workflows/--yarn-install-original.yml
   original-2:
     needs: original-1
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-original.yml@main
+    uses: ./.github/workflows/--yarn-install-original.yml
 
   cache-1:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-cache.yml@main
+    uses: ./.github/workflows/--yarn-install-cache.yml
   cache-2:
     needs: cache-1
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-cache.yml@main
+    uses: ./.github/workflows/--yarn-install-cache.yml
 
   node_modules-1:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-node-modules.yml@main
+    uses: ./.github/workflows/--yarn-install-node-modules.yml
   node_modules-2:
     needs: node_modules-1
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-node-modules.yml@main
+    uses: ./.github/workflows/--yarn-install-node-modules.yml
 
   both-1:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-both.yml@main
+    uses: ./.github/workflows/--yarn-install-both.yml
   both-2:
     needs: both-1
-    uses: edielemoine/npm-releaser-action/.github/workflows/--yarn-install-both.yml@main
+    uses: ./.github/workflows/--yarn-install-both.yml

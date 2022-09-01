@@ -5,10 +5,10 @@ on:
 
 jobs:
   build:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--build-image.yml@main
+    uses: ./.github/workflows/--build-image.yml
     secrets: inherit
 
   build-2:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--build-image.yml@main
+    uses: ./.github/workflows/--build-image.yml
     secrets: inherit
     needs: build

@@ -5,31 +5,31 @@ on:
 
 jobs:
 #  none-1:
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-no-cache.yml@main
+#    uses: ./.github/workflows/--docker-build-no-cache.yml
 #  none-2:
 #    needs: none-1
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-no-cache.yml@main
+#    uses: ./.github/workflows/--docker-build-no-cache.yml
 #
 #  original-1:
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-original.yml@main
+#    uses: ./.github/workflows/--docker-build-original.yml
 #  original-2:
 #    needs: original-1
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-original.yml@main
+#    uses: ./.github/workflows/--docker-build-original.yml
 
 #  buildx-1:
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx.yml@main
+#    uses: ./.github/workflows/--docker-buildx.yml
 #  buildx-2:
 #    needs: buildx-1
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx.yml@main
+#    uses: ./.github/workflows/--docker-buildx.yml
 #
 #  buildx-local-1:
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx-local.yml@main
+#    uses: ./.github/workflows/--docker-buildx-local.yml
 #  buildx-local-2:
 #    needs: buildx-local-1
-#    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-buildx-local.yml@main
+#    uses: ./.github/workflows/--docker-buildx-local.yml
 
   build-gpr-1:
-    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-gpr.yml@main
+    uses: ./.github/workflows/--docker-build-gpr.yml
   build-gpr-2:
     needs: build-gpr-1
-    uses: edielemoine/npm-releaser-action/.github/workflows/--docker-build-gpr.yml@main
+    uses: ./.github/workflows/--docker-build-gpr.yml

@@ -49,7 +49,7 @@ jobs:
     name: 'Rebase'
     runs-on: ubuntu-22.04
     steps:
-      - uses: edielemoine/npm-releaser-action/rebase@main
+      - uses: ./rebase
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
           base: ${{ inputs.base || github.event.client_payload.base || github.event.inputs.base || github.ref }})

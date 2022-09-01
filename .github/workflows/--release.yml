@@ -38,13 +38,13 @@ jobs:
         with:
           php-version: ${{ inputs.setup_php }}
 
-      - uses: edielemoine/npm-releaser-action/yarn-install@main
+      - uses: ./yarn-install
 
       - name: 'Pre-release'
         if: inputs.pre_release_cmd != '0'
         run: ${{ inputs.pre_release_cmd }}
 
-      - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
+      - uses: ./setup-git-credentials
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
 
