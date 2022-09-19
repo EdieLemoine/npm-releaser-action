@@ -46,8 +46,9 @@ jobs:
 
       - uses: myparcelnl/actions/semantic-release@v2
         id: release
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 'check outputs'
