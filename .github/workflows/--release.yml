@@ -32,7 +32,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-          fetch-depth: 0
 
       - if: ${{ inputs.setup_php != '0' }}
         uses: myparcelnl/actions/composer-install@v1
@@ -44,10 +43,6 @@ jobs:
       - name: 'Pre-release'
         if: inputs.pre_release_cmd != '0'
         run: ${{ inputs.pre_release_cmd }}
-
-      - uses: ./setup-git-credentials
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
 
       - uses: myparcelnl/actions/semantic-release@v2
         id: release
