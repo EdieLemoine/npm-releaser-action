@@ -9,11 +9,17 @@ jobs:
     uses: ./.github/workflows/--run-tests-yarn.yml
     secrets: inherit
 
+#  release:
+#    name: 'Release new version 🚀'
+#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@main
+#    secrets: inherit
+#    needs: test-yarn
+
   release:
     name: 'Release new version 🚀'
-    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@main
+    uses: ./.github/workflows/--release.yml
     secrets: inherit
-    needs: test-yarn
+#    needs: test-yarn
 
   tag:
     name: 'Update tags'
