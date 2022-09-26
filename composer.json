@@ -2,7 +2,7 @@
     "name": "test/thing",
     "require": {
         "symfony/console": "^v2.8",
-        "phpunit/phpunit": "9.5.20"
+        "phpunit/phpunit": "9.5.25"
     },
     "version": "1.10.33"
 }
