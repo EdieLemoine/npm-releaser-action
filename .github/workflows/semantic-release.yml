@@ -1,0 +1,10 @@
+name: 'Semantic release'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: 'Release new version 🚀'
+    uses: ./.github/workflows/--release.yml
+    secrets: inherit
