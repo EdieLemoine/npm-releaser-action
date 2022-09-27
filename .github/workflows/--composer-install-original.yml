@@ -1,0 +1,13 @@
+name: '🔸 Yarn install - Cache'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    name: 'Install'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: myparcelnl/actions/composer-install@main

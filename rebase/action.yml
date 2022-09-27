@@ -1,0 +1,37 @@
+name: 'Rebase'
+description: 'Rebase and one branch onto another.'
+
+inputs:
+  target:
+    description: 'Branch you wish to update.'
+    default: 'develop'
+    required: false
+
+  base:
+    description: 'Branch to use to rebase target.'
+    default: 'main'
+    required: false
+
+  token:
+    description: 'GitHub token with push access.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.token }}
+        ref: ${{ inputs.target }}
+        fetch-depth: 0
+
+    - uses: edielemoine/npm-releaser-action/setup-git-credentials@main
+      with:
+        token: ${{ inputs.token }}
+
+    - name: 'Rebase and push'
+      shell: bash
+      run: |
+        git config --list
+        git rebase "origin/${{ inputs.base }}"
+        git push

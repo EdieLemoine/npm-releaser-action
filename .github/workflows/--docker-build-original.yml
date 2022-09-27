@@ -1,0 +1,16 @@
+name: '🔸 Docker build - Original'
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: myparcelnl/actions/build-docker-image@v2
+        id: docker
+        with:
+          image: edielemoine/nra-original
+          key: myparcel-nra-original

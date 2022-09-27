@@ -1,0 +1,30 @@
+name: 'Run tests'
+description: 'Run tests with yarn run test:coverage'
+
+inputs:
+  node_version:
+    description: 'The Node.js version to use'
+    default: '16'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.ref }}
+
+    - uses: myparcelnl/actions/yarn-install@v1
+      with:
+        node-version: ${{ inputs.node_version }}
+
+    - name: 'Run tests'
+      shell: bash
+      run: yarn run test:coverage
+
+    - uses: actions/upload-artifact@v3
+      if: hashFiles('clover.xml') != ''
+      with:
+        name: coverage
+        path: clover.xml
+        retention-days: 14

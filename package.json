@@ -1,0 +1,41 @@
+{
+  "name": "npm-releaser-action",
+  "version": "1.10.36",
+  "private": true,
+  "description": "",
+  "homepage": "https://github.com/EdieLemoine/npm-releaser-action#readme",
+  "bugs": {
+    "url": "https://github.com/EdieLemoine/npm-releaser-action/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EdieLemoine/npm-releaser-action.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "commit": "bash ./commit.sh",
+    "build": "cp -R public dist",
+    "start": "http-server dist --port 8080",
+    "test:coverage": "echo 'All tests passed!' && touch coverage.txt && echo $(git rev-parse HEAD) > coverage.txt && exit 0"
+  },
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3",
+    "semantic-release": "^19.0.3",
+    "standard-version": "^9.5.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.9",
+    "@myparcel/eslint-config": "^3.6.1",
+    "@myparcel/semantic-release-config": "^4.0.0",
+    "@saithodev/semantic-release-backmerge": "^2.1.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^9.0.1",
+    "cypress": "^10.3.1",
+    "http-server": "^14.1.1",
+    "json2yaml": "^1.1.0",
+    "random-words": "^1.2.0"
+  }
+}

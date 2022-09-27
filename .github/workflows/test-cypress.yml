@@ -1,0 +1,17 @@
+name: Run Cypress tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: 'Run e2e tests'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: cypress-io/github-action@v4
+        with:
+          build: yarn build
+          start: yarn start
+          wait-on: 'http://localhost:8080'

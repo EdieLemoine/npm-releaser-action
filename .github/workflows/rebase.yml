@@ -1,0 +1,57 @@
+name: 'Rebase 🔀'
+
+on:
+  repository_dispatch:
+    types: [ rebase ]
+
+  workflow_call:
+    inputs:
+      base:
+        description: 'Base branch'
+        type: string
+        default: 'main'
+        required: false
+
+      target:
+        description: 'Target branch'
+        type: string
+        default: 'develop'
+        required: false
+
+  workflow_dispatch:
+    inputs:
+      base:
+        type: choice
+        description: 'Base branch'
+        default: 'main'
+        required: false
+        options:
+          - main
+          - develop
+
+      target:
+        type: choice
+        description: 'Target branch'
+        default: 'develop'
+        required: false
+        options:
+          - main
+          - develop
+
+      force:
+        type: boolean
+        description: 'Force push'
+        default: false
+        required: false
+
+jobs:
+  rebase:
+    name: 'Rebase'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: ./rebase
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+          base: ${{ inputs.base || github.event.client_payload.base || github.event.inputs.base || github.ref }})
+          target: ${{ inputs.target || github.event.client_payload.target || github.event.inputs.target }})
+          force: ${{ inputs.force }}

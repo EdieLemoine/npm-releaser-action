@@ -1,0 +1,17 @@
+name: 'Test composer cache speeds'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  original-1:
+    uses: ./.github/workflows/--composer-install-original.yml
+  original-2:
+    needs: original-1
+    uses: ./.github/workflows/--composer-install-original.yml
+
+  vendor-1:
+    uses: ./.github/workflows/--composer-install-vendor.yml
+  vendor-2:
+    needs: vendor-1
+    uses: ./.github/workflows/--composer-install-vendor.yml
