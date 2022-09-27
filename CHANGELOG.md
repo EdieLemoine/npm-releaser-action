@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.1 (2022-09-27)
+
+
+### :sparkles: New Features
+
+* initial commit ([df3c97b](https://github.com/EdieLemoine/npm-releaser-action/commit/df3c97b2a2f56f48c6db2899f42c9d4f84808b87))
+
 ### [1.10.37](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.10.36...v1.10.37) (2022-09-19)
 
 
