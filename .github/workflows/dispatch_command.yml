@@ -1,0 +1,12 @@
+name: 'Dispatch command 📡'
+
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  dispatch:
+    uses: ./.github/workflows/--dispatch.yml
+    secrets: inherit
+    with:
+      commands: rebase test

@@ -1,0 +1,33 @@
+name: '🔸 Docker build - GPR'
+
+on:
+  workflow_call:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: edielemoine/nra
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: ./build-docker-gcr
+        id: build
+        with:
+          image: edielemoine/nra
+          target: test
+          registry-user: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          docker run ${{ steps.build.outputs.tagged-image }}
+
+      - name: 'Get coverage file from container'
+        run: docker cp $(docker ps -alq):/app/clover.xml .
+
+      - name: 'Read file'
+        run: cat clover.xml

@@ -1,0 +1,86 @@
+name: '🔸 Run tests'
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Git ref to run on.'
+        type: string
+        required: false
+        default: ''
+
+      image_name:
+        description: 'Docker image name.'
+        type: string
+        required: true
+
+      image_key:
+        description: 'Image cache key.'
+        type: string
+        required: false
+
+      docker_args:
+        description: 'Arguments to pass to docker build.'
+        type: string
+        required: false
+        default: '--target test'
+
+      environment:
+        description: 'Content to pass to docker via .env file.'
+        type: string
+        required: false
+        default: ''
+
+    secrets:
+      CODECOV_TOKEN:
+        description: 'Token for pushing coverage results to codecov.'
+        required: false
+
+jobs:
+  test:
+    name: 'Test'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - uses: actions/cache@v3
+        with:
+          id: coverage-cache
+          path: ./clover.xml
+          key: ${{ runner.os }}-coverage-${{ hashFiles('./src/**') }}-${{ hashFiles('./test/**') }}
+
+      - name: 'Skip tests'
+        if: steps.coverage-cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: |
+          ls -la .
+
+      - name: 'Create .env file'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        run: |
+          cat << EOF > .env
+          ${{ inputs.environment }}
+          EOF
+
+      - uses: myparcelnl/actions/build-docker-image@v1
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        id: docker
+        with:
+          image: ${{ inputs.image_name }}
+          key: ${{ inputs.image_key || inputs.image_name }}
+          docker_args: ${{ inputs.docker_args }}
+
+      - name: 'Run Dockerfile'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        run: docker run --env-file .env ${{ steps.docker.outputs.tagged_image }}
+
+      - name: 'Get coverage file from container'
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        run: docker cp $(docker ps -alq):/app/clover.xml .
+
+      - uses: myparcelnl/actions/update-coverage@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

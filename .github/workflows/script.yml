@@ -1,0 +1,23 @@
+name: Run a JS script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: ./setup-git-credentials
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+
+      - uses: actions/checkout@v3
+        with:
+          preserve-credentials: false
+
+      - uses: myparcelnl/actions/yarn-install@v2
+
+      - run: 'script.js'
+        shell: node
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}

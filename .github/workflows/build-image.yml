@@ -1,0 +1,14 @@
+name: 'Build image'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/--build-image.yml
+    secrets: inherit
+
+  build-2:
+    uses: ./.github/workflows/--build-image.yml
+    secrets: inherit
+    needs: build

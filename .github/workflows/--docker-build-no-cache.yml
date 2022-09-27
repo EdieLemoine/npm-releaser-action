@@ -1,0 +1,13 @@
+name: '🔸 Docker build - No cache'
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          docker build . -t edielemoine/nra:no-cache

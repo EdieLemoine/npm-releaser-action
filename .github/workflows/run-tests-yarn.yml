@@ -1,0 +1,10 @@
+name: 'Run Yarn tests'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-yarn:
+    name: 'Run yarn tests 🧪'
+    uses: ./.github/workflows/--run-tests-yarn.yml
+    secrets: inherit

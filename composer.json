@@ -1,0 +1,11 @@
+{
+    "name": "test/thing",
+    "require": {
+        "symfony/console": "^v2.8",
+        "phpunit/phpunit": "9.5.20"
+    },
+    "version": "0.0.0",
+    "require-dev": {
+        "allure-framework/allure-phpunit": "^2.0"
+    }
+}

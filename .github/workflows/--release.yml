@@ -1,0 +1,58 @@
+name: '🔸 Release'
+
+on:
+  workflow_call:
+    inputs:
+      setup_php:
+        description: 'An optional php version to set up before running the release.'
+        type: string
+        default: '0'
+        required: false
+
+      pre_release_cmd:
+        description: 'A command to run after installing everything, but before releasing.'
+        type: string
+        default: '0'
+        required: false
+
+    secrets:
+      GH_REPO_TOKEN:
+        description: 'Required for pushing commits to git.'
+        required: false
+
+      NPM_TOKEN:
+        description: 'Required for publishing to NPM.'
+        required: false
+
+jobs:
+  release:
+    name: 'Release'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - if: ${{ inputs.setup_php != '0' }}
+        uses: myparcelnl/actions/composer-install@v1
+        with:
+          php-version: ${{ inputs.setup_php }}
+
+      - uses: ./yarn-install
+
+      - name: 'Pre-release'
+        if: inputs.pre_release_cmd != '0'
+        run: ${{ inputs.pre_release_cmd }}
+
+      - uses: myparcelnl/actions/semantic-release@v2
+        id: release
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 'check outputs'
+        run: |
+          echo "released: ${{ steps.release.outputs.released }}"
+          echo "version: ${{ steps.release.outputs.version }}"
+          echo "previous-version: ${{ steps.release.outputs.previous-version }}"
