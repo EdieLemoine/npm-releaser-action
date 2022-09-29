@@ -18,27 +18,26 @@ jobs:
 
           if [ $? -eq 0 ]; then
             echo "::set-output name=diff::false"
-
-            echo "There are no differences between main and develop" 
+            echo "There are no differences between main and develop" >> $GITHUB_STEP_SUMMARY
           else
             echo "::set-output name=diff::true"
-
             echo "There are differences between main and develop. The following commits are not released yet:" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
             echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
             git log --pretty=format:"| %s | [%h](${REPO_URL}/commit/%H |" origin/main..origin/develop >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "::set-output name=summary::$(cat $GITHUB_STEP_SUMMARY)"
 
       - id: slack
+        if: steps.check.outputs.diff == 'true'
         uses: slackapi/slack-github-action@v1.22.0
         with:
           payload: |
             {
               "repository": "${{ github.repository }}",
-              "text": "${{ steps.check.outputs.summary }}",
+              "text": "${{ steps.check.outputs.summary }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE }}
