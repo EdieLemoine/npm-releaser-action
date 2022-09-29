@@ -29,6 +29,8 @@ jobs:
             echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
             git log --pretty=format:"| %s | [%h](${REPO_URL}/commit/%H |" origin/main..origin/develop >> $GITHUB_STEP_SUMMARY
           fi
+          
+          echo "::set-output name=summary::$(cat $GITHUB_STEP_SUMMARY)"
 
       - id: slack
         uses: slackapi/slack-github-action@v1.22.0
@@ -36,7 +38,7 @@ jobs:
           payload: |
             {
               "repository": "${{ github.repository }}",
-              "text": "$GITHUB_STEP_SUMMARY"
+              "text": "${{ steps.check.outputs.summary }}",
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE }}
