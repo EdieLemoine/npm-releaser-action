@@ -69,15 +69,20 @@ runs:
       if: ${{ inputs.write-summary == 'true' }}
       shell: bash
       run: |
-        echo "# Semantic release summary 🚀" >> $GITHUB_STEP_SUMMARY
+        echo "# Release summary" >> $GITHUB_STEP_SUMMARY
+
+        REPO_URL="https://github.com/${{ github.repository }}"
+        NEW_VER=${{ steps.post-release.outputs.version }}
+        OLD_VER=${{ steps.post-release.outputs.previous-version }}
 
         if [ "${{ steps.post-release.outputs.released }}" == "true" ]; then
-          echo "A new version was released: ${{ steps.post-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "The previous version was: ${{ steps.post-release.outputs.previous-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "A new version was released: [$NEW_VER]($REPO_URL/releases/tag/$NEW_VER)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Commits in this release" >> $GITHUB_STEP_SUMMARY
-          echo "| Author | Summary |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          git log --pretty=format:'| %s | [%h](https://github.com/${{ github.repository }})/commit/%H |' ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:'| %s | [%h]($REPO_URL/commit/%H |' ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_STEP_SUMMARY
         else
           echo "No new version was released." >> $GITHUB_STEP_SUMMARY
         fi
