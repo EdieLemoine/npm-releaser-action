@@ -24,3 +24,4 @@ jobs:
       - uses: ./semantic-release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          write-summary: true
