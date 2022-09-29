@@ -1,0 +1,83 @@
+name: 'Semantic release'
+description: 'Run semantic release'
+
+inputs:
+  token:
+    description: 'GitHub Personal access token'
+    required: true
+
+  semantic-release-args:
+    description: 'Semantic release arguments'
+    required: false
+
+  write-summary:
+    description: 'Write a summary to the GitHub action output'
+    required: false
+    default: 'false'
+
+outputs:
+  version:
+    description: 'The new version'
+    value: ${{ steps.post-release.outputs.version }}
+
+  previous-version:
+    description: 'The previous version'
+    value: ${{ steps.post-release.outputs.previous-version }}
+
+  released:
+    description: 'Whether a new version was released'
+    value: ${{ steps.post-release.outputs.released }}
+
+runs:
+  using: composite
+  steps:
+    - name: 'Get previous version'
+      run: |
+        tag=$(git ls-remote --tags --sort="v:refname" | tail -n1 | sed 's/.*\///; s/\^{}//')
+        echo "::set-output name=tag::${tag}"
+      id: previous-version
+      shell: bash
+
+    - name: 'Run semantic release'
+      run: npx semantic-release ${{ inputs.semantic-release-args }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+
+    - name: 'Get new version'
+      run: |
+        tag=$(git describe --tags --abbrev=0)
+        echo "::set-output name=tag::${tag}"
+      id: new-version
+      shell: bash
+
+    - name: 'Prepare outputs'
+      id: post-release
+      run: |
+        if [ "${{ steps.previous-version.outputs.tag }}" == "${{ steps.new-version.outputs.tag }}" ]; then
+          echo "::set-output name=version::"
+          echo "::set-output name=previous-version::${{ steps.previous-version.outputs.tag }}"
+          echo "::set-output name=released::false"
+        else
+          echo "::set-output name=version::${{ steps.new-version.outputs.tag }}"
+          echo "::set-output name=previous-version::${{ steps.previous-version.outputs.tag }}"
+          echo "::set-output name=released::true"
+        fi
+      shell: bash
+
+    - name: 'Write job summary'
+      if: ${{ inputs.write-summary == 'true' }}
+      shell: bash
+      run: |
+        echo "# Semantic release summary 🚀" >> $GITHUB_SUMMARY
+
+        if [ "${{ steps.post-release.outputs.released }}" == "true" ]; then
+          echo "A new version was released: ${{ steps.post-release.outputs.version }}" >> $GITHUB_SUMMARY
+          echo "The previous version was: ${{ steps.post-release.outputs.previous-version }}" >> $GITHUB_SUMMARY
+          echo "## Commits in this release" >> $GITHUB_SUMMARY
+          echo "| Author | Summary |" >> $GITHUB_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_SUMMARY
+          git log --pretty=format:'| %s | [%h](https://github.com/${{ github.repository }})/commit/%H |' ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_SUMMARY
+        else
+          echo "No new version was released." >> $GITHUB_SUMMARY
+        fi

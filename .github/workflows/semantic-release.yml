@@ -1,10 +1,22 @@
 name: 'Semantic release'
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
 
 jobs:
+  #  release:
+  #    name: 'Release new version 🚀'
+  #    uses: ./.github/workflows/--release.yml
+  #    secrets: inherit
+
   release:
     name: 'Release new version 🚀'
-    uses: ./.github/workflows/--release.yml
-    secrets: inherit
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: ./semantic-release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
