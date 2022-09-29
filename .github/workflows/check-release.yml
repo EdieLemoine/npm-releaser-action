@@ -4,17 +4,16 @@ on:
 jobs:
   check:
     runs-on: ubuntu-22.04
-    name: 'Check'
+    name: 'Check difference between branches'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: 'Check for difference'
         run: |
-          git fetch origin/main
-          git fetch origin/develop
-
-          git rev-list --count --exit-code origin/main..develop
+          git rev-list --count --exit-code origin/main..origin/develop
 
           if [ $? -eq 0 ]; then
             ::set-output name=diff::false
@@ -22,8 +21,6 @@ jobs:
 
           ::set-output name=diff::true
 
-          git log --pretty=format:'%s' main..develop | grep -E '^(feat|fix|revert)(\(.+\))?: .{1,50}'
-          
           echo "There are differences between main and develop" >> $GITHUB_STEP_SUMMARY
           echo "The following commits are not in develop:" >> $GITHUB_STEP_SUMMARY
-          git log --pretty=format:'%s' main..develop | grep -E '^(feat|fix|revert)(\(.+\))?: .{1,50}' >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:'%s' origin/main..origin/develop | grep -E '^(feat|fix|revert)(\(.+\))?: .{1,50}' >> $GITHUB_STEP_SUMMARY
