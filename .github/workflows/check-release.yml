@@ -28,7 +28,7 @@ jobs:
             echo "There are no differences between main and develop" >> $GITHUB_STEP_SUMMARY
           fi
 
-          echo "::set-output name=summary::$(cat $GITHUB_STEP_SUMMARY)"
+          echo "::set-output name=summary::${{ toJson($GITHUB_STEP_SUMMARY) }}"
 
       - id: slack
         if: steps.check.outputs.diff == 'true'
@@ -37,7 +37,7 @@ jobs:
           payload: |
             {
               "repository": "${{ github.repository }}",
-              "text": "${{ steps.check.outputs.summary }}"
+              "text": ${{ steps.check.outputs.summary }}
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE }}
