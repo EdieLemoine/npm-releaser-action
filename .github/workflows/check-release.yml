@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    name: 'Check'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: 'Check for difference'
+        run: |
+          git rev-list --count --exit-code main..develop
+
+          if [ $? -eq 0 ]; then
+            ::set-output name=diff::false
+          fi
+
+          ::set-output name=diff::true
+
+          git log --pretty=format:'%s' main..develop | grep -E '^(feat|fix|revert)(\(.+\))?: .{1,50}'
+          
+          echo "There are differences between main and develop" >> $GITHUB_STEP_SUMMARY
+          echo "The following commits are not in develop:" >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:'%s' main..develop | grep -E '^(feat|fix|revert)(\(.+\))?: .{1,50}' >> $GITHUB_STEP_SUMMARY
