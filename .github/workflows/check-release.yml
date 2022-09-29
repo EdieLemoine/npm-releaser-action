@@ -8,13 +8,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: develop
-          fetch-depth: 0
 
       - name: 'Check for difference'
         run: |
-          git rev-list --count --exit-code main..develop
+          git fetch origin/main
+          git fetch origin/develop
+
+          git rev-list --count --exit-code origin/main..develop
 
           if [ $? -eq 0 ]; then
             ::set-output name=diff::false
