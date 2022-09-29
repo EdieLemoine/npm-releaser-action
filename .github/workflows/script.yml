@@ -15,7 +15,7 @@ jobs:
         with:
           preserve-credentials: false
 
-      - uses: myparcelnl/actions/yarn-install@v2
+      - uses: myparcelnl/actions/pnpm-install@v2
 
       - run: 'script.js'
         shell: node

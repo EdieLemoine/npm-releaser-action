@@ -38,7 +38,7 @@ jobs:
         with:
           php-version: ${{ inputs.setup_php }}
 
-      - uses: ./yarn-install
+      - uses: ./pnpm-install
 
       - name: 'Pre-release'
         if: inputs.pre_release_cmd != '0'
