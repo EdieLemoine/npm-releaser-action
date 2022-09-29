@@ -28,7 +28,7 @@ jobs:
             echo "There are no differences between main and develop" >> $GITHUB_STEP_SUMMARY
           fi
 
-          echo "::set-output name=summary::${{ toJson($GITHUB_STEP_SUMMARY) }}"
+          echo "::set-output name=summary::${{ toJson( '$(echo $GITHUB_STEP_SUMMARY)') }}"
 
       - id: slack
         if: steps.check.outputs.diff == 'true'
