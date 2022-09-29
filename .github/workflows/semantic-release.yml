@@ -17,6 +17,8 @@ jobs:
     name: 'Release new version 🚀'
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v3
+
       - uses: ./semantic-release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
