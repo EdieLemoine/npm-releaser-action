@@ -23,12 +23,12 @@ jobs:
             echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
             echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
             git log --pretty=format:"| %s | [%h](${REPO_URL}/commit/%H |" origin/main..origin/develop >> $GITHUB_STEP_SUMMARY
+
+            echo "::set-output name=summary::$(git log --pretty=format:'- %s' origin/main..origin/develop | jq -sR)"
           else
             echo "::set-output name=diff::false"
             echo "There are no differences between main and develop" >> $GITHUB_STEP_SUMMARY
           fi
-
-          echo "::set-output name=summary::$(cat $GITHUB_STEP_SUMMARY | jq -sR)"
 
       - id: slack
         if: steps.check.outputs.diff == 'true'
