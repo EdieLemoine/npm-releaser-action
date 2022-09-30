@@ -69,11 +69,10 @@ runs:
       if: ${{ inputs.write-summary == 'true' }}
       shell: bash
       run: |
-        echo "# Release summary" >> $GITHUB_STEP_SUMMARY
-
         REPO_URL="https://github.com/${{ github.repository }}"
         NEW_VER=${{ steps.post-release.outputs.version }}
-        OLD_VER=${{ steps.post-release.outputs.previous-version }}
+
+        echo "# Release summary" >> $GITHUB_STEP_SUMMARY
 
         if [ "${{ steps.post-release.outputs.released }}" == "true" ]; then
           echo "A new version was released: [$NEW_VER]($REPO_URL/releases/tag/$NEW_VER)" >> $GITHUB_STEP_SUMMARY
@@ -82,7 +81,7 @@ runs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          git log --pretty=format:'| %s | [%h]($REPO_URL/commit/%H |' ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:"| %s | [%h]($REPO_URL/commit/%H) |" ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_STEP_SUMMARY
         else
           echo "No new version was released." >> $GITHUB_STEP_SUMMARY
         fi

@@ -33,18 +33,18 @@ runs:
       id: compare
       shell: bash
       run: |
-        range="${{ inputs.remote }}/${{ inputs.base }}..${{ inputs.remote }}/${{ inputs.head }}"
-        commits="$(git rev-list --count $range)"
+        RANGE="${{ inputs.remote }}/${{ inputs.base }}..${{ inputs.remote }}/${{ inputs.head }}"
+        COMMITS="$(git rev-list --count $RANGE)"
         
-        if [ $commits -gt 0 ]; then
+        if [ $COMMITS -gt 0 ]; then
           echo "::set-output name=diff::true"
           echo "The following commits are in ${{ inputs.head }}, but not in ${{ inputs.base }}:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          git log --pretty=format:"| %s | [%h](${REPO_URL}/commit/%H |" $range >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:"| %s | [%h]($REPO_URL/commit/%H) |" $RANGE >> $GITHUB_STEP_SUMMARY
         
-          echo "::set-output name=commits::$(git log --pretty=format:"• %s" $range | jq -sR)"
+          echo "::set-output name=commits::$(git log --pretty=format:"• %s" $RANGE | jq -sR)"
         else
           echo "::set-output name=diff::false"
           echo "There are no commits in ${{ inputs.head }} that are not in ${{ inputs.base }}" >> $GITHUB_STEP_SUMMARY
