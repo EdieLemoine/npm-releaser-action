@@ -1,31 +1,10 @@
 name: 'Check if a release can be done'
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   check:
-    runs-on: ubuntu-22.04
-    name: 'Check difference between branches'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - uses: ./compare-branches
-        id: compare
-        with:
-          base: 'main'
-          head: 'develop'
-
-      - uses: slackapi/slack-github-action@v1.22.0
-        if: steps.compare.outputs.diff == 'true'
-        with:
-          payload: |
-            {
-              "repository": "${{ github.repository }}",
-              "text": ${{ steps.compare.outputs.commits }}
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE }}
+    uses: myparcelnl/actions/.github/workflows/--report-release-to-slack.yml
+    secrets: inherit

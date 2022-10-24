@@ -1,0 +1,6 @@
+name: 'Js action'
+description: 'Run a js action'
+
+runs:
+  using: 'node16'
+  main: 'index.js'
