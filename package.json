@@ -1,6 +1,6 @@
 {
   "name": "npm-releaser-action",
-  "version": "1.10.57",
+  "version": "1.10.58",
   "private": true,
   "description": "",
   "homepage": "https://github.com/EdieLemoine/npm-releaser-action#readme",
