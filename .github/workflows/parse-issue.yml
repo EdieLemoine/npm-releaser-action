@@ -1,0 +1,20 @@
+name: 'Parse issue'
+
+on:
+  issues:
+
+jobs:
+  label:
+    runs-on: ubuntu-22.04
+    steps:
+      - id: parse
+        uses: peter-murray/issue-forms-body-parser@v2.0.0
+        with:
+          issue_id: ${{ github.event.issue.number }}
+          separator: '###'
+          label_marker_start: ''
+          label_marker_end: ''
+
+      - name: 'Log results'
+        run: |
+          echo "labels: ${{ steps.parse.outputs.payload }}"
