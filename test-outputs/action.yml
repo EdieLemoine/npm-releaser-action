@@ -1,0 +1,20 @@
+name: 'Test outputs'
+description: 'Test outputs'
+
+inputs:
+  test:
+    description: 'Test'
+    required: true
+
+outputs:
+  test:
+    description: 'Test'
+    value: ${{ inputs.test }}
+
+runs:
+  using: composite
+  steps:
+    - name: 'Test'
+      shell: bash
+      run: |
+        echo ${{ inputs.test }}
