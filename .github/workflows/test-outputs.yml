@@ -18,3 +18,12 @@ jobs:
         shell: bash
         run: |
           echo ${{ steps.test.outputs.test }}
+
+      - name: md5 hash
+        id: md5
+        shell: bash
+        run: |
+          echo "$(echo -n 'ghcr.io/myparcelnl/php-xd:7.4' | md5sum | cut -d ' ' -f 1)"
+          echo "$(echo -n 'ghcr.io/myparcelnl/php-xd:7.4' | md5sum | cut -d ' ' -f 1)"
+          echo "$(echo -n 'ghcr.io/myparcelnl/php-xd:7.4' | md5sum | cut -d ' ' -f 1)"
+          echo "$(echo -n 'ghcr.io/myparcelnl/php-xd:7.4' | md5sum | cut -d ' ' -f 1)"
