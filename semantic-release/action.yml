@@ -46,10 +46,14 @@ runs:
       id: normalize
       shell: bash
       run: |
-        echo "next-version=${{ steps.release.outputs.nextVersion }}" >> $GITHUB_OUTPUT
-        echo "last-version=${{ steps.release.outputs.lastVersion }}" >> $GITHUB_OUTPUT
-        echo "release-type=${{ steps.release.outputs.releaseType || 'none' }}" >> $GITHUB_OUTPUT
-        echo "released=${{ steps.release.outputs.releaseType && 'true' || 'false' }}" >> $GITHUB_OUTPUT
+        NEXT_VER=${{ steps.release.outputs.nextVersion }}
+        LAST_VER=${{ steps.release.outputs.lastVersion }}
+        RELEASE_TYPE=${{ steps.release.outputs.releaseType }}
+
+        echo "next-version=${NEXT_VER:+v$NEXT_VER}" >> $GITHUB_OUTPUT
+        echo "last-version=${LAST_VER:+v$LAST_VER}" >> $GITHUB_OUTPUT
+        echo "release-type=${RELEASE_TYPE:-none}" >> $GITHUB_OUTPUT
+        echo "released=$( [[ -n "$RELEASE_TYPE" ]] && echo true || echo false )" >> $GITHUB_OUTPUT
 
     - name: 'Check outputs'
       shell: bash
