@@ -4,7 +4,7 @@
         "symfony/console": "^v2.8",
         "phpunit/phpunit": "9.5.20"
     },
-    "version": "1.10.62",
+    "version": "1.10.63",
     "require-dev": {
         "allure-framework/allure-phpunit": "^2.0"
     }
