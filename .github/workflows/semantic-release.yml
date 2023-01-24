@@ -33,4 +33,7 @@ jobs:
           semantic-release-args: --debug
 
       - name: 'Check outputs'
-        run: echo ${{ steps.semantic-release.outputs }}
+        run: |
+          echo ${{ steps.semantic-release.outputs.version }}
+          echo ${{ steps.semantic-release.outputs.previous-version }}
+          echo ${{ steps.semantic-release.outputs.released }}

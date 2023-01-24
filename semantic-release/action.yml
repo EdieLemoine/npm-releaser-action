@@ -18,70 +18,53 @@ inputs:
 outputs:
   version:
     description: 'The new version'
-    value: ${{ steps.post-release.outputs.version }}
+    value: ${{ steps.semantic-release.outputs.version }}
 
   previous-version:
     description: 'The previous version'
-    value: ${{ steps.post-release.outputs.previous-version }}
+    value: ${{ steps.semantic-release.outputs.previous-version }}
 
   released:
     description: 'Whether a new version was released'
-    value: ${{ steps.post-release.outputs.released }}
+    value: ${{ steps.semantic-release.outputs.released }}
 
 runs:
   using: composite
   steps:
-    - name: 'Get previous version'
-      run: |
-        tag=$(git ls-remote --tags --sort="v:refname" | tail -n1 | sed 's/.*\///; s/\^{}//')
-        echo "tag=${tag}" >> $GITHUB_OUTPUT
-      id: previous-version
-      shell: bash
-
     - name: 'Run semantic release'
       run: npx semantic-release ${{ inputs.semantic-release-args }}
+      id: semantic-release
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
 
-    - name: 'Get new version'
-      run: |
-        tag=$(git describe --tags --abbrev=0)
-        echo "tag=${tag}" >> $GITHUB_OUTPUT
-      id: new-version
+    - name: 'Check outputs'
       shell: bash
-
-    - name: 'Prepare outputs'
-      id: post-release
       run: |
-        if [ "${{ steps.previous-version.outputs.tag }}" == "${{ steps.new-version.outputs.tag }}" ]; then
-          echo "version=" >> $GITHUB_OUTPUT
-          echo "::set-output name=previous-version::${{ steps.previous-version.outputs.tag }}"
-          echo "released=false" >> $GITHUB_OUTPUT
-        else
-          echo "version=${{ steps.new-version.outputs.tag }}" >> $GITHUB_OUTPUT
-          echo "::set-output name=previous-version::${{ steps.previous-version.outputs.tag }}"
-          echo "released=true" >> $GITHUB_OUTPUT
-        fi
-      shell: bash
+        echo ${{ steps.semantic-release.outputs.lastVersion }}
+        echo ${{ steps.semantic-release.outputs.releaseType }}
+        echo ${{ steps.semantic-release.outputs.nextVersion }}
+        echo ${{ steps.semantic-release.outputs.nextRelease }}
+        echo ${{ steps.semantic-release.outputs.lastRelease }}
 
     - name: 'Write job summary'
       if: ${{ inputs.write-summary == 'true' }}
       shell: bash
       run: |
         REPO_URL="https://github.com/${{ github.repository }}"
-        NEW_VER=${{ steps.post-release.outputs.version }}
+        LAST_VER=${{ steps.semantic-release.outputs.lastVersion }}
+        NEXT_VER=${{ steps.semantic-release.outputs.nextVersion }}
 
         echo "# Release summary" >> $GITHUB_STEP_SUMMARY
 
-        if [ "${{ steps.post-release.outputs.released }}" == "true" ]; then
-          echo "A new version was released: [$NEW_VER]($REPO_URL/releases/tag/$NEW_VER)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Commits in this release" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          git log --pretty=format:"| %s | [%h]($REPO_URL/commit/%H) |" ${{ steps.post-release.outputs.previous-version }}..${{ steps.post-release.outputs.version }} >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.semantic-release.outputs.released }}" == "true" ]; then
+          echo "A new version was released: [$NEXT_VER]($REPO_URL/releases/tag/$NEXT_VER)"      >> $GITHUB_STEP_SUMMARY
+          echo ""                                                                               >> $GITHUB_STEP_SUMMARY
+          echo "## Commits in this release"                                                     >> $GITHUB_STEP_SUMMARY
+          echo ""                                                                               >> $GITHUB_STEP_SUMMARY
+          echo "| Summary | Commit |"                                                           >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |"                                                                  >> $GITHUB_STEP_SUMMARY
+          git log --pretty=format:"| %s | [%h]($REPO_URL/commit/%H) |" ${LAST_VER}..${NEXT_VER} >> $GITHUB_STEP_SUMMARY
         else
           echo "No new version was released." >> $GITHUB_STEP_SUMMARY
         fi
