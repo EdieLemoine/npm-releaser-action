@@ -16,48 +16,62 @@ inputs:
     default: 'false'
 
 outputs:
-  version:
-    description: 'The new version'
-    value: ${{ steps.semantic-release.outputs.version }}
+  next-version:
+    description: 'The new version.'
+    value: ${{ steps.normalize.outputs.next-version }}
 
   previous-version:
-    description: 'The previous version'
-    value: ${{ steps.semantic-release.outputs.previous-version }}
+    description: 'The previous version.'
+    value: ${{ steps.normalize.outputs.last-version }}
+
+  release-type:
+    description: 'The type of a new release. Can be "major", "minor", "patch" or "none"'
+    value: ${{ steps.normalize.outputs.release-type }}
 
   released:
-    description: 'Whether a new version was released'
-    value: ${{ steps.semantic-release.outputs.released }}
+    description: 'Whether a new version was released.'
+    value: ${{ steps.normalize.outputs.released }}
 
 runs:
   using: composite
   steps:
     - name: 'Run semantic release'
       run: npx semantic-release ${{ inputs.semantic-release-args }}
-      id: semantic-release
-      continue-on-error: true
+      id: release
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
 
+    - name: 'Create fallback outputs'
+      id: normalize
+      shell: bash
+      run: |
+        echo "next-version=${{ steps.release.outputs.nextVersion }}" >> $GITHUB_OUTPUT
+        echo "last-version=${{ steps.release.outputs.lastVersion }}" >> $GITHUB_OUTPUT
+        echo "release-type=${{ steps.release.outputs.releaseType || 'none' }}" >> $GITHUB_OUTPUT
+        echo "released=${{ steps.release.outputs.releaseType && 'true' || 'false' }}" >> $GITHUB_OUTPUT
+
     - name: 'Check outputs'
       shell: bash
       run: |
-        echo ${{ steps.semantic-release.outputs.lastVersion }}
-        echo ${{ steps.semantic-release.outputs.releaseType }}
-        echo ${{ steps.semantic-release.outputs.nextVersion }}
+        echo ${{ steps.normalize.outputs.next-version }}
+        echo ${{ steps.normalize.outputs.last-version }}
+        echo ${{ steps.normalize.outputs.release-type }}
+        echo ${{ steps.normalize.outputs.released }}
 
     - name: 'Write job summary'
       if: ${{ inputs.write-summary == 'true' }}
       shell: bash
       run: |
         REPO_URL="https://github.com/${{ github.repository }}"
-        LAST_VER=${{ steps.semantic-release.outputs.lastVersion }}
-        NEXT_VER=${{ steps.semantic-release.outputs.nextVersion }}
+        LAST_VER=${{ steps.normalize.outputs.last-version }}
+        NEXT_VER=${{ steps.normalize.outputs.next-version }}
+        RELEASE_TYPE=${{ steps.normalize.outputs.release-type }}
 
         echo "# Release summary" >> $GITHUB_STEP_SUMMARY
 
-        if [ "${{ steps.semantic-release.outputs.released }}" == "true" ]; then
-          echo "A new version was released: [$NEXT_VER]($REPO_URL/releases/tag/$NEXT_VER)"      >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.normalize.outputs.released }}" == "true" ]; then
+          echo "A new ${RELEASE_TYPE} version was released: [$NEXT_VER]($REPO_URL/releases/tag/$NEXT_VER)" >> $GITHUB_STEP_SUMMARY
           echo ""                                                                               >> $GITHUB_STEP_SUMMARY
           echo "## Commits in this release"                                                     >> $GITHUB_STEP_SUMMARY
           echo ""                                                                               >> $GITHUB_STEP_SUMMARY
