@@ -2,6 +2,10 @@ name: 'Create checks'
 description: 'Create commit checks'
 
 inputs:
+  token:
+    description: 'GitHub token.'
+    required: false
+
   checks:
     description: 'Comma separated check names.'
     required: true
@@ -18,8 +22,6 @@ runs:
   using: composite
   steps:
     - uses: actions/github-script@v6
-      env:
-        parameter_url: ${{ github.event.workflow_run.html_url }}
       with:
         script: |
           const checks = '${{ inputs.checks }}'.split(',').map(check => check.trim());
@@ -32,6 +34,5 @@ runs:
               name: check,
               status: '${{ inputs.status }}',
               conclusion: '${{ inputs.conclusion }}',
-              details_url: process.env.parameter_url,
             });
           }));          
