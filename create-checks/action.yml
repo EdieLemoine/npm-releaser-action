@@ -24,15 +24,15 @@ runs:
     - uses: actions/github-script@v6
       with:
         script: |
-          const checks = '${{ inputs.checks }}'.split(',').map(check => check.trim());
+          let checks = `${{ inputs.checks }}`.split(/[\n,]/);
 
           await Promise.all(checks.map(async check => {
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
-              name: check,
+              name: check.trim(),
               status: '${{ inputs.status }}',
               conclusion: '${{ inputs.conclusion }}',
             });
-          }));          
+          }));
