@@ -116,5 +116,3 @@ build/
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-
-yarn.lock
