@@ -26,14 +26,7 @@ jobs:
       - uses: myparcelnl/actions/pnpm-install@main
 
       - uses: ./semantic-release
-        id: semantic-release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           write-summary: true
           semantic-release-args: --debug
-
-      - name: 'Check outputs'
-        run: |
-          echo ${{ steps.semantic-release.outputs.version }}
-          echo ${{ steps.semantic-release.outputs.previous-version }}
-          echo ${{ steps.semantic-release.outputs.released }}
