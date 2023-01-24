@@ -14,8 +14,8 @@ jobs:
         run: |
           TAG="buildx"
           IMAGE="edielemoine/nra"
-          echo ::set-output name=tagged_image::${IMAGE}:${TAG}
-          echo ::set-output name=tag::${TAG}
+          echo "tagged_image=${IMAGE}:${TAG}" >> $GITHUB_OUTPUT
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2

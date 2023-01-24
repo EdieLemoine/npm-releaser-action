@@ -16,7 +16,7 @@ runs:
 #      shell: bash
 #      id: composer-cache
 #      run: |
-#        echo "::set-output name=dir::$(composer config cache-files-dir)"
+#        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 #
 #    - name: 'Handle Composer cache'
 #      uses: actions/cache@v2

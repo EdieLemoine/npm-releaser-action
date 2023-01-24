@@ -37,15 +37,15 @@ runs:
         COMMITS="$(git rev-list --count $RANGE)"
         
         if [ $COMMITS -gt 0 ]; then
-          echo "::set-output name=diff::true"
+          echo "diff=true" >> $GITHUB_OUTPUT
           echo "The following commits are in ${{ inputs.head }}, but not in ${{ inputs.base }}:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Summary | Commit |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
           git log --pretty=format:"| %s | [%h]($REPO_URL/commit/%H) |" $RANGE >> $GITHUB_STEP_SUMMARY
         
-          echo "::set-output name=commits::$(git log --pretty=format:"• %s" $RANGE | jq -sR)"
+          echo "commits=$(git log --pretty=format:"• %s" $RANGE | jq -sR)" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=diff::false"
+          echo "diff=false" >> $GITHUB_OUTPUT
           echo "There are no commits in ${{ inputs.head }} that are not in ${{ inputs.base }}" >> $GITHUB_STEP_SUMMARY
         fi
