@@ -13,7 +13,7 @@ const versionFields = ['version', 'gitHead', 'gitTag', 'channel'];
   plainCommand += `\n\necho "${release}=\$(echo '{`;
 
   versionFields.forEach((field) => {
-    plainCommand += `${field}: \'\${${release}.${field}}\', `;
+    plainCommand += `${field}: \\'\${${release}.${field}}\\', `;
   });
 
   plainCommand += `}' | jq -s -c)" >> $GITHUB_OUTPUT`;
