@@ -11,7 +11,8 @@ const plainCommand = `echo "OUTPUTTING TO GITHUB_OUTPUT"
   echo "nextRelease=\${nextRelease}" >> $GITHUB_OUTPUT
   echo "lastRelease=\${lastRelease}" >> $GITHUB_OUTPUT
 
-  echo "Wrote to GITHUB_OUTPUT`;
+  echo "Wrote to GITHUB_OUTPUT"
+  `;
 
 module.exports = {
   extends: '@myparcel/semantic-release-config',
