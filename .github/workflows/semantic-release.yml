@@ -22,6 +22,7 @@ jobs:
       - uses: myparcelnl/actions/pnpm-install@main
 
       - uses: ./semantic-release
+        id: semantic-release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           write-summary: true
