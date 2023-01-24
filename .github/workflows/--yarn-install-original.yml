@@ -1,4 +1,4 @@
-name: '🔸 Yarn install - Cache'
+name: '🔸 Yarn install - Original action'
 
 on:
   workflow_call:

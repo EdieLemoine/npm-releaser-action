@@ -1,0 +1,26 @@
+name: '🔸 Yarn install - Cache manual'
+
+on:
+  workflow_call:
+
+jobs:
+  install:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: cache
+        shell: bash
+        run: |
+          echo "folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.cache.outputs.folder }}
+          key: ${{ runner.os }}-yarn-cache-manual-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-cache-manual-
+
+      - run: yarn install
+        shell: bash

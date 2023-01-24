@@ -3,6 +3,10 @@ name: 'Test yarn cache speeds'
 on:
   workflow_dispatch:
 
+concurrency:
+  group: test-yarn-cache-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   original-1:
     uses: ./.github/workflows/--yarn-install-original.yml
@@ -27,3 +31,9 @@ jobs:
   both-2:
     needs: both-1
     uses: ./.github/workflows/--yarn-install-both.yml
+
+  manual-1:
+    uses: ./.github/workflows/--yarn-install-cache-manual.yml
+  manual-2:
+    needs: manual-1
+    uses: ./.github/workflows/--yarn-install-cache-manual.yml
