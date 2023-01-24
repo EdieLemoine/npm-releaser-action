@@ -25,3 +25,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           write-summary: true
+
+      - name: 'Check outputs'
+        run: echo ${{ steps.semantic-release.outputs }}
