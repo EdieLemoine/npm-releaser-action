@@ -1,0 +1,37 @@
+name: 'Create checks'
+description: 'Create commit checks'
+
+inputs:
+  checks:
+    description: 'Comma separated check names.'
+    required: true
+
+  conclusion:
+    description: 'Conclusion of the check(s).'
+    default: 'success'
+
+  status:
+    description: 'Status of the check(s).'
+    default: 'completed'
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/github-script@v6
+      env:
+        parameter_url: ${{ github.event.workflow_run.html_url }}
+      with:
+        script: |
+          const checks = '${{ inputs.checks }}'.split(',').map(check => check.trim());
+
+          await Promise.all(checks.map(async check => {
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head_sha: context.sha,
+              name: check,
+              status: '${{ inputs.status }}',
+              conclusion: '${{ inputs.conclusion }}',
+              details_url: process.env.parameter_url,
+            });
+          }));          
