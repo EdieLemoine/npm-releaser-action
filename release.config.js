@@ -8,9 +8,6 @@ const plainCommand = `echo "OUTPUTTING TO GITHUB_OUTPUT"
   echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
   echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
 
-  echo "nextRelease2=\${JSON.encode(nextRelease)}" >> $GITHUB_OUTPUT
-  echo "lastRelease2=\${JSON.encode(lastRelease)}" >> $GITHUB_OUTPUT
-
   echo "nextRelease=\${nextRelease}" >> $GITHUB_OUTPUT
   echo "lastRelease=\${lastRelease}" >> $GITHUB_OUTPUT
 
