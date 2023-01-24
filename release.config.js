@@ -2,7 +2,7 @@ const baseConfig = require('@myparcel/semantic-release-config');
 const { addGitPlugin, addNpmPlugin, addComposerPlugin } = require('@myparcel/semantic-release-config/src/plugins');
 
 
-const plainCommand = `echo "OUTPUTTING TO GITHUB_OUTPUT"
+const plainCommand = `
   echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
 
   echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
@@ -11,7 +11,7 @@ const plainCommand = `echo "OUTPUTTING TO GITHUB_OUTPUT"
   echo "nextRelease=\${nextRelease}" >> $GITHUB_OUTPUT
   echo "lastRelease=\${lastRelease}" >> $GITHUB_OUTPUT
 
-  echo "Wrote to GITHUB_OUTPUT"
+  echo $GITHUB_OUTPUT
   `;
 
 module.exports = {
