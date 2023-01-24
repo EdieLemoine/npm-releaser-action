@@ -34,6 +34,7 @@ runs:
     - name: 'Run semantic release'
       run: npx semantic-release ${{ inputs.semantic-release-args }}
       id: semantic-release
+      continue-on-error: true
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
