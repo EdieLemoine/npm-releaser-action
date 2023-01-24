@@ -1,12 +1,6 @@
 const baseConfig = require('@myparcel/semantic-release-config');
 const { addGitPlugin, addNpmPlugin, addComposerPlugin } = require('@myparcel/semantic-release-config/src/plugins');
 
-let plainCommand = `
-  echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
-  echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
-  echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
-`;
-
 module.exports = {
   extends: '@myparcel/semantic-release-config',
   ...baseConfig,
@@ -15,7 +9,11 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        verifyReleaseCmd: plainCommand
+        verifyReleaseCmd: `
+  echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
+  echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
+  echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
+`
           // Filters leading and trailing whitespace.
           .trim()
           // Splits all lines into an array.

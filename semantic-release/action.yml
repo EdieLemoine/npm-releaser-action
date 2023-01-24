@@ -44,10 +44,6 @@ runs:
         echo ${{ steps.semantic-release.outputs.lastVersion }}
         echo ${{ steps.semantic-release.outputs.releaseType }}
         echo ${{ steps.semantic-release.outputs.nextVersion }}
-        echo ${{ steps.semantic-release.outputs.nextRelease }}
-        echo ${{ steps.semantic-release.outputs.lastRelease }}
-        echo ${{ fromJson(steps.semantic-release.outputs.nextRelease) }}
-        echo ${{ fromJson(steps.semantic-release.outputs.lastRelease) }}
 
     - name: 'Write job summary'
       if: ${{ inputs.write-summary == 'true' }}
