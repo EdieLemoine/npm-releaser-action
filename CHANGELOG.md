@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.71](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.10.70...v1.10.71) (2023-01-24)
+
+
+### :bug: Bug Fixes
+
+* update 2023-01-24 17:30:05 ([0a7d076](https://github.com/EdieLemoine/npm-releaser-action/commit/0a7d0766a46d17ecd26ed27cc761190448b634dd))
+
 ## [1.10.70](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.10.69...v1.10.70) (2023-01-24)
 
 
