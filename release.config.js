@@ -5,18 +5,18 @@ let plainCommand = `
   echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
   echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
   echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
-  `;
+`;
 
 const versionFields = ['version', 'gitHead', 'gitTag', 'channel'];
 
 ['lastRelease', 'nextRelease'].forEach((release) => {
-  plainCommand += `echo "${release}=\$(echo "{`;
+  plainCommand += `\n\necho "${release}=\$(echo '{`;
 
   versionFields.forEach((field) => {
     plainCommand += `${field}: \${${release}.${field}},`;
   });
 
-  plainCommand += `}" | jq -s -c)" >> $GITHUB_OUTPUT`;
+  plainCommand += `}' | jq -s -c)" >> $GITHUB_OUTPUT`;
 });
 
 module.exports = {
