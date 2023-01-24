@@ -10,9 +10,9 @@ module.exports = {
       '@semantic-release/exec',
       {
         verifyReleaseCmd: `
-  echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
-  echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
-  echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
+  echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
+  echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
+  echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
 `
           // Filters leading and trailing whitespace.
           .trim()

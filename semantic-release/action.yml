@@ -46,22 +46,14 @@ runs:
       id: normalize
       shell: bash
       run: |
-        NEXT_VER=${{ steps.release.outputs.nextVersion }}
-        LAST_VER=${{ steps.release.outputs.lastVersion }}
-        RELEASE_TYPE=${{ steps.release.outputs.releaseType }}
+        LAST_VER=${{ steps.release.outputs.last-version }}
+        NEXT_VER=${{ steps.release.outputs.next-version }}
+        RELEASE_TYPE=${{ steps.release.outputs.release-type }}
 
         echo "next-version=${NEXT_VER:+v$NEXT_VER}" >> $GITHUB_OUTPUT
         echo "last-version=${LAST_VER:+v$LAST_VER}" >> $GITHUB_OUTPUT
         echo "release-type=${RELEASE_TYPE:-none}" >> $GITHUB_OUTPUT
         echo "released=$( [[ -n "$RELEASE_TYPE" ]] && echo true || echo false )" >> $GITHUB_OUTPUT
-
-    - name: 'Check outputs'
-      shell: bash
-      run: |
-        echo ${{ steps.normalize.outputs.next-version }}
-        echo ${{ steps.normalize.outputs.last-version }}
-        echo ${{ steps.normalize.outputs.release-type }}
-        echo ${{ steps.normalize.outputs.released }}
 
     - name: 'Write job summary'
       if: ${{ inputs.write-summary == 'true' }}
