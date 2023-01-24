@@ -53,7 +53,7 @@ jobs:
         run: |
           echo "- 🟢 Tests were run " >> $GITHUB_STEP_SUMMARY
 
-      - uses: myparcelnl/actions/update-coverage@v1
+      - uses: myparcelnl/actions/update-coverage@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 

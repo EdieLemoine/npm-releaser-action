@@ -41,7 +41,7 @@ jobs:
     name: 'Test'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
           persist-credentials: false
@@ -65,7 +65,7 @@ jobs:
           ${{ inputs.environment }}
           EOF
 
-      - uses: myparcelnl/actions/build-docker-image@v1
+      - uses: myparcelnl/actions/build-docker-image@v3
         if: steps.coverage-cache.outputs.cache-hit != 'true'
         id: docker
         with:
@@ -81,6 +81,6 @@ jobs:
         if: steps.coverage-cache.outputs.cache-hit != 'true'
         run: docker cp $(docker ps -alq):/app/clover.xml .
 
-      - uses: myparcelnl/actions/update-coverage@v1
+      - uses: myparcelnl/actions/update-coverage@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

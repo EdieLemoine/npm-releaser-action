@@ -15,7 +15,7 @@ jobs:
         with:
           preserve-credentials: false
 
-      - uses: myparcelnl/actions/pnpm-install@v2
+      - uses: myparcelnl/actions/pnpm-install@v3
 
       - run: 'script.js'
         shell: node

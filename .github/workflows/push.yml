@@ -11,7 +11,7 @@ jobs:
 
 #  release:
 #    name: 'Release new version 🚀'
-#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@main
+#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
 #    secrets: inherit
 #    needs: test-yarn
 
@@ -26,7 +26,7 @@ jobs:
     needs: release
     runs-on: ubuntu-22.04
     steps:
-      - uses: myparcelnl/actions/update-tags@main
+      - uses: myparcelnl/actions/update-tags@v3
 
   rebase:
     name: 'Rebase develop onto main 🔀'

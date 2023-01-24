@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: myparcelnl/actions/build-docker-image@v2
+      - uses: myparcelnl/actions/build-docker-image@v3
         id: docker
         with:
           image: edielemoine/nra-original

@@ -29,12 +29,12 @@ jobs:
     name: 'Release'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           persist-credentials: false
 
       - if: ${{ inputs.setup_php != '0' }}
-        uses: myparcelnl/actions/composer-install@v1
+        uses: myparcelnl/actions/composer-install@v3
         with:
           php-version: ${{ inputs.setup_php }}
 
@@ -44,7 +44,7 @@ jobs:
         if: inputs.pre_release_cmd != '0'
         run: ${{ inputs.pre_release_cmd }}
 
-      - uses: myparcelnl/actions/semantic-release@v2
+      - uses: myparcelnl/actions/semantic-release@v3
         id: release
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
