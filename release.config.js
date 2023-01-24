@@ -7,18 +7,6 @@ let plainCommand = `
   echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
 `;
 
-const versionFields = ['version', 'gitHead', 'gitTag', 'channel'];
-
-['lastRelease', 'nextRelease'].forEach((release) => {
-  plainCommand += `\n\necho "${release}=\$(echo '{`;
-
-  versionFields.forEach((field) => {
-    plainCommand += `${field}: \\"\${${release}.${field}}\\", `;
-  });
-
-  plainCommand += `}' | jq -s -c)" >> $GITHUB_OUTPUT`;
-});
-
 module.exports = {
   extends: '@myparcel/semantic-release-config',
   ...baseConfig,
