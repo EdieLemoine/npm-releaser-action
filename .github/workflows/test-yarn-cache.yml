@@ -14,26 +14,26 @@ jobs:
     needs: original-1
     uses: ./.github/workflows/--yarn-install-original.yml
 
-  cache-1:
-    uses: ./.github/workflows/--yarn-install-cache.yml
-  cache-2:
-    needs: cache-1
-    uses: ./.github/workflows/--yarn-install-cache.yml
+  setup-node-1:
+    uses: ./.github/workflows/--yarn-install-setup-node.yml
+  setup-node-2:
+    needs: setup-node-1
+    uses: ./.github/workflows/--yarn-install-setup-node.yml
 
-  node_modules-1:
-    uses: ./.github/workflows/--yarn-install-node-modules.yml
-  node_modules-2:
-    needs: node_modules-1
-    uses: ./.github/workflows/--yarn-install-node-modules.yml
+  node-modules-1:
+    uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
+  node-modules-2:
+    needs: node-modules-1
+    uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
 
   both-1:
-    uses: ./.github/workflows/--yarn-install-both.yml
+    uses: ./.github/workflows/--yarn-install-cache-both.yml
   both-2:
     needs: both-1
-    uses: ./.github/workflows/--yarn-install-both.yml
+    uses: ./.github/workflows/--yarn-install-cache-both.yml
 
-  manual-1:
-    uses: ./.github/workflows/--yarn-install-cache-manual.yml
-  manual-2:
-    needs: manual-1
-    uses: ./.github/workflows/--yarn-install-cache-manual.yml
+  cache-folder-1:
+    uses: ./.github/workflows/--yarn-install-cache-folder.yml
+  cache-folder-2:
+    needs: cache-folder-1
+    uses: ./.github/workflows/--yarn-install-cache-folder.yml
