@@ -1,21 +1,6 @@
 const baseConfig = require('@myparcel/semantic-release-config');
 const { addGitPlugin, addNpmPlugin, addComposerPlugin } = require('@myparcel/semantic-release-config/src/plugins');
 
-const eofCommand = `sh -c <<EOF
-  echo "OUTPUTTING TO GITHUB_OUTPUT"
-  echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
-
-  echo "releaseType=\${nextRelease.type}" >> $GITHUB_OUTPUT
-  echo "nextVersion=\${nextRelease.version}" >> $GITHUB_OUTPUT
-
-  echo "nextRelease2=\${JSON.encode(nextRelease)}" >> $GITHUB_OUTPUT
-  echo "lastRelease2=\${JSON.encode(lastRelease)}" >> $GITHUB_OUTPUT
-
-  echo "nextRelease=\${nextRelease}" >> $GITHUB_OUTPUT
-  echo "lastRelease=\${lastRelease}" >> $GITHUB_OUTPUT
-
-  echo "Wrote to GITHUB_OUTPUT
-EOF`;
 
 const plainCommand = `echo "OUTPUTTING TO GITHUB_OUTPUT"
   echo "lastVersion=\${lastRelease.version}" >> $GITHUB_OUTPUT
@@ -39,12 +24,6 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        verifyReleaseCmd: eofCommand,
-      },
-    ],
-    [
-      '@semantic-release/exec',
-      {
         verifyReleaseCmd: plainCommand
           // Filters leading and trailing whitespace.
           .trim()
@@ -52,7 +31,7 @@ module.exports = {
           .split('\n')
           // Removes empty lines.
           .filter(Boolean)
-          // Trims whitespace off each line. Not necessary, but makes the output look nicer.
+          // Trims whitespace off each line. Not necessary for the script to run, but makes the output look nicer.
           .map((line) => line.trim())
           // Joins all lines into a single command with && between each line.
           .join(' && '),
