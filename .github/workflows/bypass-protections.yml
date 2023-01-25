@@ -17,7 +17,7 @@ jobs:
             const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              branch: context.ref,
+              branch: context.ref
             });
             
             const checkNames = requiredStatusChecks.contexts.map(check => check.name);
@@ -30,7 +30,7 @@ jobs:
                 repo: context.repo.repo,
                 head_sha: context.sha,
                 name,
-                status: 'completed'
+                status: 'completed',
                 conclusion: 'success',                
               });
             }));
