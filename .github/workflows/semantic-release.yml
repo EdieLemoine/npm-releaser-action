@@ -12,11 +12,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  #  release:
-  #    name: 'Release new version 🚀'
-  #    uses: ./.github/workflows/--release.yml
-  #    secrets: inherit
-
   release:
     name: 'Release new version 🚀'
     runs-on: ubuntu-22.04
