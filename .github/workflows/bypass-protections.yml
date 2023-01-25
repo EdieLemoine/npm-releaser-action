@@ -9,16 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: LouisBrunner/checks-action@v1.1.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: codecov/patch
-
-      - uses: LouisBrunner/checks-action@v1.1.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: codecov/project
-
       - uses: actions/github-script@v6
         name: 'Create fake check runs'
         with:
@@ -29,7 +19,6 @@ jobs:
               repo: context.repo.repo,
               branch: context.ref,
             });
-          
             
             const checkNames = requiredStatusChecks.contexts.map(check => check.name);
             core.info(`Required checks: ${checkNames.join(', ')}`);
