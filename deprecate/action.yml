@@ -1,0 +1,21 @@
+name: 'Report deprecation'
+description: 'Report an action is deprecated as a warning.'
+
+inputs:
+  action-name:
+    description: 'The name of the action that is deprecated'
+    required: true
+
+  replacement:
+    description: 'The name of the replacement action'
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        if [ -n "${{ inputs.replacement }}" ]; then
+          echo "::warning::${{ inputs.action-name }} is deprecated. Please switch to ${{ inputs.replacement }}."
+        else
+          echo "::warning::${{ inputs.action-name }} is deprecated."
+        fi

@@ -10,21 +10,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - uses: ./deprecate
+      with:
+        action-name: ${{ github.action }}
+        replacement: 'myparcelnl/actions/yarn-install@v3'
+
+    - uses: myparcelnl/actions/yarn2-install@v3
       with:
         node-version: ${{ inputs.node-version }}
-        cache: yarn
-
-#    - name: 'Prepare node_modules cache'
-#      uses: actions/cache@v3
-#      id: yarn-cache
-#      with:
-#        path: node_modules
-#        key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
-#        restore-keys: |
-#          ${{ runner.os }}-yarn-
-
-    - name: 'Install yarn dependencies'
-#      if: steps.yarn-cache.outputs.cache-hit != 'true'
-      run: yarn install
-      shell: bash
