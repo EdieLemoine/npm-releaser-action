@@ -9,12 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./create-checks
+      - uses: LouisBrunner/checks-action@v1.1.1
         with:
-          checks: codecov/patch,codecov/project
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: codecov/patch
 
-      - uses: ./create-checks
+      - uses: LouisBrunner/checks-action@v1.1.1
         with:
-          checks: |
-            codecov/patch2
-            codecov/project2
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: codecov/project
