@@ -9,21 +9,13 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        verifyReleaseCmd: `
-  echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
-  echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
-  echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
-`
-          // Filters leading and trailing whitespace.
-          .trim()
-          // Splits all lines into an array.
-          .split('\n')
-          // Removes empty lines.
-          .filter(Boolean)
-          // Trims whitespace off each line. Not necessary for the script to run, but makes the output look nicer.
-          .map((line) => line.trim())
-          // Joins all lines into a single command with && between each line.
-          .join(' && '),
+        verifyReleaseCmd: `sh -c <<EOF
+        if [ -z "$GITHUB_OUTPUT" ]; then
+          echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
+          echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
+          echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
+        fi
+EOF`
       },
     ],
     addNpmPlugin(),
