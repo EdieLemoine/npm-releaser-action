@@ -13,6 +13,3 @@ jobs:
       - uses: myparcelnl/actions/yarn2-install@v3
         with:
           node-version: 16
-
-      - run: |
-          echo "::warning::This action is deprecated"

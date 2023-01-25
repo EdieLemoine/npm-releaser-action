@@ -25,6 +25,9 @@ jobs:
 
       - uses: myparcelnl/actions/yarn2-install@v3
 
+      - run: |
+          echo "::warning::This is a warning message"
+
       - uses: ./semantic-release
         id: release
         with:
