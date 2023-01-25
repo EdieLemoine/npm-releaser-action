@@ -1,5 +1,5 @@
-name: Install yarn dependencies
-description: Install yarn dependencies from scratch or from cache
+name: 'Install yarn dependencies'
+description: 'Install yarn dependencies from scratch or from cache'
 
 inputs:
   node-version:
@@ -12,7 +12,7 @@ runs:
   steps:
     - uses: ./deprecate
       with:
-        action-name: ${{ github.action }}
+        action-name: ${{ github.action_path }}@${{ github.action_ref }}
         replacement: 'myparcelnl/actions/yarn-install@v3'
 
     - uses: myparcelnl/actions/yarn2-install@v3
