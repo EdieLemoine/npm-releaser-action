@@ -14,7 +14,7 @@ runs:
       with:
         ref: ${{ inputs.ref }}
 
-    - uses: myparcelnl/actions/yarn-install@v3
+    - uses: myparcelnl/actions/yarn2-install@v3
       with:
         node-version: ${{ inputs.node_version }}
 
