@@ -12,7 +12,7 @@ jobs:
       - uses: actions/github-script@v6
         name: 'Create fake check runs'
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_REPO_TOKEN }}
           script: |
             const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
               owner: context.repo.owner,
