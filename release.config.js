@@ -9,13 +9,15 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        verifyReleaseCmd: `sh -c <<EOF
-        if [ -z "$GITHUB_OUTPUT" ]; then
-          echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
-          echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
-          echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
-        fi
-EOF`
+        verifyReleaseCmd: `sh -c '
+          if [ -n "$GITHUB_OUTPUT" ]; then
+            echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
+            echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
+            echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
+          else
+            echo "GITHUB_OUTPUT does not exist"
+          fi
+        '`
       },
     ],
     addNpmPlugin(),
