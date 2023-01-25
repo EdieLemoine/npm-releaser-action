@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.10.71...v1.11.0) (2023-01-25)
+
+
+### :sparkles: New Features
+
+* add a bunch of dependencies to test cache ([f9616ea](https://github.com/EdieLemoine/npm-releaser-action/commit/f9616eaa3fb9fc4841b9af679cc725b9e1811187))
+
+
+### :bug: Bug Fixes
+
+* update 2023-01-24 21:20:04 ([d8d8150](https://github.com/EdieLemoine/npm-releaser-action/commit/d8d81509034080cb97fccab139d1971fa99f7c30))
+* update 2023-01-24 21:24:32 ([786b263](https://github.com/EdieLemoine/npm-releaser-action/commit/786b26313cd69abd7a2b9f7a697f1e4e597343bf))
+* update command ([53f5e52](https://github.com/EdieLemoine/npm-releaser-action/commit/53f5e525670bcc184c986c549d675ebc70869088))
+* update command ([9fab2b5](https://github.com/EdieLemoine/npm-releaser-action/commit/9fab2b5fb78e5b26a4be7f8b792d668d4738c934))
+
 ## [1.10.71](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.10.70...v1.10.71) (2023-01-24)
 
 
