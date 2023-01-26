@@ -18,13 +18,27 @@ jobs:
         with:
           github-token: ${{ steps.credentials.outputs.token }}
           script: |
-            const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
+            const { data: { name: branch } } = await github.rest.repos.getBranch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               branch: context.ref
             });
             
-            const checkNames = requiredStatusChecks.contexts.map(check => check.name);
+            core.info(`Ref: ${context.ref}`);
+            core.info(`Branch: ${JSON.stringify(branch, null, 2)}`);
+            
+            // const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
+            //   owner: context.repo.owner,
+            //   repo: context.repo.repo,
+            //   branch: context.ref
+            // });
+            
+            if (!branch.protected) {
+              core.info('No branch protection found.');
+              return;
+            }
+
+            const checkNames = branch.protection.required_status_checks.contexts.map(context => context.name);
             core.info(`Required checks: ${checkNames.join(', ')}`);
 
             await Promise.all(checkNames.map(async name => {
