@@ -22,33 +22,30 @@ jobs:
         with:
           node-version: 18
 
-      - name: 'Disable git push'
-        shell: bash
-        run: |
-          echo '
-          function git-without-push() {
-              if [[ $@ == *"push"* ]] && [[ ! $@ == *"dry-run"* ]]; then
-                echo "git push is disabled"
-                return 0
-              fi
-
-              command git "$@"
-          }
-
-          alias git=git-without-push
-          ' >> ~/.bashrc
-
-          cat ~/.bashrc
-          
-          git push
-          git push --dry-run
-
       - uses: ./semantic-release
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.credentials.outputs.token }}
           write-summary: true
           semantic-release-args: --debug
+          before-release: |
+            echo '
+            function git-without-push() {
+                if [[ $@ == *"push"* ]] && [[ ! $@ == *"dry-run"* ]]; then
+                  echo "git push is disabled"
+                  return 0
+                fi
+
+                command git "$@"
+            }
+
+            alias git=git-without-push
+            ' >> ~/.bashrc
+
+            cat ~/.bashrc
+
+            git push
+            git push --dry-run
 
       - name: 'Check outputs'
         run: |

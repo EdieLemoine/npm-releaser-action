@@ -15,6 +15,11 @@ inputs:
     required: false
     default: 'false'
 
+  before-release:
+    description: 'Command to run before semantic release'
+    required: false
+    default: ''
+
 outputs:
   next-version:
     description: 'The new version.'
@@ -36,7 +41,9 @@ runs:
   using: composite
   steps:
     - name: 'Run semantic release'
-      run: npx semantic-release ${{ inputs.semantic-release-args }}
+      run: |
+        ${{ inputs.before-release }}
+        npx semantic-release ${{ inputs.semantic-release-args }}
       id: release
       shell: bash
       env:
