@@ -22,7 +22,7 @@ jobs:
         with:
           github-token: ${{ steps.credentials.outputs.token }}
           script: |
-            const { data: { name: branch } } = await github.rest.repos.getBranch({
+            const { data: branch } = await github.rest.repos.getBranch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               branch: context.ref
