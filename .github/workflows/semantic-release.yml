@@ -29,11 +29,12 @@ jobs:
           write-summary: true
           semantic-release-args: --debug
           before-release: |
-            shopt -s expand_aliases
 
             which git
 
             echo '
+            shopt -s expand_aliases
+
             function git-without-push() {
                 if [[ $@ == *"push"* ]] && [[ ! $@ == *"dry-run"* ]]; then
                   echo "git push is disabled"
@@ -43,7 +44,7 @@ jobs:
                 command git "$@"
             }
 
-            export alias git=git-without-push
+            alias git=git-without-push
             ' >> ~/.fake-git-push
 
             source ~/.fake-git-push
