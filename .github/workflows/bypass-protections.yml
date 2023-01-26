@@ -36,13 +36,19 @@ jobs:
             //   repo: context.repo.repo,
             //   branch: context.ref
             // });
-            
+
             if (!branch.protected) {
               core.info('No branch protection found.');
               return;
             }
 
-            const checkNames = branch.protection.required_status_checks.contexts.map(context => context.name);
+            const checkNames = branch.protection?.required_status_checks?.checks?.map(check => check.context);
+            
+            if (! checkNames) {
+              core.info('No required checks found.');
+              return;
+            }
+
             core.info(`Required checks: ${checkNames.join(', ')}`);
 
             await Promise.all(checkNames.map(async name => {
