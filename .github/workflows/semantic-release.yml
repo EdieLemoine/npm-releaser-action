@@ -26,19 +26,22 @@ jobs:
         shell: bash
         run: |
           echo '
-            function git-without-push() {
-                if [[ $@ == *"push"* ]] && [[ ! $@ == *"--dry-run"* ]]; then
-                echo "git push disabled"
+          function git-without-push() {
+              if [[ $@ == *"push"* ]] && [[ ! $@ == *"dry-run"* ]]; then
+                echo "git push is disabled"
                 return 0
-                fi
-    
-                command git "$@"
-            }
+              fi
 
-            alias git=git-without-push
+              command git "$@"
+          }
+
+          alias git=git-without-push
           ' >> ~/.bashrc
 
           cat ~/.bashrc
+          
+          git push
+          git push --dry-run
 
       - uses: ./semantic-release
         id: release
