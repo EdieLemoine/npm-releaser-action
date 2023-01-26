@@ -7,12 +7,16 @@ jobs:
   test:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: myparcelnl/actions/setup-app-credentials@v3
+        id: credentials
+        with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
 
       - uses: actions/github-script@v6
         name: 'Create fake check runs'
         with:
-          github-token: ${{ secrets.GH_REPO_TOKEN }}
+          github-token: ${{ steps.credentials.outputs.token }}
           script: |
             const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
               owner: context.repo.owner,
