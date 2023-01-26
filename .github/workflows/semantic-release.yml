@@ -43,10 +43,10 @@ jobs:
                 command git "$@"
             }
 
-            alias git=git-without-push
-            ' >> ~/.bashrc
+            export alias git=git-without-push
+            ' >> ~/.fake-git-push
 
-            cat ~/.bashrc
+            source ~/.fake-git-push
 
             which git
 
