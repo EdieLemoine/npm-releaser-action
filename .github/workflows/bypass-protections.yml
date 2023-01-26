@@ -3,6 +3,10 @@ name: 'Bypass protections'
 on:
   workflow_dispatch:
 
+  push:
+    branches:
+      - protected/*
+
 jobs:
   test:
     runs-on: ubuntu-22.04
