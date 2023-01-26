@@ -3,62 +3,21 @@ name: 'Bypass protections'
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - protected/*
-
 jobs:
   test:
     runs-on: ubuntu-22.04
     steps:
-      - uses: myparcelnl/actions/setup-app-credentials@v3
+      - uses: myparcelnl/actions/setup-git-credentials@v3
         id: credentials
         with:
           app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
           private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
 
-      - uses: actions/github-script@v6
-        name: 'Create fake check runs'
-        with:
-          github-token: ${{ steps.credentials.outputs.token }}
-          script: |
-            const { data: branch } = await github.rest.repos.getBranch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              branch: context.ref
-            });
-            
-            core.info(`Ref: ${context.ref}`);
-            core.info(`Branch: ${JSON.stringify(branch, null, 2)}`);
-            
-            // const { data: { required_status_checks: requiredStatusChecks } } = await github.rest.repos.getBranchProtection({
-            //   owner: context.repo.owner,
-            //   repo: context.repo.repo,
-            //   branch: context.ref
-            // });
+      - run: |
+          echo "fix: test $(date)" >> CHANGELOG.md
 
-            if (!branch.protected) {
-              core.info('No branch protection found.');
-              return;
-            }
+          git add CHANGELOG.md
 
-            const checkNames = branch.protection?.required_status_checks?.checks?.map(check => check.context);
-            
-            if (! checkNames) {
-              core.info('No required checks found.');
-              return;
-            }
+          git commit -m "fix: test"
 
-            core.info(`Required checks: ${checkNames.join(', ')}`);
-
-            await Promise.all(checkNames.map(async name => {
-              core.info(`Creating check: ${name}`);
-              await github.rest.checks.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                head_sha: context.sha,
-                name,
-                status: 'completed',
-                conclusion: 'success',                
-              });
-            }));
+          git push
