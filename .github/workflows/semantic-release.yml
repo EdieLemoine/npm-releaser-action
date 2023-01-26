@@ -29,6 +29,10 @@ jobs:
           write-summary: true
           semantic-release-args: --debug
           before-release: |
+            shopt -s expand_aliases
+
+            which git
+
             echo '
             function git-without-push() {
                 if [[ $@ == *"push"* ]] && [[ ! $@ == *"dry-run"* ]]; then
@@ -43,6 +47,8 @@ jobs:
             ' >> ~/.bashrc
 
             cat ~/.bashrc
+
+            which git
 
             git push
             git push --dry-run
