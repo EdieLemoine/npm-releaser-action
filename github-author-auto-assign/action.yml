@@ -1,0 +1,20 @@
+name: 'Auto assign author'
+description: 'Automatically assign the author of a pull request to the pull request.'
+
+runs:
+  using: composite
+  steps:
+    - name: 'Assign author if none are assigned'
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ github.token }}
+        script: |
+          if (context.payload.pull_request.assignees.length > 0) {
+            return;
+          }
+          
+          github.issues.addAssignees({
+            ...context.repo,
+            issue_number: context.issue.number,
+            assignees: [context.payload.pull_request.user.login],
+          });
