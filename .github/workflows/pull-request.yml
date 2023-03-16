@@ -13,6 +13,9 @@ env:
 
 jobs:
   assign-author:
+    env:
+      GITHUB_APP_ID: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+      GITHUB_PRIVATE_KEY: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3

@@ -34,5 +34,6 @@ runs:
 
     - uses: aslafy-z/conventional-pr-title-action@v3
       id: validate
+      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ steps.token.outputs.token }}
