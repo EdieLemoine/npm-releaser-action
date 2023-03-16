@@ -35,5 +35,9 @@ runs:
     - uses: aslafy-z/conventional-pr-title-action@v3
       id: validate
       continue-on-error: true
+      with:
+        context-name: 'PR title'
+        success-state: 'Title is valid'
+        error-state: 'Title is not valid'
       env:
         GITHUB_TOKEN: ${{ steps.token.outputs.token }}

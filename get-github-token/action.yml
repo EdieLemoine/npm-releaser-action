@@ -19,6 +19,15 @@ outputs:
 runs:
   using: composite
   steps:
+    - id: log
+      shell: bash
+      run: |
+        echo "github-token=${{ inputs.github-token }}"
+        echo "app-id=${{ inputs.app-id }}"
+        echo "private-key=${{ inputs.private-key }}"
+        echo "GITHUB_APP_ID=${{ env.GITHUB_APP_ID }}"
+        echo "GITHUB_PRIVATE_KEY=${{ env.GITHUB_PRIVATE_KEY }}"
+
     - id: app
       if: inputs.github-token == '' && ((inputs.app-id || env.GITHUB_APP_ID) != '' || (inputs.private-key || env.GITHUB_PRIVATE_KEY) != '')
       uses: myparcelnl/actions/setup-app-credentials@v3
