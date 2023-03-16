@@ -19,21 +19,12 @@ outputs:
 runs:
   using: composite
   steps:
-    - id: prepare
-      shell: bash
-      run: |
-        echo "app-id=${{ inputs.app-id || env.GITHUB_APP_ID }}" >> $GITHUB_OUTPUT
-        
-        echo "private-key=<<EOF" >> $GITHUB_OUTPUT
-        echo "${{ inputs.private-key || env.GITHUB_PRIVATE_KEY }}" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
-
     - id: app
-      if: steps.prepare.outputs.app-id != '' && steps.prepare.outputs.private-key != '' && inputs.github-token == ''
+      if: inputs.github-token == '' && ((inputs.app-id || env.GITHUB_APP_ID) != '' || (inputs.private-key || env.GITHUB_PRIVATE_KEY) != '')
       uses: myparcelnl/actions/setup-app-credentials@v3
       with:
-        app-id: ${{ steps.prepare.outputs.app-id }}
-        private-key: ${{ steps.prepare.outputs.private-key }}
+        app-id: ${{ inputs.app-id }}
+        private-key: ${{ inputs.private-key || env.GITHUB_PRIVATE_KEY }}
 
     - id: token
       if: inputs.github-token != ''
@@ -42,7 +33,7 @@ runs:
         echo "token=${{ inputs.github-token }}" >> $GITHUB_OUTPUT
 
     - id: error
-      if: inputs.github-token == '' && (steps.prepare.outputs.app-id == '' || steps.prepare.outputs.private-key == '')
+      if: inputs.github-token == '' && ((inputs.app-id || env.GITHUB_APP_ID) == '' || (inputs.private-key || env.GITHUB_PRIVATE_KEY) == '')
       shell: bash
       run: |
         echo "::error::No GitHub token or app credentials provided."
