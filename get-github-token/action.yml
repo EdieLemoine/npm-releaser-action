@@ -1,0 +1,49 @@
+name: 'Get a GitHub token'
+description: 'Get a GitHub token. If `github-token` is passed, it will be used. Otherwise, an app token will be generated. Can also get variables from env.GITHUB_APP_ID and env.GITHUB_PRIVATE_KEY'
+
+inputs:
+  github-token:
+    description: 'GitHub token to use. If passed, takes precedence over the `app-id` and `app-private-key` inputs.'
+
+  app-id:
+    description: 'The app ID of the app.'
+
+  private-key:
+    description: 'The private key of the app.'
+
+outputs:
+  token:
+    description: 'The GitHub token.'
+    value: ${{ steps.token.outputs.token || steps.app.outputs.token }}
+
+runs:
+  using: composite
+  steps:
+    - id: prepare
+      shell: bash
+      run: |
+        echo "app-id=${{ inputs.app-id || env.GITHUB_APP_ID }}" >> $GITHUB_OUTPUT
+        
+        echo "private-key=<<EOF" >> $GITHUB_OUTPUT
+        echo "${{ inputs.private-key || env.GITHUB_PRIVATE_KEY }}" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - id: app
+      if: steps.prepare.outputs.app-id != '' && steps.prepare.outputs.private-key != '' && inputs.github-token == ''
+      uses: myparcelnl/actions/setup-app-credentials@v3
+      with:
+        app-id: ${{ steps.prepare.outputs.app-id }}
+        private-key: ${{ steps.prepare.outputs.private-key }}
+
+    - id: token
+      if: inputs.github-token != ''
+      shell: bash
+      run: |
+        echo "token=${{ inputs.github-token }}" >> $GITHUB_OUTPUT
+
+    - id: error
+      if: inputs.github-token == '' && (steps.prepare.outputs.app-id == '' || steps.prepare.outputs.private-key == '')
+      shell: bash
+      run: |
+        echo "::error::No GitHub token or app credentials provided."
+        exit 1
