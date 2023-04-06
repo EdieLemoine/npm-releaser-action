@@ -18,6 +18,8 @@ jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v3
+
       - name: Expose yarn config as "$GITHUB_OUTPUT"
         id: yarn-config
         shell: bash
