@@ -37,3 +37,9 @@ jobs:
   cache-folder-2:
     needs: cache-folder-1
     uses: ./.github/workflows/--yarn-install-cache-folder.yml
+
+  gist-1:
+    uses: ./.github/workflows/--yarn-install-gist.yml
+  gist-2:
+    needs: gist-1
+    uses: ./.github/workflows/--yarn-install-gist.yml
