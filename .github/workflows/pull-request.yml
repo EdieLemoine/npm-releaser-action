@@ -7,26 +7,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
-env:
-  GITHUB_APP_ID: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-  GITHUB_PRIVATE_KEY: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-
 jobs:
   assign-author:
-    env:
-      GITHUB_APP_ID: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-      GITHUB_PRIVATE_KEY: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
 
       - uses: ./pr-assign-author
         continue-on-error: true
-
-      - uses: ./pr-assign-author
-        continue-on-error: true
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ./pr-assign-author
         continue-on-error: true
@@ -41,11 +31,8 @@ jobs:
 
       - uses: ./pr-validate-title-conventional
         continue-on-error: true
-
-      - uses: ./pr-validate-title-conventional
-        continue-on-error: true
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ./pr-validate-title-conventional
         continue-on-error: true
