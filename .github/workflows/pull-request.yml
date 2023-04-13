@@ -22,10 +22,25 @@ jobs:
 
       - uses: ./pr-assign-author
 
+      - uses: ./pr-assign-author
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./pr-assign-author
+        with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+
   validate-title:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+
+      - uses: ./pr-validate-title-conventional
+
+      - uses: ./pr-validate-title-conventional
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: ./pr-validate-title-conventional
         with:
