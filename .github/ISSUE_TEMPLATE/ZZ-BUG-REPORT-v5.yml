@@ -1,6 +1,7 @@
-name: 'Submit a bug report for the alpha version (>= v5.0.0-alpha.x)'
+name: "Submit a bug report for the alpha version (>= v5.0.0-alpha.x)"
 description: 'This form is for reporting bugs in the alpha version of the plugin. If you are using version 4.x, please choose "Submit a bug report" instead.'
-labels: [ 'alpha' ]
+title: "[ALPHA]: "
+labels: ["alpha"]
 
 body:
   - type: markdown
@@ -13,8 +14,9 @@ body:
   - type: checkboxes
     id: version-check
     attributes:
+      label: "Version check"
       options:
-        - label: 'My version of the plugin is 5.0.0 or above.'
+        - label: "My version of the plugin is 5.0.0 or above."
           required: true
 
   - type: markdown
@@ -26,16 +28,16 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: 'What went wrong?'
-      description: 'A clear and concise description of what the bug is.'
+      label: "What went wrong?"
+      description: "A clear and concise description of what the bug is."
     validations:
       required: true
 
   - type: textarea
     id: reproduction
     attributes:
-      label: 'Reproduction steps'
-      description: 'Steps to reproduce this behavior.'
+      label: "Reproduction steps"
+      description: "Steps to reproduce this behavior."
       value: |
         1. Navigate to ...
         2. Click on ...
@@ -46,32 +48,32 @@ body:
   - type: input
     id: version
     attributes:
-      label: 'Module version'
-      description: 'What version of our software are you using?'
+      label: "Module version"
+      description: "What version of our software are you using?"
     validations:
       required: true
 
   - type: input
     id: ps-version
     attributes:
-      label: 'PrestaShop version'
-      description: 'What version of PrestaShop are you using?'
-      placeholder: '1.7.x.x'
+      label: "PrestaShop version"
+      description: "What version of PrestaShop are you using?"
+      placeholder: "1.7.x.x"
     validations:
       required: true
 
   - type: input
     id: php-version
     attributes:
-      placeholder: '8.1'
-      label: 'PHP version'
-      description: 'What version of PHP are you using?'
+      placeholder: "8.1"
+      label: "PHP version"
+      description: "What version of PHP are you using?"
     validations:
       required: true
 
   - type: textarea
     id: logs
     attributes:
-      label: 'Relevant log output'
-      description: 'Please copy and paste any relevant log output. Proper formatting will be applied automatically.'
+      label: "Relevant log output"
+      description: "Please copy and paste any relevant log output. Proper formatting will be applied automatically."
       render: shell
