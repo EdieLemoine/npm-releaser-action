@@ -3,11 +3,17 @@ description: 'Report a bug in the alpha version to help us fix it.'
 labels: [ 'alpha' ]
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        **⚠️ Note: ⚠️**
+
+        This form is for reporting bugs in the alpha version of the plugin. If you are using version 4.x, please use the [regular bug report form](https://github.com/EdieLemoine/npm-releaser-action/issues/new?labels=bug&template=BUG-REPORT.yml) instead.
+
   - type: checkboxes
     id: version-check
     attributes:
       label: 'Version check'
-      description: 'This form is for reporting bugs in the alpha version of the plugin. If you are using version 4.x, please use the [regular bug report form](https://github.com/EdieLemoine/npm-releaser-action/issues/new?labels=bug&template=BUG-REPORT.yml) instead.'
       options:
         - label: 'My version of the plugin is 5.0.0 or above.'
           required: true
@@ -16,7 +22,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this form! We will respond as fast as we can. Don't forget to check
-        whether your issue might be a duplicate of an existing one before submitting.
+        whether your issue might be a [duplicate of an existing one](https://github.com/EdieLemoine/npm-releaser-action) before submitting.
 
   - type: textarea
     id: description
