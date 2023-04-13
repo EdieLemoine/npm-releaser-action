@@ -38,6 +38,6 @@ runs:
       with:
         context-name: 'PR title'
         success-state: 'Title is valid'
-        error-state: 'Title is not valid'
+        failure-state: 'Title is not valid'
       env:
         GITHUB_TOKEN: ${{ steps.token.outputs.token }}
