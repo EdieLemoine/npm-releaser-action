@@ -24,7 +24,7 @@ runs:
         private-key: ${{ inputs.private-key }}
 
     - name: 'Assign author if none are assigned'
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         github-token: ${{ steps.token.outputs.token }}
         script: |
@@ -32,8 +32,10 @@ runs:
             return;
           }
 
-          github.issues.addAssignees({
-            ...context.repo,
-            issue_number: context.issue.number,
-            assignees: [context.payload.pull_request.user.login],
+          const author = context.payload.pull_request.user.login;
+
+          github.rest.issues.addAssignees({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              assignees: [author],
           });
