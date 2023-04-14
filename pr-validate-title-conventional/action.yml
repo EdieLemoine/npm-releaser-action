@@ -36,8 +36,8 @@ runs:
       id: validate
       continue-on-error: true
       with:
-        context-name: 'PR title'
-        success-state: 'Title is valid'
-        failure-state: 'Title is not valid'
+        context-name: 'Validate pull request title'
+        success-state: 'Title follows conventional commits convention'
+        failure-state: 'Title does not follow conventional commits convention'
       env:
         GITHUB_TOKEN: ${{ steps.token.outputs.token }}
