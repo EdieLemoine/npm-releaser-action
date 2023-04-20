@@ -123,7 +123,7 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: '${{ inputs.label-approved }}'
+            name: '${{ inputs.label-approved }}'.trim()
           });
 
     - name: 'Remove "changes requested" label'
@@ -136,5 +136,5 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: '${{ inputs.label-changes-requested }}'
+            name: '${{ inputs.label-changes-requested }}'.trim()
           });

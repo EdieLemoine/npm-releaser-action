@@ -19,5 +19,5 @@ jobs:
         with:
           app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
           private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-          label-approved: '✅ approved'
-          label-changes-requested: '❌ changes requested'
+          label-approved: 'yaaaay – approved'
+          label-changes-requested: 'noooo – changes requested'
