@@ -47,7 +47,7 @@ runs:
             branch: context.payload.pull_request.base.ref
           });
 
-          const requiredApprovals = branchProtection.data.required_pull_request_reviews.required_approving_review_count;
+          const requiredApprovals = branchProtection.data.required_pull_request_reviews?.required_approving_review_count ?? 0;
 
           core.setOutput('required-approvals', requiredApprovals);
 
