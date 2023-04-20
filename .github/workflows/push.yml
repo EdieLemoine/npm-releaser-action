@@ -10,10 +10,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-yarn:
-    name: 'Run yarn tests 🧪'
-    uses: ./.github/workflows/--run-tests-yarn.yml
-    secrets: inherit
+#  test-yarn:
+#    name: 'Run yarn tests 🧪'
+#    uses: ./.github/workflows/--run-tests-yarn.yml
+#    secrets: inherit
 
   #  release:
   #    name: 'Release new version 🚀'
@@ -21,48 +21,47 @@ jobs:
   #    secrets: inherit
   #    needs: test-yarn
 
-  tag:
-    name: 'Update tags'
-    needs: release
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: myparcelnl/actions/update-tags@v3
+#  tag:
+#    name: 'Update tags'
+#    needs: release
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: myparcelnl/actions/update-tags@v3
 
-  rebase:
-    name: 'Rebase develop onto main 🔀'
-    runs-on: ubuntu-22.04
-    if: ${{ always() }}
-    needs: [ test-yarn, release ]
-    steps:
-      - uses: ./rebase
-        with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
+#  rebase:
+#    name: 'Rebase develop onto main 🔀'
+#    runs-on: ubuntu-22.04
+#    if: ${{ always() }}
+#    needs: [ test-yarn, release ]
+#    steps:
+#      - uses: ./rebase
+#        with:
+#          token: ${{ secrets.GH_REPO_TOKEN }}
 
-  deploy:
-    name: 'Deploy'
-    needs: release
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: 'Build'
-        run: yarn build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages
-          folder: dist
-          token: ${{ secrets.GH_REPO_TOKEN }}
-
-      - name: 'Summary'
-        run: |
-          echo "## Deploy summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY 
-          echo "- 🟢 Site uploaded to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+#  deploy:
+#    name: 'Deploy'
+#    needs: release
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: 'Build'
+#        run: yarn build
+#
+#      - name: Deploy to GitHub Pages
+#        uses: JamesIves/github-pages-deploy-action@4.1.5
+#        with:
+#          branch: gh-pages
+#          folder: dist
+#          token: ${{ secrets.GH_REPO_TOKEN }}
+#
+#      - name: 'Summary'
+#        run: |
+#          echo "## Deploy summary" >> $GITHUB_STEP_SUMMARY
+#          echo "" >> $GITHUB_STEP_SUMMARY
+#          echo "- 🟢 Site uploaded to GitHub Pages" >> $GITHUB_STEP_SUMMARY
 
   rebase-prs:
-    needs: release
     if: always()
     runs-on: ubuntu-22.04
     steps:
