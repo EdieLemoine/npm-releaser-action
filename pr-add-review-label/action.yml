@@ -34,7 +34,7 @@ runs:
         app-id: ${{ inputs.app-id }}
         private-key: ${{ inputs.private-key }}
 
-    - name: 'Get required amount of approvals from branch protection'
+    - name: 'Get required approvals from branch protection'
       id: branch-protection
       if: inputs.required-approvals == ''
       uses: actions/github-script@v6
@@ -65,22 +65,22 @@ runs:
 
           // Filter out duplicate reviews from the same user and keep only the last review from each user
           const userReviews = new Map();
-          
+
           reviews.data.forEach(review => {
             const { login } = review.user;
-          
+
             if (!userReviews.has(login)) {
               userReviews.set(login, review);
             } else if (userReviews.get(login).submitted_at < review.submitted_at) {
               userReviews.set(login, review);
             }
           });
-          
+
           const userReviewsArray = Array.from(userReviews.values());
-          
+
           const changesRequested = userReviewsArray.some(review => review.state === 'CHANGES_REQUESTED');
           const approvals = userReviewsArray.filter(review => review.state === 'APPROVED');
-          
+
           const requiredApprovals = Number(${{ inputs.required-approvals || steps.branch-protection.outputs.required-approvals }});
           const isApproved = !changesRequested && approvals.length >= requiredApprovals;
 
@@ -100,19 +100,6 @@ runs:
             labels: ['${{ inputs.label-approved }}']
           });
 
-    - name: 'Remove "approved" label'
-      uses: actions/github-script@v6
-      if: contains(github.event.pull_request.labels.*.name, inputs.label-approved) && (steps.check.outputs.approved == 'false')
-      with:
-        github-token: ${{ steps.token.outputs.token }}
-        script: |
-          github.rest.issues.removeLabel({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: inputs.label-approved
-          });
-
     - name: 'Add "changes requested" label'
       uses: actions/github-script@v6
       if: steps.check.outputs.changes-requested == 'true' && !contains(github.event.pull_request.labels.*.name, inputs.label-changes-requested)
@@ -124,6 +111,19 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             labels: ['${{ inputs.label-changes-requested }}']
+          });
+
+    - name: 'Remove "approved" label'
+      uses: actions/github-script@v6
+      if: contains(github.event.pull_request.labels.*.name, inputs.label-approved) && (steps.check.outputs.approved == 'false')
+      with:
+        github-token: ${{ steps.token.outputs.token }}
+        script: |
+          github.rest.issues.removeLabel({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: '${{ inputs.label-approved }}'
           });
 
     - name: 'Remove "changes requested" label'
