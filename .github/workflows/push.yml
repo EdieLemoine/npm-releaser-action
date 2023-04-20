@@ -1,6 +1,12 @@
 name: 'Push to main ✨'
 
 on:
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
+
   workflow_dispatch:
 
 jobs:
@@ -9,17 +15,11 @@ jobs:
     uses: ./.github/workflows/--run-tests-yarn.yml
     secrets: inherit
 
-#  release:
-#    name: 'Release new version 🚀'
-#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
-#    secrets: inherit
-#    needs: test-yarn
-
-  release:
-    name: 'Release new version 🚀'
-    uses: ./.github/workflows/--release.yml
-    secrets: inherit
-#    needs: test-yarn
+  #  release:
+  #    name: 'Release new version 🚀'
+  #    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
+  #    secrets: inherit
+  #    needs: test-yarn
 
   tag:
     name: 'Update tags'
