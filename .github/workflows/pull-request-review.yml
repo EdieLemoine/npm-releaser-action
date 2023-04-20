@@ -1,0 +1,21 @@
+name: 'On pull request review'
+
+on:
+  pull_request_review:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./pr-add-review-label
+        with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+          label-approved: '✅ approved'
+          label-changes-requested: '❌ changes requested'

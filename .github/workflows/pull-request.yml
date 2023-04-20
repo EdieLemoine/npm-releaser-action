@@ -8,18 +8,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  label:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: ./pr-add-review-label
-        with:
-          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-          label-approved: '✅ approved'
-          label-changes-requested: '❌ changes requested'
-
 #  assign-author:
 #    runs-on: ubuntu-22.04
 #    steps:
