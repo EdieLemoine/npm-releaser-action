@@ -34,6 +34,6 @@
     "@semantic-release/npm": "^9.0.1",
     "http-server": "^14.1.1",
     "json2yaml": "^1.1.0",
-    "random-words": "^1.2.0"
+    "random-words": "^2.0.0"
   }
 }
