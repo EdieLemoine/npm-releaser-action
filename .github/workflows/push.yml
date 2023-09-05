@@ -29,6 +29,8 @@ jobs:
       - id: matrix
         #language=bash
         run: |
+          echo ${{ fromJson(steps.run.outputs.versions) }}
+
           versions=${{ steps.run.outputs.versions }}
 
           echo 'versions'
@@ -39,7 +41,7 @@ jobs:
 
           # if string starts with [, treat as json, if not, treat as multiline string
           if [[ $versions == \[* ]]; then
-            LIST=$(echo "$versions" | jq -rc '.[]')
+            LIST=${{ fromJson(steps.run.outputs.versions) }}
           else
             LIST=$(echo "$versions" | jq -Rsc 'split("\n")')
           fi
