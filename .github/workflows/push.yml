@@ -31,6 +31,8 @@ jobs:
         #language=bash
         run: |
           versions=${{ steps.run.outputs.versions }}
+          # replace line separators with actual newlines
+          string=$(echo "$versions" | jq -Rsc 'gsub("\n"; "\u0000")')
           
           echo 'versions'
           echo $versions
@@ -38,6 +40,26 @@ jobs:
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
+          LINES=$((echo "$versions" | wc -l) || true)
+          echo 'LINES'
+          echo $LINES
+          
+          LINES2=$((echo "$versions" | jq -r 'split("\n")') || true)
+          echo 'LINES2'
+          echo $LINES2
+          
+          LINES3=$((echo "$versions" | jq -Rsc 'split("\n")') || true)
+          echo 'LINES3'
+          echo $LINES3
+          
+          LINES4=$((echo "$versions" | jq -sc 'split("\n")') || true)
+          echo 'LINES4'
+          echo $LINES4
+          
+          LINES5=$((echo "$versions" | jq -Rc 'split("\n")') || true)
+          echo 'LINES5'
+          echo $LINES5
+          
           JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
           
           echo 'JSON'
