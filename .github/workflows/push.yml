@@ -10,6 +10,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  run:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          json=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[].version' | jq -sc 'unique | @json')
+          
+          echo $json
+
+          echo "${{ fromJson(json) }}"
+
 #  test-yarn:
 #    name: 'Run yarn tests 🧪'
 #    uses: ./.github/workflows/--run-tests-yarn.yml
