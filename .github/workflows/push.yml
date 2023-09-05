@@ -15,27 +15,31 @@ jobs:
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
+      #language=bash
       - run: |
           jq --version
 
       - id: run
+        #language=bash
         run: |
           versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '[.offers[].version] | unique | .[]')
 
-          echo "json=$json" >> $GITHUB_OUTPUT
+          echo "versions=$versions" >> $GITHUB_OUTPUT
 
+      #language=bash
       - run: |
-          echo "${{ fromJson(steps.run.outputs.json) }}"
+          echo "${{ fromJson(steps.run.outputs.versions) }}"
 
       - id: matrix
+        #language=bash
         run: |
           MIN_VERSION="0"
           MAX_VERSION="infinite"
-  
-          JSON=$(echo "${{ inputs.versions }}" | jq -Rsc 'split("\n") | sort | reverse | map(select(. >= "'$MIN_VERSION'" and . <= "'$MAX_VERSION'"))')
+
+          JSON=$(echo "${{ steps.run.outputs.versions }}" | jq -Rsc 'split("\n") | sort | reverse | map(select(. >= "'$MIN_VERSION'" and . <= "'$MAX_VERSION'"))')
           LATEST=$(echo "$JSON" | jq -r '.[0]')
           MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
-  
+
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
   test:
@@ -55,10 +59,10 @@ jobs:
           
           echo ${{ matrix.test.version }}
 
-#  test-yarn:
-#    name: 'Run yarn tests 🧪'
-#    uses: ./.github/workflows/--run-tests-yarn.yml
-#    secrets: inherit
+  #  test-yarn:
+  #    name: 'Run yarn tests 🧪'
+  #    uses: ./.github/workflows/--run-tests-yarn.yml
+  #    secrets: inherit
 
   #  release:
   #    name: 'Release new version 🚀'
@@ -106,18 +110,18 @@ jobs:
   #          echo "" >> $GITHUB_STEP_SUMMARY
   #          echo "- 🟢 Site uploaded to GitHub Pages" >> $GITHUB_STEP_SUMMARY
 
-  rebase-prs:
-    if: always()
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: myparcelnl/actions/setup-git-credentials@v3
-        id: credentials
-        with:
-          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-
-      - uses: peter-evans/rebase@v2
-        with:
-          token: ${{ steps.credentials.outputs.token }}
-          base: ${{ github.ref_name }}
-          exclude-drafts: true
+#  rebase-prs:
+#    if: always()
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: myparcelnl/actions/setup-git-credentials@v3
+#        id: credentials
+#        with:
+#          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+#          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+#
+#      - uses: peter-evans/rebase@v2
+#        with:
+#          token: ${{ steps.credentials.outputs.token }}
+#          base: ${{ github.ref_name }}
+#          exclude-drafts: true
