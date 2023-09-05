@@ -22,19 +22,18 @@ jobs:
       - id: run
         #language=bash
         run: |
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique | .[]' | jq -sR)
-
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique' | jq -r 'join("\\n")')
+          
           echo "versions=$versions" >> $GITHUB_OUTPUT
-
-      #language=bash
-      - run: |
-          echo "${{ fromJson(steps.run.outputs.versions) }}"
 
       - id: matrix
         #language=bash
         run: |
           versions=${{ steps.run.outputs.versions }}
 
+          echo 'versions'
+          echo $versions
+          
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
