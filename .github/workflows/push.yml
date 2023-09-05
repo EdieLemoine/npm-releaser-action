@@ -13,12 +13,14 @@ jobs:
   run:
     runs-on: ubuntu-22.04
     steps:
-      - run: |
+      - id: run
+        run: |
           json=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[].version' | jq -sc 'unique | @json')
           
-          echo $json
+          echo "json=$json" >> $GITHUB_OUTPUT
 
-          echo "${{ fromJson(json) }}"
+      - run: |
+          echo "${{ fromJson(steps.run.outputs.json) }}"
 
 #  test-yarn:
 #    name: 'Run yarn tests 🧪'
