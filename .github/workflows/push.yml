@@ -22,7 +22,7 @@ jobs:
       - id: run
         #language=bash
         run: |
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique' | jq -r 'join("\\n")')
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique | .[]')
           
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
@@ -37,7 +37,17 @@ jobs:
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
-          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
+          # if string starts with [, treat as json, if not, treat as multiline string
+          if [[ $versions == \[* ]]; then
+            LIST=$(echo "$versions" | jq -r '.[]')
+          else
+            LIST=$(echo "$versions" | jq -Rsc 'split("\n")')
+          fi
+          
+          echo 'LIST'
+          echo $LIST
+          
+          JSON=$(echo "$LIST" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'sort | reverse | map(select(. >= $min and . <= $max))')
           
           echo 'JSON'
           echo $JSON
