@@ -22,8 +22,7 @@ jobs:
       - id: run
         #language=bash
         run: |
-          # escape newlines in jq output for github output
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '[.offers[].version] | unique | .[]' | jq -sR 'gsub("\n"; "\\n")')
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique | .[]' | jq -sR)
 
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
