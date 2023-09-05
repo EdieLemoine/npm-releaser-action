@@ -38,9 +38,20 @@ jobs:
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
-          JSON=$(echo "$versions" | jq -Rsc 'split("\n") | sort | reverse | map(select(. >= "'$MIN_VERSION'" and . <= "'$MAX_VERSION'"))')
+          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
+          
+          echo 'JSON'
+          echo $JSON
+          
           LATEST=$(echo "$JSON" | jq -r '.[0]')
+          
+          echo 'LATEST'
+          echo $LATEST
+          
           MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
+          
+          echo 'MATRIX'
+          echo $MATRIX
 
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
