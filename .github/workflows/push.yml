@@ -22,7 +22,7 @@ jobs:
       - id: run
         #language=bash
         run: |
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique')
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -rc '[.offers[].version] | unique')
           
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
