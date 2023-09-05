@@ -22,34 +22,23 @@ jobs:
       - id: run
         #language=bash
         run: |
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version]')
+          # create multiline string with visible line separators
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique | .[]' | jq -sc 'join("\n")')
 
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
       - id: matrix
         #language=bash
         run: |
-          echo ${{ fromJson(steps.run.outputs.versions) }}
-
           versions=${{ steps.run.outputs.versions }}
-
+          
           echo 'versions'
           echo $versions
           
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
-          # if string starts with [, treat as json, if not, treat as multiline string
-          if [[ $versions == \[* ]]; then
-            LIST=${{ fromJson(steps.run.outputs.versions) }}
-          else
-            LIST=$(echo "$versions" | jq -Rsc 'split("\n")')
-          fi
-          
-          echo 'LIST'
-          echo $LIST
-          
-          JSON=$(echo "$LIST" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'sort | reverse | map(select(. >= $min and . <= $max))')
+          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
           
           echo 'JSON'
           echo $JSON
