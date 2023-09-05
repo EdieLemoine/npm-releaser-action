@@ -22,7 +22,8 @@ jobs:
       - id: run
         #language=bash
         run: |
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '[.offers[].version] | unique | .[]')
+          # escape newlines in jq output for github output
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '[.offers[].version] | unique | .[]' | jq -sR 'gsub("\n"; "\\n")')
 
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
@@ -33,10 +34,12 @@ jobs:
       - id: matrix
         #language=bash
         run: |
+          versions=${{ steps.run.outputs.versions }}
+
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
-          JSON=$(echo "${{ steps.run.outputs.versions }}" | jq -Rsc 'split("\n") | sort | reverse | map(select(. >= "'$MIN_VERSION'" and . <= "'$MAX_VERSION'"))')
+          JSON=$(echo "$versions" | jq -Rsc 'split("\n") | sort | reverse | map(select(. >= "'$MIN_VERSION'" and . <= "'$MAX_VERSION'"))')
           LATEST=$(echo "$JSON" | jq -r '.[0]')
           MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
 
