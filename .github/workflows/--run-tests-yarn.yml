@@ -23,35 +23,16 @@ jobs:
         shell: bash
         run: |
           echo "## Yarn test summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY  
+          echo "" >> $GITHUB_STEP_SUMMARY
 
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref }}
 
-      - uses: actions/cache@v3
-        id: cache-coverage
-        with:
-          path: ./coverage.txt
-          key: ${{ runner.os }}-yarn-coverage-${{ hashFiles('**/package.json', './src/**', './tests/**') }}
-
-      # Run yarn install here
+      - uses: ./yarn-install
 
       - name: 'Run tests'
-        if: steps.cache-coverage.outputs.cache-hit != 'true'
         run: yarn run test:coverage
-
-      - name: 'Cache hit ⭕️'
-        if: steps.cache-coverage.outputs.cache-hit == 'true'
-        shell: bash
-        run: |
-          echo "- 🟡 Tests were skipped" >> $GITHUB_STEP_SUMMARY
-
-      - name: 'Cache not hit ❌'
-        if: steps.cache-coverage.outputs.cache-hit != 'true'
-        shell: bash
-        run: |
-          echo "- 🟢 Tests were run " >> $GITHUB_STEP_SUMMARY
 
       - uses: myparcelnl/actions/update-coverage@v3
         with:

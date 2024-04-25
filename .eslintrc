@@ -1,9 +1,0 @@
-{
-  "root": true,
-  "extends": [
-    "@myparcel/eslint-config/preset-es6"
-  ],
-  "env": {
-    "node": true
-  }
-}
