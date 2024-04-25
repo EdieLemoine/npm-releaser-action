@@ -2,25 +2,31 @@ name: '🔸 Yarn install - Cache both'
 
 on:
   workflow_call:
+    inputs:
+      cache-key:
+        description: 'Cache key to use'
+        type: string
+        default: ''
+        required: false
 
 jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: yarn
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: yarn-cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-yarn-cache-both-${{ hashFiles('**/package.json') }}
+          key: ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-both-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-cache-both-
+            ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-both-
 
       - run: yarn install
         shell: bash

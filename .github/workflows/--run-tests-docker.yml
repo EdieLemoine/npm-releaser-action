@@ -41,12 +41,12 @@ jobs:
     name: 'Test'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref }}
           persist-credentials: false
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           id: coverage-cache
           path: ./clover.xml

@@ -1,173 +1,92 @@
 name: 'Push to main ✨'
 
 on:
-  push:
-    branches:
-      - main
-      - alpha
-      - beta
-
   workflow_dispatch:
 
 jobs:
-  install-yarn-1:
-    uses: ./.github/workflows/--install-yarn.yml
+  run:
+    runs-on: ubuntu-22.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      #language=bash
+      - run: |
+          jq --version
 
-  install-yarn-2:
-    needs: install-yarn-1
-    uses: ./.github/workflows/--install-yarn.yml
+      - id: run
+        #language=bash
+        run: |
+          # create multiline string with visible line separators
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique | .[]' | jq -sc 'join("\n")')
 
-  install-yarn-3:
-    needs: install-yarn-2
-    uses: ./.github/workflows/--install-yarn.yml
+          echo "versions=$versions" >> $GITHUB_OUTPUT
 
-  install-yarn-4:
-    needs: install-yarn-3
-    uses: ./.github/workflows/--install-yarn.yml
+      - id: matrix
+        #language=bash
+        run: |
+          versions=${{ steps.run.outputs.versions }}
+          # replace line separators with actual newlines
+          string=$(echo "$versions" | jq -Rsc 'gsub("\n"; "\u0000")')
 
-  install-yarn-5:
-    needs: install-yarn-4
-    uses: ./.github/workflows/--install-yarn.yml
+          echo 'versions'
+          echo $versions
 
-  install-pnpm-1:
-    uses: ./.github/workflows/--install-pnpm.yml
+          MIN_VERSION="0"
+          MAX_VERSION="infinite"
 
-  install-pnpm-2:
-    needs: install-pnpm-1
-    uses: ./.github/workflows/--install-pnpm.yml
+          LINES=$((echo "$versions" | wc -l) || true)
+          echo 'LINES'
+          echo $LINES
 
-  install-pnpm-3:
-    needs: install-pnpm-2
-    uses: ./.github/workflows/--install-pnpm.yml
+          LINES2=$((echo "$versions" | jq -r 'split("\n")') || true)
+          echo 'LINES2'
+          echo $LINES2
 
-  install-pnpm-4:
-    needs: install-pnpm-3
-    uses: ./.github/workflows/--install-pnpm.yml
+          LINES3=$((echo "$versions" | jq -Rsc 'split("\n")') || true)
+          echo 'LINES3'
+          echo $LINES3
 
-  install-pnpm-5:
-    needs: install-pnpm-4
-    uses: ./.github/workflows/--install-pnpm.yml
+          LINES4=$((echo "$versions" | jq -sc 'split("\n")') || true)
+          echo 'LINES4'
+          echo $LINES4
 
-  install-bun-1:
-    uses: ./.github/workflows/--install-bun.yml
+          LINES5=$((echo "$versions" | jq -Rc 'split("\n")') || true)
+          echo 'LINES5'
+          echo $LINES5
 
-  install-bun-2:
-    needs: install-bun-1
-    uses: ./.github/workflows/--install-bun.yml
+          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
 
-  install-bun-3:
-    needs: install-bun-2
-    uses: ./.github/workflows/--install-bun.yml
+          echo 'JSON'
+          echo $JSON
 
-  install-bun-4:
-    needs: install-bun-3
-    uses: ./.github/workflows/--install-bun.yml
+          LATEST=$(echo "$JSON" | jq -r '.[0]')
 
-  install-bun-5:
-    needs: install-bun-4
-    uses: ./.github/workflows/--install-bun.yml
+          echo 'LATEST'
+          echo $LATEST
 
-  install-npm-1:
-    uses: ./.github/workflows/--install-npm.yml
+          MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
 
-  install-npm-2:
-    needs: install-npm-1
-    uses: ./.github/workflows/--install-npm.yml
+          echo 'MATRIX'
+          echo $MATRIX
 
-  install-npm-3:
-    needs: install-npm-2
-    uses: ./.github/workflows/--install-npm.yml
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
-  install-npm-4:
-    needs: install-npm-3
-    uses: ./.github/workflows/--install-npm.yml
+  test:
+    needs: run
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        test: ${{ fromJson(needs.run.outputs.matrix) }}
 
-  install-npm-5:
-    needs: install-npm-4
-    uses: ./.github/workflows/--install-npm.yml
-#  run:
-#    runs-on: ubuntu-22.04
-#    outputs:
-#      matrix: ${{ steps.matrix.outputs.matrix }}
-#    steps:
-#      #language=bash
-#      - run: |
-#          jq --version
-#
-#      - id: run
-#        #language=bash
-#        run: |
-#          # create multiline string with visible line separators
-#          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique | .[]' | jq -sc 'join("\n")')
-#
-#          echo "versions=$versions" >> $GITHUB_OUTPUT
-#
-#      - id: matrix
-#        #language=bash
-#        run: |
-#          versions=${{ steps.run.outputs.versions }}
-#          # replace line separators with actual newlines
-#          string=$(echo "$versions" | jq -Rsc 'gsub("\n"; "\u0000")')
-#
-#          echo 'versions'
-#          echo $versions
-#
-#          MIN_VERSION="0"
-#          MAX_VERSION="infinite"
-#
-#          LINES=$((echo "$versions" | wc -l) || true)
-#          echo 'LINES'
-#          echo $LINES
-#
-#          LINES2=$((echo "$versions" | jq -r 'split("\n")') || true)
-#          echo 'LINES2'
-#          echo $LINES2
-#
-#          LINES3=$((echo "$versions" | jq -Rsc 'split("\n")') || true)
-#          echo 'LINES3'
-#          echo $LINES3
-#
-#          LINES4=$((echo "$versions" | jq -sc 'split("\n")') || true)
-#          echo 'LINES4'
-#          echo $LINES4
-#
-#          LINES5=$((echo "$versions" | jq -Rc 'split("\n")') || true)
-#          echo 'LINES5'
-#          echo $LINES5
-#
-#          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
-#
-#          echo 'JSON'
-#          echo $JSON
-#
-#          LATEST=$(echo "$JSON" | jq -r '.[0]')
-#
-#          echo 'LATEST'
-#          echo $LATEST
-#
-#          MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
-#
-#          echo 'MATRIX'
-#          echo $MATRIX
-#
-#          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+    steps:
+      - run: |
+          echo ${{ toJson(matrix) }}
+          echo ${{ toJson(matrix.test) }}
 
-#  test:
-#    needs: run
-#    runs-on: ubuntu-22.04
-#    strategy:
-#      matrix:
-#        test: ${{ fromJson(needs.run.outputs.matrix) }}
-#
-#    steps:
-#      - run: |
-#          echo ${{ toJson(matrix) }}
-#          echo ${{ toJson(matrix.test) }}
-#
-#          echo ${{ matrix }}
-#          echo ${{ matrix.test }}
-#
-#          echo ${{ matrix.test.version }}
+          echo ${{ matrix }}
+          echo ${{ matrix.test }}
+
+          echo ${{ matrix.test.version }}
 
 #    test-yarn:
 #      name: 'Run yarn tests 🧪'
@@ -202,7 +121,7 @@ jobs:
 #    needs: release
 #    runs-on: ubuntu-22.04
 #    steps:
-#      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v4
 #
 #      - name: 'Build'
 #        run: yarn build

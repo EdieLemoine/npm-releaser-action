@@ -2,6 +2,12 @@ name: '🔸 Yarn install - From Gist'
 
 on:
   workflow_call:
+    inputs:
+      cache-key:
+        description: 'Cache key to use'
+        type: string
+        default: ''
+        required: false
 
 ########################################################################################
 # "yarn install" composite action for yarn 2/3/4+ and "nodeLinker: node-modules"       #
@@ -18,7 +24,7 @@ jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Expose yarn config as "$GITHUB_OUTPUT"
         id: yarn-config
@@ -33,9 +39,9 @@ jobs:
         id: yarn-download-cache
         with:
           path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-          key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
+          key: ${{ inputs.cache-key }}-yarn-download-cache-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            yarn-download-cache-
+            ${{ inputs.cache-key }}-yarn-download-cache-
 
       # Invalidated on yarn.lock changes
       - name: Restore yarn install state
@@ -43,7 +49,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .yarn/ci-cache/
-          key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+          key: ${{ inputs.cache-key }}-${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
 
       - name: Install dependencies
         shell: bash

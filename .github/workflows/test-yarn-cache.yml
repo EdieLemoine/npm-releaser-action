@@ -8,38 +8,100 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ###
+  # original
+  ###
   original-1:
     uses: ./.github/workflows/--yarn-install-original.yml
+    with:
+      cache-key: ${{ github.sha }}
+
   original-2:
     needs: original-1
     uses: ./.github/workflows/--yarn-install-original.yml
+    with:
+      cache-key: ${{ github.sha }}
 
+  ###
+  # current
+  ###
+  current-1:
+    uses: ./.github/workflows/--yarn-install-current.yml
+    with:
+      cache-key: ${{ github.sha }}
+
+  current-2:
+    needs: current-1
+    uses: ./.github/workflows/--yarn-install-current.yml
+    with:
+      cache-key: ${{ github.sha }}
+
+  ###
+  # setup-node
+  ###
   setup-node-1:
     uses: ./.github/workflows/--yarn-install-setup-node.yml
+    with:
+      cache-key: ${{ github.sha }}
+
   setup-node-2:
     needs: setup-node-1
     uses: ./.github/workflows/--yarn-install-setup-node.yml
+    with:
+      cache-key: ${{ github.sha }}
 
-  node-modules-1:
+  ###
+  # cache-node-modules
+  ###
+  cache-node-modules-1:
     uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
-  node-modules-2:
-    needs: node-modules-1
+    with:
+      cache-key: ${{ github.sha }}
+
+  cache-node-modules-2:
+    needs: cache-node-modules-1
     uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
+    with:
+      cache-key: ${{ github.sha }}
 
-  both-1:
+  ###
+  # cache-both
+  ###
+  cache-both-1:
     uses: ./.github/workflows/--yarn-install-cache-both.yml
-  both-2:
-    needs: both-1
-    uses: ./.github/workflows/--yarn-install-cache-both.yml
+    with:
+      cache-key: ${{ github.sha }}
 
+  cache-both-2:
+    needs: cache-both-1
+    uses: ./.github/workflows/--yarn-install-cache-both.yml
+    with:
+      cache-key: ${{ github.sha }}
+
+  ###
+  # cache-folder
+  ###
   cache-folder-1:
     uses: ./.github/workflows/--yarn-install-cache-folder.yml
+    with:
+      cache-key: ${{ github.sha }}
+
   cache-folder-2:
     needs: cache-folder-1
     uses: ./.github/workflows/--yarn-install-cache-folder.yml
+    with:
+      cache-key: ${{ github.sha }}
 
+  ###
+  # gist
+  ###
   gist-1:
     uses: ./.github/workflows/--yarn-install-gist.yml
+    with:
+      cache-key: ${{ github.sha }}
+
   gist-2:
     needs: gist-1
     uses: ./.github/workflows/--yarn-install-gist.yml
+    with:
+      cache-key: ${{ github.sha }}

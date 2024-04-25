@@ -8,37 +8,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-#  assign-author:
-#    runs-on: ubuntu-22.04
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - uses: ./pr-assign-author
-#        continue-on-error: true
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - uses: ./pr-assign-author
-#        continue-on-error: true
-#        with:
-#          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-#          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-#
-#  validate-title:
-#    runs-on: ubuntu-22.04
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - uses: ./pr-validate-title-conventional
-#        continue-on-error: true
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - uses: ./pr-validate-title-conventional
-#        continue-on-error: true
-#        with:
-#          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-#          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+  #  assign-author:
+  #    runs-on: ubuntu-22.04
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #
+  #      - uses: ./pr-assign-author
+  #        continue-on-error: true
+  #        with:
+  #          github-token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #      - uses: ./pr-assign-author
+  #        continue-on-error: true
+  #        with:
+  #          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+  #          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+  #
+  #  validate-title:
+  #    runs-on: ubuntu-22.04
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #
+  #      - uses: ./pr-validate-title-conventional
+  #        continue-on-error: true
+  #        with:
+  #          github-token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #      - uses: ./pr-validate-title-conventional
+  #        continue-on-error: true
+  #        with:
+  #          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+  #          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
   assign-author:
     if: github.event.action == 'opened'
     runs-on: ubuntu-22.04

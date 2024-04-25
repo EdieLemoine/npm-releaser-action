@@ -2,25 +2,32 @@ name: '🔸 Yarn install - Cache manual'
 
 on:
   workflow_call:
+    inputs:
+      cache-key:
+        description: 'Cache key to use'
+        type: string
+        default: ''
+        required: false
 
 jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - id: cache
         shell: bash
+        #language=bash
         run: |
           echo "folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: yarn-cache
         with:
           path: ${{ steps.cache.outputs.folder }}
-          key: ${{ runner.os }}-yarn-cache-manual-${{ hashFiles('**/package.json') }}
+          key: ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-manual-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-cache-manual-
+            ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-manual-
 
       - run: yarn install
         shell: bash

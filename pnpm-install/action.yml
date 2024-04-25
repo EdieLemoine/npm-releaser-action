@@ -9,7 +9,7 @@ inputs:
 
   pnpm-version:
     description: 'The pnpm version to use'
-    default: '8'
+    default: '9'
     required: false
 
   pnpm-args:
