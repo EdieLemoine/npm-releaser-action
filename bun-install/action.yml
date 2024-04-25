@@ -1,0 +1,45 @@
+name: 'Install bun dependencies'
+description: 'Install bun and dependencies using cache'
+
+inputs:
+  bun-version:
+    description: 'The bun version to use'
+    default: 'latest'
+    required: false
+
+  bun-args:
+    description: 'Arguments to use with bun install'
+    default: '--frozen-lockfile'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: 'Get bun variables'
+      id: variables
+      shell: bash
+      #language=bash
+      run: |
+        hash=$(bun pm hash-print || echo '')
+
+        echo "cache-dir=$(bun pm cache)" >> $GITHUB_OUTPUT
+        echo "hash=$hash" >> $GITHUB_OUTPUT
+
+    - name: 'Cache bun dependencies'
+      if: steps.variables.outputs.hash != ''
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.variables.outputs.cache-dir }}
+        key: ${{ runner.os }}-bun-deps-${{ steps.variables.outputs.hash }}
+        restore-keys: |
+          ${{ runner.os }}-bun-deps-
+
+    - name: 'Install bun dependencies'
+      shell: bash
+      #language=bash
+      run: |
+        bun install ${{ inputs.bun-args }}

@@ -10,6 +10,81 @@ on:
   workflow_dispatch:
 
 jobs:
+  install-yarn-1:
+    uses: ./.github/workflows/--install-yarn.yml
+
+  install-yarn-2:
+    needs: install-yarn-1
+    uses: ./.github/workflows/--install-yarn.yml
+
+  install-yarn-3:
+    needs: install-yarn-2
+    uses: ./.github/workflows/--install-yarn.yml
+
+  install-yarn-4:
+    needs: install-yarn-3
+    uses: ./.github/workflows/--install-yarn.yml
+
+  install-yarn-5:
+    needs: install-yarn-4
+    uses: ./.github/workflows/--install-yarn.yml
+
+  install-pnpm-1:
+    uses: ./.github/workflows/--install-pnpm.yml
+
+  install-pnpm-2:
+    needs: install-pnpm-1
+    uses: ./.github/workflows/--install-pnpm.yml
+
+  install-pnpm-3:
+    needs: install-pnpm-2
+    uses: ./.github/workflows/--install-pnpm.yml
+
+  install-pnpm-4:
+    needs: install-pnpm-3
+    uses: ./.github/workflows/--install-pnpm.yml
+
+  install-pnpm-5:
+    needs: install-pnpm-4
+    uses: ./.github/workflows/--install-pnpm.yml
+
+  install-bun-1:
+    uses: ./.github/workflows/--install-bun.yml
+
+  install-bun-2:
+    needs: install-bun-1
+    uses: ./.github/workflows/--install-bun.yml
+
+  install-bun-3:
+    needs: install-bun-2
+    uses: ./.github/workflows/--install-bun.yml
+
+  install-bun-4:
+    needs: install-bun-3
+    uses: ./.github/workflows/--install-bun.yml
+
+  install-bun-5:
+    needs: install-bun-4
+    uses: ./.github/workflows/--install-bun.yml
+
+  install-npm-1:
+    uses: ./.github/workflows/--install-npm.yml
+
+  install-npm-2:
+    needs: install-npm-1
+    uses: ./.github/workflows/--install-npm.yml
+
+  install-npm-3:
+    needs: install-npm-2
+    uses: ./.github/workflows/--install-npm.yml
+
+  install-npm-4:
+    needs: install-npm-3
+    uses: ./.github/workflows/--install-npm.yml
+
+  install-npm-5:
+    needs: install-npm-4
+    uses: ./.github/workflows/--install-npm.yml
 #  run:
 #    runs-on: ubuntu-22.04
 #    outputs:
@@ -94,56 +169,56 @@ jobs:
 #
 #          echo ${{ matrix.test.version }}
 
-    test-yarn:
-      name: 'Run yarn tests 🧪'
-      uses: ./.github/workflows/--run-tests-yarn.yml
-      secrets: inherit
+#    test-yarn:
+#      name: 'Run yarn tests 🧪'
+#      uses: ./.github/workflows/--run-tests-yarn.yml
+#      secrets: inherit
 
-  #  release:
-  #    name: 'Release new version 🚀'
-  #    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
-  #    secrets: inherit
-  #    needs: test-yarn
+#  release:
+#    name: 'Release new version 🚀'
+#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
+#    secrets: inherit
+#    needs: test-yarn
 
-  #  tag:
-  #    name: 'Update tags'
-  #    needs: release
-  #    runs-on: ubuntu-22.04
-  #    steps:
-  #      - uses: myparcelnl/actions/update-tags@v3
+#  tag:
+#    name: 'Update tags'
+#    needs: release
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: myparcelnl/actions/update-tags@v3
 
-  #  rebase:
-  #    name: 'Rebase develop onto main 🔀'
-  #    runs-on: ubuntu-22.04
-  #    if: ${{ always() }}
-  #    needs: [ test-yarn, release ]
-  #    steps:
-  #      - uses: ./rebase
-  #        with:
-  #          token: ${{ secrets.GH_REPO_TOKEN }}
+#  rebase:
+#    name: 'Rebase develop onto main 🔀'
+#    runs-on: ubuntu-22.04
+#    if: ${{ always() }}
+#    needs: [ test-yarn, release ]
+#    steps:
+#      - uses: ./rebase
+#        with:
+#          token: ${{ secrets.GH_REPO_TOKEN }}
 
-  #  deploy:
-  #    name: 'Deploy'
-  #    needs: release
-  #    runs-on: ubuntu-22.04
-  #    steps:
-  #      - uses: actions/checkout@v3
-  #
-  #      - name: 'Build'
-  #        run: yarn build
-  #
-  #      - name: Deploy to GitHub Pages
-  #        uses: JamesIves/github-pages-deploy-action@4.1.5
-  #        with:
-  #          branch: gh-pages
-  #          folder: dist
-  #          token: ${{ secrets.GH_REPO_TOKEN }}
-  #
-  #      - name: 'Summary'
-  #        run: |
-  #          echo "## Deploy summary" >> $GITHUB_STEP_SUMMARY
-  #          echo "" >> $GITHUB_STEP_SUMMARY
-  #          echo "- 🟢 Site uploaded to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+#  deploy:
+#    name: 'Deploy'
+#    needs: release
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: 'Build'
+#        run: yarn build
+#
+#      - name: Deploy to GitHub Pages
+#        uses: JamesIves/github-pages-deploy-action@4.1.5
+#        with:
+#          branch: gh-pages
+#          folder: dist
+#          token: ${{ secrets.GH_REPO_TOKEN }}
+#
+#      - name: 'Summary'
+#        run: |
+#          echo "## Deploy summary" >> $GITHUB_STEP_SUMMARY
+#          echo "" >> $GITHUB_STEP_SUMMARY
+#          echo "- 🟢 Site uploaded to GitHub Pages" >> $GITHUB_STEP_SUMMARY
 
 #  rebase-prs:
 #    if: always()
