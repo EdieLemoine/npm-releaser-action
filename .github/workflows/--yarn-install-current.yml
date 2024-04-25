@@ -15,10 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: node -v
+        shell: bash
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-          cache: 'yarn'
+
+      - run: node -v
+        shell: bash
 
       - name: 'Create variables'
         id: variables
