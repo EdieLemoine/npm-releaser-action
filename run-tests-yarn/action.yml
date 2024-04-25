@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: yarn run test:coverage
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: hashFiles('clover.xml') != ''
       with:
         name: coverage

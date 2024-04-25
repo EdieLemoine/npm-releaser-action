@@ -4,7 +4,6 @@ description: 'Set up PHP and install composer dependencies from scratch or from 
 runs:
   using: docker
   image: ../../Dockerfile
-
 #  steps:
 #    - name: 'Set up PHP'
 #      uses: shivammathur/setup-php@v2
@@ -19,7 +18,7 @@ runs:
 #        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 #
 #    - name: 'Handle Composer cache'
-#      uses: actions/cache@v3
+#      uses: actions/cache@v4
 #      with:
 #        path: ${{ steps.composer-cache.outputs.dir }}
 #        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
