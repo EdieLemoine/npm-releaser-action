@@ -119,3 +119,5 @@ build/
 .pnp.*
 
 coverage.*
+coverage/
+.nx/
