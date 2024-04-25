@@ -11,13 +11,13 @@ jobs:
   ###
   # current
   ###
-  current-1:
+  current-cold:
     uses: ./.github/workflows/--yarn-install-current.yml
     with:
       cache-key: ${{ github.sha }}
 
-  current-2:
-    needs: current-1
+  current-warm:
+    needs: current-cold
     uses: ./.github/workflows/--yarn-install-current.yml
     with:
       cache-key: ${{ github.sha }}
@@ -25,13 +25,13 @@ jobs:
   ###
   # setup-node
   ###
-  setup-node-1:
+  setup-node-cold:
     uses: ./.github/workflows/--yarn-install-setup-node.yml
     with:
       cache-key: ${{ github.sha }}
 
-  setup-node-2:
-    needs: setup-node-1
+  setup-node-warm:
+    needs: setup-node-cold
     uses: ./.github/workflows/--yarn-install-setup-node.yml
     with:
       cache-key: ${{ github.sha }}
@@ -39,13 +39,13 @@ jobs:
   ###
   # cache-node-modules
   ###
-  cache-node-modules-1:
+  cache-node-modules-cold:
     uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
     with:
       cache-key: ${{ github.sha }}
 
-  cache-node-modules-2:
-    needs: cache-node-modules-1
+  cache-node-modules-warm:
+    needs: cache-node-modules-cold
     uses: ./.github/workflows/--yarn-install-cache-node-modules.yml
     with:
       cache-key: ${{ github.sha }}
@@ -53,13 +53,13 @@ jobs:
   ###
   # cache-both
   ###
-  cache-both-1:
+  cache-both-cold:
     uses: ./.github/workflows/--yarn-install-cache-both.yml
     with:
       cache-key: ${{ github.sha }}
 
-  cache-both-2:
-    needs: cache-both-1
+  cache-both-warm:
+    needs: cache-both-cold
     uses: ./.github/workflows/--yarn-install-cache-both.yml
     with:
       cache-key: ${{ github.sha }}
@@ -67,13 +67,13 @@ jobs:
   ###
   # cache-folder
   ###
-  cache-folder-1:
+  cache-folder-cold:
     uses: ./.github/workflows/--yarn-install-cache-folder.yml
     with:
       cache-key: ${{ github.sha }}
 
-  cache-folder-2:
-    needs: cache-folder-1
+  cache-folder-warm:
+    needs: cache-folder-cold
     uses: ./.github/workflows/--yarn-install-cache-folder.yml
     with:
       cache-key: ${{ github.sha }}
@@ -81,13 +81,13 @@ jobs:
   ###
   # gist
   ###
-  gist-1:
+  gist-cold:
     uses: ./.github/workflows/--yarn-install-gist.yml
     with:
       cache-key: ${{ github.sha }}
 
-  gist-2:
-    needs: gist-1
+  gist-warm:
+    needs: gist-cold
     uses: ./.github/workflows/--yarn-install-gist.yml
     with:
       cache-key: ${{ github.sha }}
