@@ -9,20 +9,6 @@ concurrency:
 
 jobs:
   ###
-  # original
-  ###
-  original-1:
-    uses: ./.github/workflows/--yarn-install-original.yml
-    with:
-      cache-key: ${{ github.sha }}
-
-  original-2:
-    needs: original-1
-    uses: ./.github/workflows/--yarn-install-original.yml
-    with:
-      cache-key: ${{ github.sha }}
-
-  ###
   # current
   ###
   current-1:
