@@ -27,14 +27,10 @@ jobs:
   ###
   setup-node-cold:
     uses: ./.github/workflows/--yarn-install-setup-node.yml
-    with:
-      cache-key: ${{ github.sha }}
 
   setup-node-warm:
     needs: setup-node-cold
     uses: ./.github/workflows/--yarn-install-setup-node.yml
-    with:
-      cache-key: ${{ github.sha }}
 
   ###
   # cache-node-modules
