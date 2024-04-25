@@ -1,4 +1,4 @@
-name: '🔸 Yarn install - Current'
+name: '🔸 Yarn install - Current 2'
 
 on:
   workflow_call:
@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-          cache: 'yarn'
 
       - run: node -v
         shell: bash

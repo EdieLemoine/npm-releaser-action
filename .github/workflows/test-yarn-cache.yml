@@ -23,6 +23,20 @@ jobs:
       cache-key: ${{ github.sha }}
 
   ###
+  # current-2
+  ###
+  current-2-cold:
+    uses: ./.github/workflows/--yarn-install-current-2.yml
+    with:
+      cache-key: ${{ github.sha }}
+
+  current-2-warm:
+    needs: current-2-cold
+    uses: ./.github/workflows/--yarn-install-current-2.yml
+    with:
+      cache-key: ${{ github.sha }}
+
+  ###
   # setup-node
   ###
   setup-node-cold:
