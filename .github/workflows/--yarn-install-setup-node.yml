@@ -2,6 +2,12 @@ name: '🔸 Yarn install - Cache setup-node'
 
 on:
   workflow_call:
+    inputs:
+      node-version:
+        description: 'Node version to use'
+        type: string
+        default: '20'
+        required: false
 
 jobs:
   install:
@@ -9,10 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: ./yarn-install-cache-setup-node
         with:
-          node-version: 20
-          cache: yarn
-
-      - run: yarn install
-        shell: bash
+          node-version: ${{ inputs.node-version }}

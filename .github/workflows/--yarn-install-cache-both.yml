@@ -9,24 +9,19 @@ on:
         default: ''
         required: false
 
+      node-version:
+        description: 'Node.js version to use'
+        type: string
+        default: '20'
+        required: false
+
 jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: ./yarn-install-cache-both
         with:
-          node-version: 20
-          cache: yarn
-
-      - uses: actions/cache@v4
-        id: yarn-cache
-        with:
-          path: node_modules
-          key: ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-both-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ inputs.cache-key }}-${{ runner.os }}-yarn-cache-both-
-
-      - run: yarn install
-        shell: bash
+          cache-key: ${{ github.event.inputs.cache-key }}
+          node-version: ${{ github.event.inputs.node-version }}

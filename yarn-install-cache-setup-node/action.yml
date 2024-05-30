@@ -1,0 +1,19 @@
+name: 'Yarn install - Cache setup-node'
+description: 'Cache setup-node'
+
+inputs:
+  node-version:
+    description: 'Node version to use'
+    required: false
+    default: '20'
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: yarn
+
+    - run: yarn install
+      shell: bash
