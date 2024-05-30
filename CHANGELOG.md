@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.5](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.11.4...v1.11.5) (2024-05-30)
+
+
+### :bug: Bug Fixes
+
+* update 2023-01-27 00:10:06 ([fd2436b](https://github.com/EdieLemoine/npm-releaser-action/commit/fd2436ba0bd55cb1cd45d17a0fb643454f39eadd))
+* update 2023-01-27 00:18:20 ([afa5ca4](https://github.com/EdieLemoine/npm-releaser-action/commit/afa5ca476b447151f6e978f8bae7103f71d6efee))
+* update 2023-01-27 00:21:29 ([e473d96](https://github.com/EdieLemoine/npm-releaser-action/commit/e473d96b9c6c7906b59d3bc9770a78c295bd1fbf))
+* update 2023-01-27 00:25:26 ([e31a42d](https://github.com/EdieLemoine/npm-releaser-action/commit/e31a42df7602ea60dd73712478e4a4085deec39f))
+* update 2023-01-27 00:27:38 ([462395a](https://github.com/EdieLemoine/npm-releaser-action/commit/462395a81eec83fad636ee5d6336c12ae9b9b4f8))
+* update 2023-01-27 00:29:19 ([842e1ed](https://github.com/EdieLemoine/npm-releaser-action/commit/842e1ed338665b6e440a74d92da3f8a49c237605))
+* update 2023-01-27 00:30:54 ([599358b](https://github.com/EdieLemoine/npm-releaser-action/commit/599358b91c688f656724821076da23db0abd4d86))
+* update 2023-03-15 13:54:50 ([30ca866](https://github.com/EdieLemoine/npm-releaser-action/commit/30ca866385e1bfa9e8c29103733dfcdcdb5c7ef9))
+* update 2023-04-06 16:04:56 ([0d1190a](https://github.com/EdieLemoine/npm-releaser-action/commit/0d1190aced15a81506a3aec1fb6d27222248867d))
+* update 2023-04-13 11:07:37 ([c75bc07](https://github.com/EdieLemoine/npm-releaser-action/commit/c75bc0731d59a1b958993a855713c0a58973d371))
+* update 2023-04-13 11:09:27 ([e9a931e](https://github.com/EdieLemoine/npm-releaser-action/commit/e9a931e9e464fb6bb2c1b6dbeec4db950fcec44d))
+* update 2023-04-13 11:11:53 ([5e68c4f](https://github.com/EdieLemoine/npm-releaser-action/commit/5e68c4f6488ebaa5e3cf214dc5aa24a44005fe30))
+* update 2023-04-13 11:12:29 ([a966ee1](https://github.com/EdieLemoine/npm-releaser-action/commit/a966ee190d4b2ebb620105fbce156f7385e14550))
+* update 2023-04-13 11:13:30 ([6918adb](https://github.com/EdieLemoine/npm-releaser-action/commit/6918adbfa01d5068bd60c5f17a62bf33f2df5649))
+* update 2023-04-13 11:16:39 ([ff49c49](https://github.com/EdieLemoine/npm-releaser-action/commit/ff49c49405d2983d4421485126fd5468a69bfeb8))
+* update 2023-04-13 17:31:00 ([c92e203](https://github.com/EdieLemoine/npm-releaser-action/commit/c92e203ee0af2e8fa8eea53ada7fe56656f911c9))
+* update 2023-04-14 11:34:39 ([6e554d7](https://github.com/EdieLemoine/npm-releaser-action/commit/6e554d7979bd26e26343b81572a3bb9f18a9feee))
+* update 2023-04-14 11:34:59 ([226f5a3](https://github.com/EdieLemoine/npm-releaser-action/commit/226f5a3df03acaf3650a4a82017e24806fd8bee4))
+* update 2023-04-14 11:37:23 ([089ea93](https://github.com/EdieLemoine/npm-releaser-action/commit/089ea93a5f3715dfeeeab013278d9f11a1f4da30))
+* update 2023-09-05 09:52:03 ([10519ef](https://github.com/EdieLemoine/npm-releaser-action/commit/10519ef7bd560500b5c39575e7ca047af1dca2ff))
+* update 2023-09-05 09:53:25 ([d738222](https://github.com/EdieLemoine/npm-releaser-action/commit/d73822282289c99345ed93171765430069e8a1b7))
+* update 2023-09-05 16:27:25 ([d660d62](https://github.com/EdieLemoine/npm-releaser-action/commit/d660d623cf40ad0afaa343a4fd2766ccfec50168))
+* update 2023-09-05 16:29:07 ([df8e95d](https://github.com/EdieLemoine/npm-releaser-action/commit/df8e95d0f8222202589523e3bc05abd7c3d1a8a8))
+* update 2023-09-05 16:32:25 ([ce30ec6](https://github.com/EdieLemoine/npm-releaser-action/commit/ce30ec6397780701c49bd8e656e5979e784dde3c))
+* update 2023-09-05 16:36:42 ([d6cf766](https://github.com/EdieLemoine/npm-releaser-action/commit/d6cf7666891efb75f63f0415ead1159d3b87c572))
+* update 2023-09-05 16:38:07 ([1c3c1c0](https://github.com/EdieLemoine/npm-releaser-action/commit/1c3c1c0c4a18a0ab57a0da589edd80d7cb4ecf5c))
+* update 2023-09-05 16:44:35 ([91208c7](https://github.com/EdieLemoine/npm-releaser-action/commit/91208c7f4c7bc9c3bceb9a39886287d5ccbad99b))
+* update 2023-09-05 16:46:57 ([1ed348b](https://github.com/EdieLemoine/npm-releaser-action/commit/1ed348ba8e904eaa9e7493899ae91285593a55ee))
+* update 2023-09-05 16:48:30 ([cc74727](https://github.com/EdieLemoine/npm-releaser-action/commit/cc74727af8c0ffc9ce5e6eae14ccd4a1af5a7d67))
+* update 2023-09-05 16:50:20 ([44f75b3](https://github.com/EdieLemoine/npm-releaser-action/commit/44f75b3f8b198cf519f13a3964e6d4fd955cfbca))
+* update 2023-09-05 16:56:40 ([1e4e9a4](https://github.com/EdieLemoine/npm-releaser-action/commit/1e4e9a480bfcbd5c55c89489c8deee093d950c47))
+* update 2023-09-05 16:57:45 ([2f4ad76](https://github.com/EdieLemoine/npm-releaser-action/commit/2f4ad7624b94c9118ac4ebad70b2988c2cd6df52))
+* update 2023-09-05 17:04:31 ([49e003b](https://github.com/EdieLemoine/npm-releaser-action/commit/49e003b2b1de79cab3fa5c8a82cb84cdc136da8f))
+* update 2023-09-05 17:08:10 ([fcf1d09](https://github.com/EdieLemoine/npm-releaser-action/commit/fcf1d09a7ec646f6f105a9c1f2ac6c0c106c64e1))
+* update 2023-09-05 17:09:55 ([c173f82](https://github.com/EdieLemoine/npm-releaser-action/commit/c173f82d9d9aa195cee2faae1f8a9796503d5aab))
+* update 2023-09-05 17:16:23 ([2e7a679](https://github.com/EdieLemoine/npm-releaser-action/commit/2e7a67958fa9e39a0a06fc82d4497adfd45660a6))
+* update 2023-09-05 17:20:18 ([4cbc974](https://github.com/EdieLemoine/npm-releaser-action/commit/4cbc974ea350eb169fa7d494b108bc95a998dd46))
+* update 2024-04-25 17:26:19 ([8e1c36e](https://github.com/EdieLemoine/npm-releaser-action/commit/8e1c36e087e53103094910a215212a3e2cf268fb))
+* update 2024-04-25 17:27:30 ([b09f69b](https://github.com/EdieLemoine/npm-releaser-action/commit/b09f69b4f5a05cbcfadb4367d4c101cbcb6ea320))
+* update 2024-04-25 17:28:04 ([cd8b80e](https://github.com/EdieLemoine/npm-releaser-action/commit/cd8b80eee7a2bbb652dc8898857911a6c8d9e5f6))
+* update 2024-04-25 17:28:24 ([f168b36](https://github.com/EdieLemoine/npm-releaser-action/commit/f168b3602b03b6f4c54348050b75a90a07f415ae))
+* update 2024-04-25 17:41:54 ([e87dec2](https://github.com/EdieLemoine/npm-releaser-action/commit/e87dec25ee9ee28a4e55acbcf6c651fba27aa55f))
+* update 2024-04-25 17:43:37 ([41f11b2](https://github.com/EdieLemoine/npm-releaser-action/commit/41f11b28702ff496c149ea0350d97441def9376f))
+* update 2024-04-25 17:54:06 ([f4d9a88](https://github.com/EdieLemoine/npm-releaser-action/commit/f4d9a882a6c24ada6fc393564c2b4aa22a860dbd))
+* update 2024-04-25 17:55:12 ([06994da](https://github.com/EdieLemoine/npm-releaser-action/commit/06994da91ce78f27d51dd51bca276fa45fcd9267))
+
 ## [1.11.4](https://github.com/EdieLemoine/npm-releaser-action/compare/v1.11.3...v1.11.4) (2023-01-25)
 
 
