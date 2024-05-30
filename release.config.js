@@ -1,27 +1,19 @@
-const baseConfig = require('@myparcel/semantic-release-config');
-const { addGitPlugin, addNpmPlugin, addComposerPlugin } = require('@myparcel/semantic-release-config/src/plugins');
+const baseConfig = require('@myparcel/semantic-release-config')
+const {
+  addGitPlugin,
+  addNpmPlugin,
+  addComposerPlugin,
+  addGitHubActionsOutputPlugin,
+} = require('@myparcel/semantic-release-config/src/plugins')
 
 module.exports = {
   extends: '@myparcel/semantic-release-config',
   ...baseConfig,
   plugins: [
     ...baseConfig.plugins,
-    [
-      '@semantic-release/exec',
-      {
-        verifyReleaseCmd: `sh -c '
-          if [ -n "$GITHUB_OUTPUT" ]; then
-            echo "last-version=\${lastRelease.version}" >> $GITHUB_OUTPUT
-            echo "next-version=\${nextRelease.version}" >> $GITHUB_OUTPUT
-            echo "release-type=\${nextRelease.type}" >> $GITHUB_OUTPUT
-          else
-            echo "GITHUB_OUTPUT does not exist"
-          fi
-        '`
-      },
-    ],
-    addNpmPlugin(),
+    addGitHubActionsOutputPlugin(),
     addComposerPlugin(),
+    addNpmPlugin({ publish: false }),
     addGitPlugin(),
 
     // ['@edielemoine/semantic-release-svn', { url: 'https://plugins.svn.wordpress.org/woocommerce-myparcel' }],
@@ -87,4 +79,4 @@ module.exports = {
     //   },
     // ],
   ],
-};
+}

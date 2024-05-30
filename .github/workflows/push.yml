@@ -88,16 +88,82 @@ jobs:
 
           echo ${{ matrix.test.version }}
 
-#    test-yarn:
-#      name: 'Run yarn tests 🧪'
-#      uses: ./.github/workflows/--run-tests-yarn.yml
-#      secrets: inherit
+  #    test-yarn:
+  #      name: 'Run yarn tests 🧪'
+  #      uses: ./.github/workflows/--run-tests-yarn.yml
+  #      secrets: inherit
 
-#  release:
-#    name: 'Release new version 🚀'
-#    uses: myparcelnl/actions/.github/workflows/--semantic-release.yml@v3
-#    secrets: inherit
-#    needs: test-yarn
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: myparcelnl/actions/setup-git-credentials@v4
+        id: credentials
+        with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.credentials.outputs.token }}
+          fetch-depth: 0
+
+      - uses: myparcelnl/actions/yarn-install@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - uses: myparcelnl/actions/semantic-release@v4
+        id: pre-release
+        with:
+          semantic-release-args: --dry-run
+          token: ${{ steps.credentials.outputs.token }}
+
+      - name: 'Output after pre-release'
+        env:
+          PREVIOUS_VERSION: ${{ steps.pre-release.outputs.previous-version }}
+          PREVIOUS_VERSION_NUMBER: ${{ steps.pre-release.outputs.previous-version-number }}
+          RELEASED: ${{ steps.pre-release.outputs.released }}
+          RELEASE_TYPE: ${{ steps.pre-release.outputs.release-type }}
+          VERSION: ${{ steps.pre-release.outputs.version }}
+          VERSION_NUMBER: ${{ steps.pre-release.outputs.version-number }}
+        shell: bash
+        #language=bash
+        run: |
+          echo "## Pre-release outputs"                              >> $GITHUB_STEP_SUMMARY
+          echo ""                                                    >> $GITHUB_STEP_SUMMARY
+          echo "- Previous version number: $PREVIOUS_VERSION_NUMBER" >> $GITHUB_STEP_SUMMARY
+          echo "- Previous version: $PREVIOUS_VERSION"               >> $GITHUB_STEP_SUMMARY
+          echo "- Release type: $RELEASE_TYPE"                       >> $GITHUB_STEP_SUMMARY
+          echo "- Released: $RELEASED"                               >> $GITHUB_STEP_SUMMARY
+          echo "- Version number: $VERSION_NUMBER"                   >> $GITHUB_STEP_SUMMARY
+          echo "- Version: $VERSION"                                 >> $GITHUB_STEP_SUMMARY
+
+      - uses: myparcelnl/actions/semantic-release@v4
+        id: release
+        if: steps.pre-release.outputs.released == 'true'
+        with:
+          token: ${{ steps.credentials.outputs.token }}
+          write-summary: true
+
+      - name: 'Output after release'
+        if: steps.pre-release.outputs.released == 'true'
+        env:
+          PREVIOUS_VERSION: ${{ steps.release.outputs.previous-version }}
+          PREVIOUS_VERSION_NUMBER: ${{ steps.release.outputs.previous-version-number }}
+          RELEASED: ${{ steps.release.outputs.released }}
+          RELEASE_TYPE: ${{ steps.release.outputs.release-type }}
+          VERSION: ${{ steps.release.outputs.version }}
+          VERSION_NUMBER: ${{ steps.release.outputs.version-number }}
+        shell: bash
+        #language=bash
+        run: |
+          echo "## Pre-release outputs"                              >> $GITHUB_STEP_SUMMARY
+          echo ""                                                    >> $GITHUB_STEP_SUMMARY
+          echo "- Previous version number: $PREVIOUS_VERSION_NUMBER" >> $GITHUB_STEP_SUMMARY
+          echo "- Previous version: $PREVIOUS_VERSION"               >> $GITHUB_STEP_SUMMARY
+          echo "- Release type: $RELEASE_TYPE"                       >> $GITHUB_STEP_SUMMARY
+          echo "- Released: $RELEASED"                               >> $GITHUB_STEP_SUMMARY
+          echo "- Version number: $VERSION_NUMBER"                   >> $GITHUB_STEP_SUMMARY
+          echo "- Version: $VERSION"                                 >> $GITHUB_STEP_SUMMARY
 
 #  tag:
 #    name: 'Update tags'
