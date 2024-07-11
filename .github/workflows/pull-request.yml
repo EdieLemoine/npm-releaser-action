@@ -51,6 +51,8 @@ jobs:
   post-comment:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+
       - uses: myparcelnl/actions/setup-app-credentials@v4
         id: credentials
         with:
