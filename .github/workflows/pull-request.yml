@@ -101,7 +101,7 @@ jobs:
           comment-id: ${{ steps.find-comment-1.outputs.comment-id }}
           edit-mode: replace
           body: |-
-            This is a random comment that was made in github actions.
+            This is a random comment that was made in github actions. Run id: ${{ github.run_id }}
 
       - name: 'Create or update comment with summary'
         uses: peter-evans/create-or-update-comment@v4
@@ -113,6 +113,8 @@ jobs:
           body: |-
             ${{ steps.summary.outputs.summary }}
 
+            Run id: ${{ github.run_id }}
+
             <!-- pr-post-summary -->
 
       - name: 'Create or update other random comment'
@@ -123,4 +125,4 @@ jobs:
           comment-id: ${{ steps.find-comment-3.outputs.comment-id }}
           edit-mode: replace
           body: |-
-            This is another random comment that was made in github actions.
+            This is another random comment that was made in github actions. Run id: ${{ github.run_id }}
