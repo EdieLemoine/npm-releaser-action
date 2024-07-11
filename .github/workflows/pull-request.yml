@@ -66,6 +66,12 @@ jobs:
           echo "This is a summary that was made in github actions." >> $GITHUB_STEP_SUMMARY
           echo ""                                                   >> $GITHUB_STEP_SUMMARY
 
+      - name: 'Get step summary'
+        id: summary
+        shell: bash
+        run: |
+          echo "summary=$(cat $GITHUB_STEP_SUMMARY)" >> $GITHUB_OUTPUT
+
       - uses: peter-evans/find-comment@v3
         id: find-comment-1
         with:
@@ -105,7 +111,7 @@ jobs:
           comment-id: ${{ steps.find-comment-2.outputs.comment-id }}
           edit-mode: replace
           body: |-
-            ${{ env.GITHUB_STEP_SUMMARY }}
+            ${{ steps.summary.outputs.summary }}
 
             <!-- pr-post-summary -->
 
