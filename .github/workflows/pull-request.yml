@@ -55,10 +55,10 @@ jobs:
         shell: bash
         #language=bash
         run: |
-          echo "# My Summary" >> $GITHUB_SUMMARY
-          echo "" >> $GITHUB_SUMMARY
-          echo "This is a summary that was made in github actions." >> $GITHUB_SUMMARY
-          echo "" >> $GITHUB_SUMMARY
+          echo "# My Summary"                                       >> $GITHUB_STEP_SUMMARY
+          echo ""                                                   >> $GITHUB_STEP_SUMMARY
+          echo "This is a summary that was made in github actions." >> $GITHUB_STEP_SUMMARY
+          echo ""                                                   >> $GITHUB_STEP_SUMMARY
 
       - uses: peter-evans/find-comment@v3
         id: find-comment
@@ -85,7 +85,7 @@ jobs:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           edit-mode: replace
           body: |-
-            ${{ env.GITHUB_SUMMARY }}
+            ${{ env.GITHUB_STEP_SUMMARY }}
 
             <!-- pr-post-summary -->
 
