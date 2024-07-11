@@ -39,6 +39,7 @@ jobs:
   #        with:
   #          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
   #          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+
   assign-author:
     if: github.event.action == 'opened'
     runs-on: ubuntu-22.04
@@ -46,3 +47,54 @@ jobs:
       - uses: myparcelnl/actions/pr-assign-author@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  post-comment:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 'Create summary'
+        shell: bash
+        #language=bash
+        run: |
+          echo "# My Summary" >> $GITHUB_SUMMARY
+          echo "" >> $GITHUB_SUMMARY
+          echo "This is a summary that was made in github actions." >> $GITHUB_SUMMARY
+          echo "" >> $GITHUB_SUMMARY
+
+      - uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ steps.info.outputs.pr-number }}
+          comment-author: ${{ steps.credentials.outputs.git-name }}
+          body-includes: 'pr-post-summary'
+
+      - name: 'Create or update other random comment'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |-
+            This is a random comment that was made in github actions.
+
+      - name: 'Create or update comment with summary'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |-
+            ${{ env.GITHUB_SUMMARY }}
+
+            <!-- pr-post-summary -->
+
+      - name: 'Create or update other random comment'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |-
+            This is another random comment that was made in github actions.

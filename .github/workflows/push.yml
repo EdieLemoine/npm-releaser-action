@@ -17,44 +17,25 @@ jobs:
         #language=bash
         run: |
           # create multiline string with visible line separators
-          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique | .[]' | jq -sc 'join("\n")')
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique')
 
           echo "versions=$versions" >> $GITHUB_OUTPUT
 
       - id: matrix
+        env:
+          VERSIONS: ${{ steps.run.outputs.versions }}
         #language=bash
         run: |
-          versions=${{ steps.run.outputs.versions }}
           # replace line separators with actual newlines
-          string=$(echo "$versions" | jq -Rsc 'gsub("\n"; "\u0000")')
+          string=$(echo "$VERSIONS" | )
 
           echo 'versions'
-          echo $versions
+          echo $VERSIONS
 
           MIN_VERSION="0"
           MAX_VERSION="infinite"
 
-          LINES=$((echo "$versions" | wc -l) || true)
-          echo 'LINES'
-          echo $LINES
-
-          LINES2=$((echo "$versions" | jq -r 'split("\n")') || true)
-          echo 'LINES2'
-          echo $LINES2
-
-          LINES3=$((echo "$versions" | jq -Rsc 'split("\n")') || true)
-          echo 'LINES3'
-          echo $LINES3
-
-          LINES4=$((echo "$versions" | jq -sc 'split("\n")') || true)
-          echo 'LINES4'
-          echo $LINES4
-
-          LINES5=$((echo "$versions" | jq -Rc 'split("\n")') || true)
-          echo 'LINES5'
-          echo $LINES5
-
-          JSON=$(echo "$versions" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
+          JSON=$(echo "$VERSIONS" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
 
           echo 'JSON'
           echo $JSON
@@ -76,12 +57,12 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        test: ${{ fromJson(needs.run.outputs.matrix) }}
+        test: ${{ fromJSON(needs.run.outputs.matrix) }}
 
     steps:
       - run: |
-          echo ${{ toJson(matrix) }}
-          echo ${{ toJson(matrix.test) }}
+          echo ${{ fromJSON(matrix) }}
+          echo ${{ fromJSON(matrix.test) }}
 
           echo ${{ matrix }}
           echo ${{ matrix.test }}
@@ -142,7 +123,6 @@ jobs:
         if: steps.pre-release.outputs.released == 'true'
         with:
           token: ${{ steps.credentials.outputs.token }}
-          write-summary: true
 
       - name: 'Output after release'
         if: steps.pre-release.outputs.released == 'true'
@@ -156,7 +136,7 @@ jobs:
         shell: bash
         #language=bash
         run: |
-          echo "## Pre-release outputs"                              >> $GITHUB_STEP_SUMMARY
+          echo "## Release outputs"                                  >> $GITHUB_STEP_SUMMARY
           echo ""                                                    >> $GITHUB_STEP_SUMMARY
           echo "- Previous version number: $PREVIOUS_VERSION_NUMBER" >> $GITHUB_STEP_SUMMARY
           echo "- Previous version: $PREVIOUS_VERSION"               >> $GITHUB_STEP_SUMMARY
