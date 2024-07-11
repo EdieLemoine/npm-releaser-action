@@ -40,13 +40,13 @@ jobs:
   #          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
   #          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
 
-  assign-author:
-    if: github.event.action == 'opened'
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: myparcelnl/actions/pr-assign-author@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+  #  assign-author:
+  #    if: github.event.action == 'opened'
+  #    runs-on: ubuntu-22.04
+  #    steps:
+  #      - uses: myparcelnl/actions/pr-assign-author@v3
+  #        with:
+  #          token: ${{ secrets.GITHUB_TOKEN }}
 
   post-comment:
     runs-on: ubuntu-22.04
