@@ -91,12 +91,16 @@ jobs:
             <details>
             <summary>Details</summary>
 
-            run_id:            ${{ github.run_id }}
+            action_path:       ${{ github.action_path }}
+            action_ref:        ${{ github.action_ref }}
+            action_repository: ${{ github.action_repository }}
             action_status:     ${{ github.action }}
             action_status:     ${{ github.action_status }}
-            action_ref:        ${{ github.action_ref }}
-            action_path:       ${{ github.action_path }}
-            action_repository: ${{ github.action_repository }}
+            event_name:        ${{ github.event_name }}
+            run_id:            ${{ github.run_id }}
+            workflow:          ${{ github.workflow }}
+            workflow_ref:      ${{ github.workflow_ref }}
+            workflow_sha:      ${{ github.workflow_sha }}
 
             </details>
 
