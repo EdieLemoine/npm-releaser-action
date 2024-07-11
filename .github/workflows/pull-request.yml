@@ -68,27 +68,6 @@ jobs:
           cat $GITHUB_STEP_SUMMARY >> $GITHUB_OUTPUT
           echo 'EOF'               >> $GITHUB_OUTPUT
 
-      #      - uses: peter-evans/find-comment@v3
-      #        id: find-comment-1
-      #        with:
-      #          issue-number: ${{ github.event.pull_request.number }}
-      #          comment-author: ${{ steps.credentials.outputs.git-name }}
-      #          body-includes: 'a random'
-      #
-      #      - uses: peter-evans/find-comment@v3
-      #        id: find-comment-2
-      #        with:
-      #          issue-number: ${{ github.event.pull_request.number }}
-      #          comment-author: ${{ steps.credentials.outputs.git-name }}
-      #          body-includes: 'pr-post-summary'
-      #
-      #      - uses: peter-evans/find-comment@v3
-      #        id: find-comment-3
-      #        with:
-      #          issue-number: ${{ github.event.pull_request.number }}
-      #          comment-author: ${{ steps.credentials.outputs.git-name }}
-      #          body-includes: 'another random'
-
       - uses: ./update-comment
         with:
           app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
@@ -96,7 +75,10 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           identifier: 'random-comment-1'
           body: |-
-            This is a random comment that was made in github actions. Run id: ${{ github.run_id }}
+            This is a random comment that was made in github actions. 
+
+            Run id: ${{ github.run_id }}
+            Timestamp: ${{ github.run_at }}
 
       - uses: ./update-comment
         with:
@@ -108,6 +90,11 @@ jobs:
             ${{ steps.summary.outputs.summary }}
 
             Run id: ${{ github.run_id }}
+            Timestamp: ${{ github.run_at }}
+
+            ---
+
+            <sub><i>Last updated: ${{ github.run_at }}</i></sub>
 
       - uses: ./update-comment
         with:
@@ -116,38 +103,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           identifier: 'random-comment-2'
           body: |-
-            This is another random comment that was made in github actions. Run id: ${{ github.run_id }}
+            This is another random comment that was made in github actions. 
 
-      #      - name: 'Create or update other random comment'
-      #        uses: peter-evans/create-or-update-comment@v4
-      #        with:
-      #          token: ${{ steps.credentials.outputs.token }}
-      #          issue-number: ${{ github.event.pull_request.number }}
-      #          comment-id: ${{ steps.find-comment-1.outputs.comment-id }}
-      #          edit-mode: replace
-      #          body: |-
-      #            This is a random comment that was made in github actions. Run id: ${{ github.run_id }}
-
-#      - name: 'Create or update comment with summary'
-#        uses: peter-evans/create-or-update-comment@v4
-#        with:
-#          token: ${{ steps.credentials.outputs.token }}
-#          issue-number: ${{ github.event.pull_request.number }}
-#          comment-id: ${{ steps.find-comment-2.outputs.comment-id }}
-#          edit-mode: replace
-#          body: |-
-#            ${{ steps.summary.outputs.summary }}
-#
-#            Run id: ${{ github.run_id }}
-#
-#            <!-- pr-post-summary -->
-#
-#      - name: 'Create or update other random comment'
-#        uses: peter-evans/create-or-update-comment@v4
-#        with:
-#          token: ${{ steps.credentials.outputs.token }}
-#          issue-number: ${{ github.event.pull_request.number }}
-#          comment-id: ${{ steps.find-comment-3.outputs.comment-id }}
-#          edit-mode: replace
-#          body: |-
-#            This is another random comment that was made in github actions. Run id: ${{ github.run_id }}
+            Run id: ${{ github.run_id }}
+            Timestamp: ${{ github.run_at }}
