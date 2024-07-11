@@ -9,8 +9,14 @@ inputs:
     description: 'The private key of the app.'
 
   issue-number:
-    required: true
+    required: false
     description: 'Issue number'
+    default: ''
+
+  comment-id:
+    required: false
+    description: 'Comment ID'
+    default: ''
 
   body:
     required: true
@@ -19,6 +25,11 @@ inputs:
   identifier:
     required: false
     description: 'Hidden identifier to use for the comment'
+
+outputs:
+  comment-id:
+    description: 'The ID of the comment that was created or updated'
+    value: ${{ inputs.comment-id || steps.find-comment.outputs.comment-id }}
 
 runs:
   using: composite
@@ -45,6 +56,7 @@ runs:
         echo "identifier=$identifier" >> $GITHUB_OUTPUT
 
     - uses: peter-evans/find-comment@v3
+      if: inputs.comment-id == ''
       id: find-comment
       with:
         body-includes: ${{ steps.prepare.outputs.identifier }}
@@ -54,9 +66,9 @@ runs:
     - uses: peter-evans/create-or-update-comment@v4
       with:
         token: ${{ steps.credentials.outputs.token }}
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        comment-id: ${{ inputs.comment-id || steps.find-comment.outputs.comment-id }}
         edit-mode: replace
-        issue-number: ${{ steps.info.outputs.pr-number }}
+        issue-number: ${{ inputs.issue-number }}
         body: |-
           ${{ inputs.body }}
 
