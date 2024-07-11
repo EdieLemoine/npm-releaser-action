@@ -61,18 +61,32 @@ jobs:
           echo ""                                                   >> $GITHUB_STEP_SUMMARY
 
       - uses: peter-evans/find-comment@v3
-        id: find-comment
+        id: find-comment-1
+        with:
+          issue-number: ${{ steps.info.outputs.pr-number }}
+          comment-author: ${{ steps.credentials.outputs.git-name }}
+          body-includes: 'a random'
+
+      - uses: peter-evans/find-comment@v3
+        id: find-comment-2
         with:
           issue-number: ${{ steps.info.outputs.pr-number }}
           comment-author: ${{ steps.credentials.outputs.git-name }}
           body-includes: 'pr-post-summary'
+
+      - uses: peter-evans/find-comment@v3
+        id: find-comment-3
+        with:
+          issue-number: ${{ steps.info.outputs.pr-number }}
+          comment-author: ${{ steps.credentials.outputs.git-name }}
+          body-includes: 'another-random'
 
       - name: 'Create or update other random comment'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          comment-id: ${{ steps.find-comment-1.outputs.comment-id }}
           edit-mode: replace
           body: |-
             This is a random comment that was made in github actions.
@@ -82,7 +96,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          comment-id: ${{ steps.find-comment-2.outputs.comment-id }}
           edit-mode: replace
           body: |-
             ${{ env.GITHUB_STEP_SUMMARY }}
@@ -94,7 +108,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          comment-id: ${{ steps.find-comment-3.outputs.comment-id }}
           edit-mode: replace
           body: |-
             This is another random comment that was made in github actions.
