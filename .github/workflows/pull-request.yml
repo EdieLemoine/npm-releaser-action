@@ -78,7 +78,6 @@ jobs:
             This is a random comment that was made in github actions. 
 
             Run id: ${{ github.run_id }}
-            Timestamp: ${{ github.run_at }}
 
       - uses: ./update-comment
         with:
@@ -89,12 +88,17 @@ jobs:
           body: |-
             ${{ steps.summary.outputs.summary }}
 
-            Run id: ${{ github.run_id }}
-            Timestamp: ${{ github.run_at }}
+            <details>
+            <summary>Details</summary>
 
-            ---
+            run_id:            ${{ github.run_id }}
+            action_status:     ${{ github.action }}
+            action_status:     ${{ github.action_status }}
+            action_ref:        ${{ github.action_ref }}
+            action_path:       ${{ github.action_path }}
+            action_repository: ${{ github.action_repository }}
 
-            <sub><i>Last updated: ${{ github.run_at }}</i></sub>
+            </details>
 
       - uses: ./update-comment
         with:
@@ -106,4 +110,3 @@ jobs:
             This is another random comment that was made in github actions. 
 
             Run id: ${{ github.run_id }}
-            Timestamp: ${{ github.run_at }}
