@@ -58,19 +58,31 @@ jobs:
           private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
 
       - name: 'Create summary'
+        id: summary
         shell: bash
         #language=bash
         run: |
-          echo "# My Summary"                                       >> $GITHUB_STEP_SUMMARY
-          echo ""                                                   >> $GITHUB_STEP_SUMMARY
-          echo "This is a summary that was made in github actions." >> $GITHUB_STEP_SUMMARY
-          echo ""                                                   >> $GITHUB_STEP_SUMMARY
+          echo "## _My Summary_"   >> $GITHUB_STEP_SUMMARY
+          echo ""                  >> $GITHUB_STEP_SUMMARY
+          echo "This is a summary" >> $GITHUB_STEP_SUMMARY
+          echo "that was made in"  >> $GITHUB_STEP_SUMMARY
+          echo "GitHub Actions."   >> $GITHUB_STEP_SUMMARY
 
-      - name: 'Get step summary'
-        id: summary
-        shell: bash
-        run: |
           echo "summary=$(cat $GITHUB_STEP_SUMMARY)" >> $GITHUB_OUTPUT
+
+      #      - name: 'Create summary'
+      #        shell: bash
+      #        id: summary
+      #        #language=bash
+      #        run: |
+      #          {
+      #            echo 'summary=<<EOF'
+      #            # My Summary
+      #
+      #            This is a summary that was made in GitHub Actions.
+      #
+      #            echo EOF
+      #          } >> $GITHUB_OUTPUT
 
       - uses: peter-evans/find-comment@v3
         id: find-comment-1
