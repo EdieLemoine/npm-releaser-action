@@ -53,12 +53,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: myparcelnl/actions/setup-app-credentials@v4
-        id: credentials
-        with:
-          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
-          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
-
       - name: 'Create summary'
         id: summary
         shell: bash
@@ -97,6 +91,8 @@ jobs:
 
       - uses: ./update-comment
         with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
           issue-number: ${{ github.event.pull_request.number }}
           identifier: 'random-comment-1'
           body: |-
@@ -104,6 +100,8 @@ jobs:
 
       - uses: ./update-comment
         with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
           issue-number: ${{ github.event.pull_request.number }}
           identifier: 'summary'
           body: |-
@@ -113,6 +111,8 @@ jobs:
 
       - uses: ./update-comment
         with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
           issue-number: ${{ github.event.pull_request.number }}
           identifier: 'random-comment-2'
           body: |-
