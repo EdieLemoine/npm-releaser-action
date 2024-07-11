@@ -68,7 +68,10 @@ jobs:
           echo "that was made in"  >> $GITHUB_STEP_SUMMARY
           echo "GitHub Actions."   >> $GITHUB_STEP_SUMMARY
 
-          echo "summary=$(cat $GITHUB_STEP_SUMMARY)" >> $GITHUB_OUTPUT
+          # put multiline output into variable
+          echo "summary=<<EOF" >> $GITHUB_OUTPUT
+          cat $GITHUB_STEP_SUMMARY >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       #      - name: 'Create summary'
       #        shell: bash
