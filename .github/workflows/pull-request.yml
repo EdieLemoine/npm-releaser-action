@@ -51,6 +51,12 @@ jobs:
   post-comment:
     runs-on: ubuntu-22.04
     steps:
+      - uses: myparcelnl/actions/setup-app-credentials@v4
+        id: credentials
+        with:
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
+
       - name: 'Create summary'
         shell: bash
         #language=bash
@@ -84,7 +90,7 @@ jobs:
       - name: 'Create or update other random comment'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.credentials.outputs.token }}
           issue-number: ${{ github.event.pull_request.number }}
           comment-id: ${{ steps.find-comment-1.outputs.comment-id }}
           edit-mode: replace
@@ -94,7 +100,7 @@ jobs:
       - name: 'Create or update comment with summary'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.credentials.outputs.token }}
           issue-number: ${{ github.event.pull_request.number }}
           comment-id: ${{ steps.find-comment-2.outputs.comment-id }}
           edit-mode: replace
@@ -106,7 +112,7 @@ jobs:
       - name: 'Create or update other random comment'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.credentials.outputs.token }}
           issue-number: ${{ github.event.pull_request.number }}
           comment-id: ${{ steps.find-comment-3.outputs.comment-id }}
           edit-mode: replace
