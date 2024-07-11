@@ -69,9 +69,15 @@ jobs:
           echo "GitHub Actions."   >> $GITHUB_STEP_SUMMARY
 
           # put multiline output into variable
-          echo "summary=<<EOF" >> $GITHUB_OUTPUT
-          cat $GITHUB_STEP_SUMMARY >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          # echo "summary=<<EOF" >> $GITHUB_OUTPUT
+          # cat $GITHUB_STEP_SUMMARY >> $GITHUB_OUTPUT
+          # echo "EOF" >> $GITHUB_OUTPUT
+
+          {
+              echo 'summary=<<EOF'
+              cat $GITHUB_STEP_SUMMARY
+              echo EOF
+          } >> $GITHUB_OUTPUT
 
       #      - name: 'Create summary'
       #        shell: bash
