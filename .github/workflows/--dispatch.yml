@@ -18,7 +18,7 @@ jobs:
     name: 'Dispatch'
     runs-on: ubuntu-22.04
     steps:
-      - uses: peter-evans/slash-command-dispatch@v1
+      - uses: peter-evans/slash-command-dispatch@v4
         with:
           token: ${{ secrets.GH_REPO_TOKEN }}
           permission: write
