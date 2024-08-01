@@ -2,7 +2,7 @@ name: 'Dispatch command 📡'
 
 on:
   issue_comment:
-    types: [ created ]
+    types: [created]
 
 jobs:
   dispatch:
@@ -10,3 +10,4 @@ jobs:
     secrets: inherit
     with:
       commands: rebase test comment
+      token: ${{ github.token }}

@@ -11,8 +11,7 @@ on:
       token:
         description: 'GitHub token'
         type: string
-        required: false
-        default: ${{ github.token }}
+        required: true
 
 jobs:
   dispatch:
