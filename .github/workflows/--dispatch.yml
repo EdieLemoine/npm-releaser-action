@@ -8,10 +8,11 @@ on:
         type: string
         required: true
 
-    secrets:
-      GH_REPO_TOKEN:
-        description: 'Required for pushing commits to git.'
-        required: false
+      token:
+        description: 'GitHub token'
+        type: string
+        required: true
+        default: ${{ github.token }}
 
 jobs:
   dispatch:
@@ -20,7 +21,7 @@ jobs:
     steps:
       - uses: peter-evans/slash-command-dispatch@v4
         with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
+          token: ${{ inputs.token }}
           permission: write
           issue-type: pull-request
           commands: ${{ inputs.commands }}
