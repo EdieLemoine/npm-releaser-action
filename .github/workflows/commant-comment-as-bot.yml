@@ -2,40 +2,25 @@ name: 'authorize bot'
 
 on:
   repository_dispatch:
-    types: [ comment-command ]
+    types: [comment-command]
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: wow-actions/use-app-token@v2
-        id: generate_token
+      - uses: actions/create-github-app-token@v1
+        id: token
         with:
-          app_id: ${{ secrets.BOT_APP_ID }}
-          private_key: ${{ secrets.BOT_PRIVATE_KEY }}
-          secret: true
-          clean: true
-          app_slug_name: 'GENERATED_BOT_NAME'
-          app_token_name: 'GENERATED_BOT_TOKEN'
+          app-id: ${{ inputs.app-id }}
+          private-key: ${{ inputs.private-key }}
 
       - name: 'Comment on pull request'
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+          token: ${{ steps.token.outputs.token }}
           body: |
             :robot:: Beep boop! I'm a bot. Supposedly I'm authorized to do this, but I'm not sure. I'll try anyway. 
 
-            GIT_AUTHOR_NAME: ${{ secrets.BOT_NAME }}[bot]
-            GIT_AUTHOR_EMAIL: ${{ secrets.BOT_NAME }}[bot]@users.noreply.github.com
-            GIT_COMMITTER_NAME: ${{ secrets.BOT_NAME }}[bot]
-            GIT_COMMITTER_EMAIL: ${{ secrets.BOT_NAME }}[bot]@users.noreply.github.com
-          token: ${{ secrets.GENERATED_BOT_TOKEN }}
-
-#      - uses: 'any other action'
-#        with:
-#          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
-#        env:
-#          GIT_AUTHOR_NAME: ${{ secrets.BOT_NAME }}[bot]
-#          GIT_AUTHOR_EMAIL: ${{ secrets.BOT_NAME }}[bot]@users.noreply.github.com
-#          GIT_COMMITTER_NAME: ${{ secrets.BOT_NAME }}[bot]
-#          GIT_COMMITTER_EMAIL: ${{ secrets.BOT_NAME }}[bot]@users.noreply.github.com
+            app slug: ${{ steps.token.outputs.app-slug }}[bot]
+            installation id: ${{ steps.token.outputs.installation-id }}
