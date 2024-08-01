@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: peter-evans/slash-command-dispatch@v4
         with:
-          token: ${{ secrets.GH_REPO_TOKEN }}
+          token: ${{ github.token }}
           permission: write
           issue-type: pull-request
           commands: |
