@@ -11,8 +11,8 @@ jobs:
       - uses: actions/create-github-app-token@v1
         id: token
         with:
-          app-id: ${{ inputs.app-id }}
-          private-key: ${{ inputs.private-key }}
+          app-id: ${{ secrets.BOOPS_BOOPS_APP_ID }}
+          private-key: ${{ secrets.BOOPS_BOOPS_PRIVATE_KEY }}
 
       - name: 'Comment on pull request'
         uses: peter-evans/create-or-update-comment@v1
