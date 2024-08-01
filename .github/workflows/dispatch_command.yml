@@ -6,8 +6,14 @@ on:
 
 jobs:
   dispatch:
-    uses: ./.github/workflows/--dispatch.yml
-    secrets: inherit
-    with:
-      commands: rebase test comment
-      token: ${{ github.token }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: peter-evans/slash-command-dispatch@v4
+        with:
+          token: ${{ secrets.GH_REPO_TOKEN }}
+          permission: write
+          issue-type: pull-request
+          commands: |
+            comment
+            rebase
+            test
