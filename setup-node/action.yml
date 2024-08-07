@@ -21,10 +21,6 @@ outputs:
     description: 'The node version that is used.'
     value: ${{ steps.node-version.outputs.version }}
 
-  volta:
-    description: 'Whether Volta is used.'
-    value: ${{ steps.prepare.outputs.volta }}
-
 runs:
   using: composite
   steps:
@@ -71,11 +67,10 @@ runs:
       if: steps.prepare.outputs.volta == 'true'
       uses: actions/cache@v4
       with:
-        key: ${{ format('{0}{1}-volta-cache', runner.os, runner.arch) }}
+        key: ${{ format('{0}{1}-volta-cache-{2}', runner.os, runner.arch, steps.prepare.outputs.node-version) }}
         path: |
-          ~/.volta/*
+          ~/.volta/*.*
           ~/.volta/cache
-          ~/.volta/tmp
           ~/.volta/tools
 
     # Tries installing volta, node and yarn up to 5 times.
