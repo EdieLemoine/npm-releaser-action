@@ -1,0 +1,80 @@
+name: 'Test: setup-node'
+
+on: workflow_dispatch
+
+jobs:
+  install-node:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./setup-node
+        id: setup-node
+
+      - run: |
+          echo "**Default**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+
+  install-node-version-18:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./setup-node
+        id: setup-node
+        with:
+          node-version: 18
+
+      - run: |
+          echo "**Passed node version: 18**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+
+  install-node-no-package-json:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: rm package.json
+
+      - uses: ./setup-node
+        id: setup-node
+        with:
+          node-version: 18
+
+      - run: |
+          echo "**No package.json**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+
+  install-node-no-node-key:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          npm pkg delete volta.node
+
+      - uses: ./setup-node
+        id: setup-node
+        with:
+          node-version: 20
+
+      - run: |
+          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+
+  install-node-no-yarn-key:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          npm pkg delete volta.yarn
+
+      - uses: ./setup-node
+        id: setup-node
+        with:
+          node-version: 20
+
+      - run: |
+          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY

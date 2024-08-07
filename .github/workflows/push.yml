@@ -4,129 +4,53 @@ on:
   workflow_dispatch:
 
 jobs:
-  install-node:
+  run:
     runs-on: ubuntu-22.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./setup-node
-        id: setup-node
-
+      #language=bash
       - run: |
-          echo "**Default**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          jq --version
 
-  install-node-version-18:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
+      - id: run
+        #language=bash
+        run: |
+          # create multiline string with visible line separators
+          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique')
 
-      - uses: ./setup-node
-        id: setup-node
-        with:
-          node-version: 18
+          echo "versions=$versions" >> $GITHUB_OUTPUT
 
-      - run: |
-          echo "**Passed node version: 18**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+      - id: matrix
+        env:
+          VERSIONS: ${{ steps.run.outputs.versions }}
+        #language=bash
+        run: |
+          # replace line separators with actual newlines
+          string=$(echo "$VERSIONS" | )
 
-  install-node-no-package-json:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
+          echo 'versions'
+          echo $VERSIONS
 
-      - run: rm package.json
+          MIN_VERSION="0"
+          MAX_VERSION="infinite"
 
-      - uses: ./setup-node
-        id: setup-node
-        with:
-          node-version: 18
+          JSON=$(echo "$VERSIONS" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
 
-      - run: |
-          echo "**No package.json**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo 'JSON'
+          echo $JSON
 
-  install-node-no-node-key:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
+          LATEST=$(echo "$JSON" | jq -r '.[0]')
 
-      - run: |
-          npm pkg delete volta.node
+          echo 'LATEST'
+          echo $LATEST
 
-      - uses: ./setup-node
-        id: setup-node
-        with:
-          node-version: 20
+          MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
 
-      - run: |
-          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo 'MATRIX'
+          echo $MATRIX
 
-  install-node-no-yarn-key:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-
-      - run: |
-          npm pkg delete volta.yarn
-
-      - uses: ./setup-node
-        id: setup-node
-        with:
-          node-version: 20
-
-      - run: |
-          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
-
-  #  run:
-  #    runs-on: ubuntu-22.04
-  #    outputs:
-  #      matrix: ${{ steps.matrix.outputs.matrix }}
-  #    steps:
-  #      #language=bash
-  #      - run: |
-  #          jq --version
-  #
-  #      - id: run
-  #        #language=bash
-  #        run: |
-  #          # create multiline string with visible line separators
-  #          versions=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -c '[.offers[].version] | unique')
-  #
-  #          echo "versions=$versions" >> $GITHUB_OUTPUT
-  #
-  #      - id: matrix
-  #        env:
-  #          VERSIONS: ${{ steps.run.outputs.versions }}
-  #        #language=bash
-  #        run: |
-  #          # replace line separators with actual newlines
-  #          string=$(echo "$VERSIONS" | )
-  #
-  #          echo 'versions'
-  #          echo $VERSIONS
-  #
-  #          MIN_VERSION="0"
-  #          MAX_VERSION="infinite"
-  #
-  #          JSON=$(echo "$VERSIONS" | jq -Rsc --arg min "$MIN_VERSION" --arg max "$MAX_VERSION" 'split("\n") | sort | reverse | map(select(. >= $min and . <= $max))')
-  #
-  #          echo 'JSON'
-  #          echo $JSON
-  #
-  #          LATEST=$(echo "$JSON" | jq -r '.[0]')
-  #
-  #          echo 'LATEST'
-  #          echo $LATEST
-  #
-  #          MATRIX=$(echo "$JSON" | jq -r --arg latest "$LATEST" 'map({version: ., minor: (split(".") | .[0:2] | join(".")), major: (split(".") | .[0]), latest: (. == $latest)})')
-  #
-  #          echo 'MATRIX'
-  #          echo $MATRIX
-  #
-  #          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
   test:
     needs: run
