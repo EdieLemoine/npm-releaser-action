@@ -1,6 +1,12 @@
 name: 'Test: setup-node'
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - .github/workflows/test-setup-node.yml
+      - setup-node/action.yml
 
 jobs:
   install-node:
