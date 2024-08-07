@@ -85,6 +85,7 @@ runs:
         RETRY_COUNT=0
         SUCCESS=false
 
+        mkdir -p ~/.volta
         tree ~/.volta -L 2
 
         function install-volta() {
