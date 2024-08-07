@@ -85,6 +85,8 @@ runs:
         RETRY_COUNT=0
         SUCCESS=false
 
+        tree ~/.volta -L 2
+
         function install-volta() {
           curl https://get.volta.sh | bash
 
@@ -109,6 +111,8 @@ runs:
           echo "Failed to install Volta after $MAX_RETRIES attempts."
           exit 1
         fi
+
+        tree ~/.volta -L 2
 
     - name: 'Get node version'
       id: node-version
