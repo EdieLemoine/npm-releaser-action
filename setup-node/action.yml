@@ -58,7 +58,7 @@ runs:
       if: steps.prepare.outputs.volta == 'true'
       uses: actions/cache@v4
       with:
-        key: 'volta-bin'
+        key: ${{ format('{0}{1}-volta-bin', runner.os, runner.arch) }}
         path: |
           ~/.volta/bin
 
@@ -67,10 +67,12 @@ runs:
       if: steps.prepare.outputs.volta == 'true'
       uses: actions/cache@v4
       with:
-        key: 'volta-cache'
+        key: ${{ format('{0}{1}-volta-cache', runner.os, runner.arch) }}
         path: |
+          ~/.volta/*
           ~/.volta/cache
           ~/.volta/tmp
+          ~/.volta/tools
 
     # Tries installing volta, node and yarn up to 5 times.
     - name: 'Set up Volta'
@@ -84,9 +86,6 @@ runs:
         MAX_RETRIES=5
         RETRY_COUNT=0
         SUCCESS=false
-
-        mkdir -p ~/.volta
-        tree ~/.volta -L 2
 
         function install-volta() {
           curl https://get.volta.sh | bash
@@ -117,8 +116,6 @@ runs:
           echo "Failed to install Volta after $MAX_RETRIES attempts."
           exit 1
         fi
-
-        tree ~/.volta -L 2
 
     - name: 'Get node version'
       id: node-version
