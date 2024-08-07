@@ -21,10 +21,6 @@
     "start": "http-server dist --port 8080",
     "test:coverage": "vitest run --coverage"
   },
-  "volta": {
-    "node": "20.14.0",
-    "yarn": "4.0.0"
-  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
@@ -106,5 +102,10 @@
     "vue-router": "latest",
     "winston": "latest",
     "yargs": "latest"
+  },
+  "packageManager": "yarn@4.4.0",
+  "volta": {
+    "node": "20.14.0",
+    "yarn": "4.4.0"
   }
 }
