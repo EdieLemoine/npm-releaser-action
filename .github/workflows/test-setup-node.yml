@@ -11,9 +11,11 @@ jobs:
       - uses: ./setup-node
         id: setup-node
 
+      #language=bash
       - run: |
-          echo "**Default**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Base**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
   install-node-version-18:
     runs-on: ubuntu-22.04
@@ -25,9 +27,11 @@ jobs:
         with:
           node-version: 18
 
+      #language=bash
       - run: |
-          echo "**Passed node version: 18**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Passed node 18**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
   install-node-no-package-json:
     runs-on: ubuntu-22.04
@@ -41,9 +45,11 @@ jobs:
         with:
           node-version: 18
 
+      #language=bash
       - run: |
-          echo "**No package.json**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**No package.json, passed node 18**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
   install-node-no-node-key:
     runs-on: ubuntu-22.04
@@ -58,9 +64,44 @@ jobs:
         with:
           node-version: 20
 
+      #language=bash
+      - run: |
+          echo "**No node key, passed node 18**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
+
+  install-node-no-package-json-no-pass:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: rm package.json
+
+      - uses: ./setup-node
+        id: setup-node
+
+      #language=bash
+      - run: |
+          echo "**No package.json**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
+
+  install-node-no-node-key-no-pass:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          npm pkg delete volta.node
+
+      - uses: ./setup-node
+        id: setup-node
+
+      #language=bash
       - run: |
           echo "**No node key**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
   install-node-no-yarn-key:
     runs-on: ubuntu-22.04
@@ -75,6 +116,8 @@ jobs:
         with:
           node-version: 20
 
+      #language=bash
       - run: |
-          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
-          echo "- Node version: ${{ steps.setup-node.outputs.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**No yarn key**" >> $GITHUB_STEP_SUMMARY
+          echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
+          echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
