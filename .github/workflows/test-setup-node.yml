@@ -13,7 +13,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**Base**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -29,7 +28,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**Passed node 18**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -47,7 +45,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**No package.json, passed node 18**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -66,7 +63,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**No node key, passed node 18**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -82,7 +78,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**No package.json**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -99,7 +94,6 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**No node key**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -118,6 +112,5 @@ jobs:
 
       #language=bash
       - run: |
-          echo "**No yarn key**" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
