@@ -94,7 +94,12 @@ runs:
           export VOLTA_HOME="$HOME/.volta"
           export PATH="$VOLTA_HOME/bin:$PATH"
 
-          volta install "node@${NODE_VERSION}"
+          if [ -n "$NODE_VERSION" ]; then
+            volta install "node@${NODE_VERSION}"
+          else
+            volta install node
+          fi
+
           volta install yarn
 
           echo "VOLTA_HOME=$VOLTA_HOME" >> $GITHUB_ENV
