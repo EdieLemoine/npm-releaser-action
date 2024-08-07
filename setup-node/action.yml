@@ -21,6 +21,10 @@ outputs:
     description: 'The node version that is used.'
     value: ${{ steps.node-version.outputs.version }}
 
+  volta:
+    description: 'Whether Volta is used.'
+    value: ${{ steps.prepare.outputs.volta }}
+
 runs:
   using: composite
   steps:

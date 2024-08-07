@@ -23,6 +23,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -38,6 +39,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -55,6 +57,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -73,6 +76,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -88,6 +92,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -104,6 +109,7 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
 
@@ -122,5 +128,6 @@ jobs:
 
       #language=bash
       - run: |
+          echo "- Volta version: $(volta --version || echo 'none')" >> $GITHUB_STEP_SUMMARY
           echo "- Node version: $(node --version)" >> $GITHUB_STEP_SUMMARY
           echo "- Yarn version: $(yarn --version)" >> $GITHUB_STEP_SUMMARY
