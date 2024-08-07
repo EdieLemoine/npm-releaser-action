@@ -103,9 +103,9 @@
     "winston": "latest",
     "yargs": "latest"
   },
-  "packageManager": "yarn@4.4.0",
+  "packageManager": "yarn@4.2.0",
   "volta": {
     "node": "20.14.0",
-    "yarn": "4.4.0"
+    "yarn": "4.2.0"
   }
 }
