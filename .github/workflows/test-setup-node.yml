@@ -8,6 +8,10 @@ on:
       - .github/workflows/test-setup-node.yml
       - setup-node/action.yml
 
+concurrency:
+  group: test-setup-node-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install-node:
     runs-on: ubuntu-22.04

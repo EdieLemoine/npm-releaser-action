@@ -102,7 +102,7 @@ runs:
         }
 
         while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-          VERSION=$(node --version) && SUCCESS=true && break
+          install-volta && SUCCESS=true && break
           RETRY_COUNT=$((RETRY_COUNT+1))
           echo "Attempt $RETRY_COUNT failed. Retrying in 5 seconds..."
           sleep 3
